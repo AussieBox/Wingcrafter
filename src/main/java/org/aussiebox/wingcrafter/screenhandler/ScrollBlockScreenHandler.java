@@ -13,9 +13,11 @@ import org.aussiebox.wingcrafter.network.BlockPosPayload;
 public class ScrollBlockScreenHandler extends ScreenHandler {
     private final ScrollBlockEntity blockEntity;
     private final ScreenHandlerContext context;
+    private String text;
 
     public ScrollBlockScreenHandler(int syncId, PlayerInventory playerInventory, BlockPosPayload payload) {
         this(syncId, playerInventory, (ScrollBlockEntity) playerInventory.player.getEntityWorld().getBlockEntity(payload.pos()));
+        this.text = payload.text();
     }
 
     public ScrollBlockScreenHandler(int syncId, PlayerInventory playerInventory, ScrollBlockEntity block) {
@@ -41,6 +43,6 @@ public class ScrollBlockScreenHandler extends ScreenHandler {
     }
 
     public String getText() {
-        return this.blockEntity.getText();
+        return this.text;
     }
 }

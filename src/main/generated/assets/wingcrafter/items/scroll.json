@@ -34,7 +34,7 @@
         {
           "model": {
             "type": "minecraft:model",
-            "model": "wingcrafter:block/scroll_written_item"
+            "model": "wingcrafter:item/scroll_written_item"
           },
           "when": "true"
         }

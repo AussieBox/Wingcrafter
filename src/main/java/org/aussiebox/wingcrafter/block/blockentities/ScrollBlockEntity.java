@@ -13,7 +13,6 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
-import org.aussiebox.wingcrafter.Wingcrafter;
 import org.aussiebox.wingcrafter.block.ModBlockEntities;
 import org.aussiebox.wingcrafter.network.BlockPosPayload;
 import org.aussiebox.wingcrafter.screenhandler.ScrollBlockScreenHandler;
@@ -26,14 +25,19 @@ public class ScrollBlockEntity extends BlockEntity implements ExtendedScreenHand
         super(ModBlockEntities.SCROLL_BLOCK_ENTITY, pos, state);
     }
 
-    private String text = "Immortalise your story with the power of the page.";
+    private String text = "";
     public String getText() {
-        Wingcrafter.LOGGER.info(text + " (real)");
+        if (text == null) {
+            text = "";
+        }
         return text;
     }
 
     public void setText(String newText) {
         text = newText;
+        if (text == null) {
+            text = "";
+        }
         markDirty();
     }
 
@@ -57,7 +61,7 @@ public class ScrollBlockEntity extends BlockEntity implements ExtendedScreenHand
     @Override
     public BlockPosPayload getScreenOpeningData(ServerPlayerEntity serverPlayerEntity) {
         text = getText();
-        return new BlockPosPayload(this.pos);
+        return new BlockPosPayload(this.pos, text);
     }
 
     @Override

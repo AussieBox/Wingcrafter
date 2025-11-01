@@ -3,8 +3,13 @@ package org.aussiebox.wingcrafter.block.custom;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.BlockStateComponent;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -16,7 +21,11 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.aussiebox.wingcrafter.block.blockentities.ScrollBlockEntity;
+import org.aussiebox.wingcrafter.component.ModDataComponentTypes;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
+import java.util.Objects;
 
 public class ScrollBlock extends HorizontalFacingBlock implements BlockEntityProvider {
     public static final MapCodec<ScrollBlock> CODEC = createCodec(ScrollBlock::new);
@@ -63,6 +72,38 @@ public class ScrollBlock extends HorizontalFacingBlock implements BlockEntityPro
                 world.playSound(player, pos, SoundEvents.ITEM_BOOK_PAGE_TURN, SoundCategory.BLOCKS, 1.0F, 1.0F);
             }
             return ActionResult.SUCCESS;
+        }
+    }
+
+    @Override
+    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof ScrollBlockEntity scrollBlockEntity) {
+            if (!world.isClient()) {
+                ItemStack itemStack =  new ItemStack(this);
+                itemStack.applyComponentsFrom(blockEntity.createComponentMap());
+                itemStack.set(DataComponentTypes.BLOCK_STATE, new BlockStateComponent(Map.of()).with(WRITTEN, state.get(WRITTEN)).with(ROLLED, state.get(ROLLED)));
+                itemStack.set(ModDataComponentTypes.SCROLL_TEXT, scrollBlockEntity.getText());
+
+                ItemEntity itemEntity = new ItemEntity(world, pos.getX()+0.5, pos.getY()+0.5, pos.getZ()+0.5, itemStack);
+                itemEntity.setToDefaultPickupDelay();
+                world.spawnEntity(itemEntity);
+            }
+        }
+        return super.onBreak(world, pos, state, player);
+    }
+
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.onPlaced(world, pos, state, placer, itemStack);
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof ScrollBlockEntity scrollBlockEntity) {
+            if (!world.isClient()) {
+                String text = itemStack.get(ModDataComponentTypes.SCROLL_TEXT);
+                if (!Objects.equals(text, "")) {
+                    scrollBlockEntity.setText(text);
+                }
+            }
         }
     }
 

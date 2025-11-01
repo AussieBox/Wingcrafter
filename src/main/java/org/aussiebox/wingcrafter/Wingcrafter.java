@@ -8,6 +8,7 @@ import net.minecraft.util.Identifier;
 import org.aussiebox.wingcrafter.block.ModBlockEntities;
 import org.aussiebox.wingcrafter.block.ModBlocks;
 import org.aussiebox.wingcrafter.block.blockentities.ScrollBlockEntity;
+import org.aussiebox.wingcrafter.component.ModDataComponentTypes;
 import org.aussiebox.wingcrafter.init.ScreenHandlerTypeInit;
 import org.aussiebox.wingcrafter.item.ModItems;
 import org.aussiebox.wingcrafter.network.ScrollTextPayload;
@@ -15,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
+
+import static org.aussiebox.wingcrafter.block.custom.ScrollBlock.WRITTEN;
 
 public class Wingcrafter implements ModInitializer {
     public static final String MOD_ID = "wingcrafter";
@@ -31,6 +34,11 @@ public class Wingcrafter implements ModInitializer {
             ScrollBlockEntity blockEntity = (ScrollBlockEntity) context.player().getEntityWorld().getBlockEntity(payload.pos());
             if (blockEntity instanceof ScrollBlockEntity scrollBlockEntity) {
                 scrollBlockEntity.setText(payload.text());
+                if (!Objects.equals(payload.text(), "")) {
+                    Objects.requireNonNull(blockEntity.getWorld()).setBlockState(blockEntity.getPos(), blockEntity.getWorld().getBlockState(blockEntity.getPos()).with(WRITTEN, true));
+                } else {
+                    Objects.requireNonNull(blockEntity.getWorld()).setBlockState(blockEntity.getPos(), blockEntity.getWorld().getBlockState(blockEntity.getPos()).with(WRITTEN, false));
+                }
                 Objects.requireNonNull(scrollBlockEntity.getWorld()).updateListeners(payload.pos(), scrollBlockEntity.getWorld().getBlockState(payload.pos()), scrollBlockEntity.getWorld().getBlockState(payload.pos()), Block.NOTIFY_LISTENERS);
             }
         });
@@ -38,6 +46,7 @@ public class Wingcrafter implements ModInitializer {
         ScreenHandlerTypeInit.init();
         ModItems.registerModItems();
         ModBlockEntities.registerModBlockEntities();
+        ModDataComponentTypes.registerDataComponentTypes();
         ModBlocks.registerModBlocks();
     }
 }
