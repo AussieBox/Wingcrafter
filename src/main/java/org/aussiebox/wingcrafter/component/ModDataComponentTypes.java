@@ -13,6 +13,9 @@ public class ModDataComponentTypes {
     public static final ComponentType<String> SCROLL_TEXT =
             register("scroll_text", builder -> builder.codec(Codec.STRING));
 
+    public static final ComponentType<String> SCROLL_TITLE =
+            register("scroll_title", builder -> builder.codec(Codec.STRING));
+
     private static <T>ComponentType<T> register(String name, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
         return Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(Wingcrafter.MOD_ID, name),
                 builderOperator.apply(ComponentType.builder()).build());

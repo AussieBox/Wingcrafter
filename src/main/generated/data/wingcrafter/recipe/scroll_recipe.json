@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/P/",
+    " P ",
+    "/P/"
+  ],
+  "key": {
+    "/": "minecraft:stick",
+    "P": "minecraft:paper"
+  },
+  "result": {
+    "id": "wingcrafter:scroll",
+    "count": 1
+  },
+  "group": "misc"
+}

@@ -15,19 +15,19 @@
       "model": "wingcrafter:block/scroll_unwritten",
       "y": 270
     },
-    "facing=east,rolled=true,written=false": {
-      "model": "wingcrafter:block/scroll_rolled",
+    "facing=east,rolled=false,written=false,titled=true": {
+      "model": "wingcrafter:block/scroll_titled",
       "y": 90
     },
-    "facing=north,rolled=true,written=false": {
-      "model": "wingcrafter:block/scroll_rolled"
+    "facing=north,rolled=false,written=false,titled=true": {
+      "model": "wingcrafter:block/scroll_titled"
     },
-    "facing=south,rolled=true,written=false": {
-      "model": "wingcrafter:block/scroll_rolled",
+    "facing=south,rolled=false,written=false,titled=true": {
+      "model": "wingcrafter:block/scroll_titled",
       "y": 180
     },
-    "facing=west,rolled=true,written=false": {
-      "model": "wingcrafter:block/scroll_rolled",
+    "facing=west,rolled=false,written=false,titled=true": {
+      "model": "wingcrafter:block/scroll_titled",
       "y": 270
     },
     "facing=east,rolled=false,written=true": {
@@ -45,18 +45,18 @@
       "model": "wingcrafter:block/scroll_written",
       "y": 270
     },
-    "facing=east,rolled=true,written=true": {
+    "facing=east,rolled=true": {
       "model": "wingcrafter:block/scroll_rolled",
       "y": 90
     },
-    "facing=north,rolled=true,written=true": {
+    "facing=north,rolled=true": {
       "model": "wingcrafter:block/scroll_rolled"
     },
-    "facing=south,rolled=true,written=true": {
+    "facing=south,rolled=true": {
       "model": "wingcrafter:block/scroll_rolled",
       "y": 180
     },
-    "facing=west,rolled=true,written=true": {
+    "facing=west,rolled=true": {
       "model": "wingcrafter:block/scroll_rolled",
       "y": 270
     }

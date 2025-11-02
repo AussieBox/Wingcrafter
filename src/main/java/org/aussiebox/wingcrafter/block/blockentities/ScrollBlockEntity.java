@@ -26,6 +26,22 @@ public class ScrollBlockEntity extends BlockEntity implements ExtendedScreenHand
     }
 
     private String text = "";
+    private String title = "";
+    public String getTitle() {
+        if (title == null) {
+            title = "";
+        }
+        return title;
+    }
+
+    public void setTitle(String newTitle) {
+        title = newTitle;
+        if (title == null) {
+            title = "";
+        }
+        markDirty();
+    }
+
     public String getText() {
         if (text == null) {
             text = "";
@@ -44,6 +60,7 @@ public class ScrollBlockEntity extends BlockEntity implements ExtendedScreenHand
     @Override
     protected void writeData(WriteView writeView) {
         writeView.putString("text", text);
+        writeView.putString("title", title);
         super.writeData(writeView);
     }
 
@@ -51,6 +68,7 @@ public class ScrollBlockEntity extends BlockEntity implements ExtendedScreenHand
     protected void readData(ReadView readView) {
         super.readData(readView);
         text = readView.getString("text", "Data Read Failed.");
+        title = readView.getString("title", "Data Read Failed.");
     }
 
     @Override
@@ -61,7 +79,8 @@ public class ScrollBlockEntity extends BlockEntity implements ExtendedScreenHand
     @Override
     public BlockPosPayload getScreenOpeningData(ServerPlayerEntity serverPlayerEntity) {
         text = getText();
-        return new BlockPosPayload(this.pos, text);
+        title = getTitle();
+        return new BlockPosPayload(this.pos, text, title);
     }
 
     @Override

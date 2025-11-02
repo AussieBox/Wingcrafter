@@ -7,10 +7,10 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.math.BlockPos;
 import org.aussiebox.wingcrafter.Wingcrafter;
 
-public record BlockPosPayload(BlockPos pos, String text) implements CustomPayload {
+public record BlockPosPayload(BlockPos pos, String text, String titleText) implements CustomPayload {
     public static final Id<BlockPosPayload> ID = new Id<>(Wingcrafter.id("block_pos"));
     public static final PacketCodec<RegistryByteBuf, BlockPosPayload> PACKET_CODEC =
-            PacketCodec.tuple(BlockPos.PACKET_CODEC, BlockPosPayload::pos, PacketCodecs.STRING, BlockPosPayload::text, BlockPosPayload::new);
+            PacketCodec.tuple(BlockPos.PACKET_CODEC, BlockPosPayload::pos, PacketCodecs.STRING, BlockPosPayload::text, PacketCodecs.STRING, BlockPosPayload::titleText, BlockPosPayload::new);
 
     @Override
     public Id<? extends CustomPayload> getId() {

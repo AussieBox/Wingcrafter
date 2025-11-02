@@ -33,6 +33,7 @@ public class ScrollBlock extends HorizontalFacingBlock implements BlockEntityPro
 
     public static final BooleanProperty ROLLED = BooleanProperty.of("rolled");
     public static final BooleanProperty WRITTEN = BooleanProperty.of("written");
+    public static final BooleanProperty TITLED = BooleanProperty.of("titled");
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
@@ -54,6 +55,7 @@ public class ScrollBlock extends HorizontalFacingBlock implements BlockEntityPro
         super(settings);
         setDefaultState(getDefaultState().with(ROLLED, false));
         setDefaultState(getDefaultState().with(WRITTEN, false));
+        setDefaultState(getDefaultState().with(TITLED, false));
     }
 
     @Override
@@ -82,8 +84,9 @@ public class ScrollBlock extends HorizontalFacingBlock implements BlockEntityPro
             if (!world.isClient()) {
                 ItemStack itemStack =  new ItemStack(this);
                 itemStack.applyComponentsFrom(blockEntity.createComponentMap());
-                itemStack.set(DataComponentTypes.BLOCK_STATE, new BlockStateComponent(Map.of()).with(WRITTEN, state.get(WRITTEN)).with(ROLLED, state.get(ROLLED)));
+                itemStack.set(DataComponentTypes.BLOCK_STATE, new BlockStateComponent(Map.of()).with(WRITTEN, state.get(WRITTEN)).with(ROLLED, state.get(ROLLED)).with(TITLED, state.get(TITLED)));
                 itemStack.set(ModDataComponentTypes.SCROLL_TEXT, scrollBlockEntity.getText());
+                itemStack.set(ModDataComponentTypes.SCROLL_TITLE, scrollBlockEntity.getTitle());
 
                 ItemEntity itemEntity = new ItemEntity(world, pos.getX()+0.5, pos.getY()+0.5, pos.getZ()+0.5, itemStack);
                 itemEntity.setToDefaultPickupDelay();
@@ -100,8 +103,12 @@ public class ScrollBlock extends HorizontalFacingBlock implements BlockEntityPro
         if (blockEntity instanceof ScrollBlockEntity scrollBlockEntity) {
             if (!world.isClient()) {
                 String text = itemStack.get(ModDataComponentTypes.SCROLL_TEXT);
+                String title = itemStack.get(ModDataComponentTypes.SCROLL_TITLE);
                 if (!Objects.equals(text, "")) {
                     scrollBlockEntity.setText(text);
+                }
+                if (!Objects.equals(title, "")) {
+                    scrollBlockEntity.setTitle(title);
                 }
             }
         }
@@ -122,5 +129,6 @@ public class ScrollBlock extends HorizontalFacingBlock implements BlockEntityPro
         builder.add(FACING);
         builder.add(ROLLED);
         builder.add(WRITTEN);
+        builder.add(TITLED);
     }
 }

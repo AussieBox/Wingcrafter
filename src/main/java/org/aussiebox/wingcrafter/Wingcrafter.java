@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
+import static org.aussiebox.wingcrafter.block.custom.ScrollBlock.TITLED;
 import static org.aussiebox.wingcrafter.block.custom.ScrollBlock.WRITTEN;
 
 public class Wingcrafter implements ModInitializer {
@@ -33,11 +34,17 @@ public class Wingcrafter implements ModInitializer {
         ServerPlayNetworking.registerGlobalReceiver(ScrollTextPayload.ID, (payload, context) -> {
             ScrollBlockEntity blockEntity = (ScrollBlockEntity) context.player().getEntityWorld().getBlockEntity(payload.pos());
             if (blockEntity instanceof ScrollBlockEntity scrollBlockEntity) {
+                scrollBlockEntity.setTitle(payload.titleText());
                 scrollBlockEntity.setText(payload.text());
                 if (!Objects.equals(payload.text(), "")) {
                     Objects.requireNonNull(blockEntity.getWorld()).setBlockState(blockEntity.getPos(), blockEntity.getWorld().getBlockState(blockEntity.getPos()).with(WRITTEN, true));
                 } else {
                     Objects.requireNonNull(blockEntity.getWorld()).setBlockState(blockEntity.getPos(), blockEntity.getWorld().getBlockState(blockEntity.getPos()).with(WRITTEN, false));
+                }
+                if (!Objects.equals(payload.titleText(), "")) {
+                    Objects.requireNonNull(blockEntity.getWorld()).setBlockState(blockEntity.getPos(), blockEntity.getWorld().getBlockState(blockEntity.getPos()).with(TITLED, true));
+                } else {
+                    Objects.requireNonNull(blockEntity.getWorld()).setBlockState(blockEntity.getPos(), blockEntity.getWorld().getBlockState(blockEntity.getPos()).with(TITLED, false));
                 }
                 Objects.requireNonNull(scrollBlockEntity.getWorld()).updateListeners(payload.pos(), scrollBlockEntity.getWorld().getBlockState(payload.pos()), scrollBlockEntity.getWorld().getBlockState(payload.pos()), Block.NOTIFY_LISTENERS);
             }
