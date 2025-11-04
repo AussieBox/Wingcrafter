@@ -30,6 +30,7 @@ public class Wingcrafter implements ModInitializer {
 
     @Override
     public void onInitialize() {
+
         PayloadTypeRegistry.playC2S().register(ScrollTextPayload.ID, ScrollTextPayload.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(ScrollTextPayload.ID, (payload, context) -> {
             ScrollBlockEntity blockEntity = (ScrollBlockEntity) context.player().getEntityWorld().getBlockEntity(payload.pos());
@@ -56,5 +57,6 @@ public class Wingcrafter implements ModInitializer {
         ModBlockEntities.registerModBlockEntities();
         ModDataComponentTypes.registerDataComponentTypes();
         ModBlocks.registerModBlocks();
+
     }
 }

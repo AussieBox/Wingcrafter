@@ -11,18 +11,23 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import org.aussiebox.wingcrafter.Wingcrafter;
+import org.aussiebox.wingcrafter.block.ModBlocks;
 
 import java.util.function.Function;
 
 public class ModItems {
 
-    public static final Item SCROLL_WRITTEN = registerItem("scroll_written_item", Item::new, new Item.Settings());
-    public static final Item SCROLL_UNWRITTEN = registerItem("scroll_unwritten_item", Item::new, new Item.Settings());
+    public static final Item SOUL_SCROLL = registerItem("soul_scroll", Item::new, new Item.Settings()
+            .rarity(Rarity.EPIC)
+            .fireproof()
+            .maxCount(1)
+    );
 
     public static final RegistryKey<ItemGroup> WINGCRAFTER_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(Wingcrafter.MOD_ID, "wingcrafter"));
     public static final ItemGroup WINGCRAFTER = FabricItemGroup.builder()
-            .icon(() -> new ItemStack(ModItems.SCROLL_WRITTEN))
+            .icon(() -> new ItemStack(ModBlocks.SCROLL.asItem()))
             .displayName(Text.translatable("itemGroup.wingcrafter.wingcrafter"))
             .build();
 
@@ -39,7 +44,7 @@ public class ModItems {
 
         Registry.register(Registries.ITEM_GROUP, WINGCRAFTER_KEY, WINGCRAFTER);
         ItemGroupEvents.modifyEntriesEvent(WINGCRAFTER_KEY).register(itemGroup -> {
-
+            itemGroup.add(SOUL_SCROLL);
         });
     }
 }

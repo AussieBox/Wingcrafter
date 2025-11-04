@@ -11,7 +11,8 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "org.aussiebox.wingcrafter.client.WingcrafterClient"
+      "org.aussiebox.wingcrafter.client.WingcrafterClient",
+      "org.aussiebox.wingcrafter.client.HudRenderingEntrypoint"
     ],
     "main": [
       "org.aussiebox.wingcrafter.Wingcrafter"

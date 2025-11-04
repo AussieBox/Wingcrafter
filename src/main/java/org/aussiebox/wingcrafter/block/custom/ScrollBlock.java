@@ -20,6 +20,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import org.aussiebox.wingcrafter.Wingcrafter;
+import org.aussiebox.wingcrafter.attach.ModAttachmentTypes;
+import org.aussiebox.wingcrafter.attach.ModCustomAttachedData;
 import org.aussiebox.wingcrafter.block.blockentities.ScrollBlockEntity;
 import org.aussiebox.wingcrafter.component.ModDataComponentTypes;
 import org.jetbrains.annotations.Nullable;
@@ -72,7 +75,12 @@ public class ScrollBlock extends HorizontalFacingBlock implements BlockEntityPro
                 boolean activated = state.get(ROLLED);
                 world.setBlockState(pos, state.with(ROLLED, !activated));
                 world.playSound(player, pos, SoundEvents.ITEM_BOOK_PAGE_TURN, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                ModCustomAttachedData data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, ModCustomAttachedData.DEFAULT);
+                player.setAttached(ModAttachmentTypes.SOUL_ATTACH, data.setSoul(1000));
             }
+            ModCustomAttachedData data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, ModCustomAttachedData.DEFAULT);
+            player.setAttached(ModAttachmentTypes.SOUL_ATTACH, data.removeSoul(data, 10));
+            Wingcrafter.LOGGER.info(String.valueOf(player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH,  ModCustomAttachedData.DEFAULT)));
             return ActionResult.SUCCESS;
         }
     }
@@ -82,7 +90,7 @@ public class ScrollBlock extends HorizontalFacingBlock implements BlockEntityPro
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof ScrollBlockEntity scrollBlockEntity) {
             if (!world.isClient()) {
-                ItemStack itemStack =  new ItemStack(this);
+                ItemStack itemStack = new ItemStack(this);
                 itemStack.applyComponentsFrom(blockEntity.createComponentMap());
                 itemStack.set(DataComponentTypes.BLOCK_STATE, new BlockStateComponent(Map.of()).with(WRITTEN, state.get(WRITTEN)).with(ROLLED, state.get(ROLLED)).with(TITLED, state.get(TITLED)));
                 itemStack.set(ModDataComponentTypes.SCROLL_TEXT, scrollBlockEntity.getText());

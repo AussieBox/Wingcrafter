@@ -10,7 +10,7 @@
     "description": "Welcome to Wingcrafter!",
     "icon": {
       "count": 1,
-      "id": "wingcrafter:scroll_titled_item"
+      "id": "wingcrafter:scroll_unwritten_item"
     },
     "show_toast": false,
     "title": "Wingcrafter"
