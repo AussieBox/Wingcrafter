@@ -17,7 +17,7 @@
     "description": "Place down a scroll. Watch out for NightWing librarians!",
     "icon": {
       "count": 1,
-      "id": "wingcrafter:scroll_unwritten_item"
+      "id": "wingcrafter:scroll"
     },
     "title": "Flight of the Stars",
     "frame": "task",
