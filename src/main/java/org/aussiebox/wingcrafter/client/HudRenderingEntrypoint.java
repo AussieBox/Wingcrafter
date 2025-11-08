@@ -78,7 +78,7 @@ public class HudRenderingEntrypoint implements ClientModInitializer {
         int width = context.getScaledWindowWidth();
         int height = context.getScaledWindowHeight();
 
-        if (player.getInventory().contains(new ItemStack(ModItems.SOUL_SCROLL))) {
+        if (player.getInventory().count(ModItems.SOUL_SCROLL) >= 1) {
             int progressEquation = 71-(soul*71/1000);
 
             context.drawTexture(
@@ -168,8 +168,8 @@ public class HudRenderingEntrypoint implements ClientModInitializer {
                 if (soul <= 100 && lastSoul > 100) {
                     if (warningFadeIn == 0 && warningTime == 0 && warningFadeOut == 0) {
                         warningText = Text.literal((String) Array.get(soulWarning100, ThreadLocalRandom.current().nextInt(0, soulWarning100.length)));
-                        warningColorT = 0x00FFFFFF;
-                        warningColorO = 0xFFFFFFFF;
+                        warningColorT = 0x00FF8787;
+                        warningColorO = 0xFFFF8787;
                         warningFadeIn = 20;
                         warningTime = 100;
                         warningFadeOut = 20;
@@ -227,6 +227,7 @@ public class HudRenderingEntrypoint implements ClientModInitializer {
             }
 
             if (soul <= 0 && soulDeathTimer <= 0) {
+                soulDeathTimer = 170;
                 SoulKillPayload payload = new SoulKillPayload(player.getUuidAsString());
                 ClientPlayNetworking.send(payload);
             } else if (soul <= 0) {
@@ -288,19 +289,24 @@ public class HudRenderingEntrypoint implements ClientModInitializer {
                                 }
                             }
 
-                            if (player.isSneaking()) {
-                                scrollTitle = Text.of("\"" + scrollBlockEntity.getTitle() + "\"");
-                                scrollLineCount = (int) scrollBlockEntity.getText().lines().count();
-                                scrollLineCountText = Text.of("Line Count: " + scrollLineCount);
+                            scrollTitle = Text.of("\"" + scrollBlockEntity.getTitle() + "\"");
+                            scrollLineCount = (int) scrollBlockEntity.getText().lines().count();
+                            scrollLineCountText = Text.of("Line Count: " + scrollLineCount);
 
-                                if (Objects.equals(scrollBlockEntity.getTitle(), "")) {
-                                    scrollTitle = Text.of("Unnamed Scroll");
-                                }
-                                if (Objects.equals(scrollBlockEntity.getTitle(), "") && Objects.equals(scrollBlockEntity.getText(), "")) {
-                                    scrollTitle = Text.of("Empty Scroll");
-                                    scrollLineCountText = Text.empty();
-                                }
+                            if (Objects.equals(scrollBlockEntity.getTitle(), "")) {
+                                scrollTitle = Text.of("Unnamed Scroll");
+                            }
+                            if (Objects.equals(scrollBlockEntity.getTitle(), "") && Objects.equals(scrollBlockEntity.getText(), "")) {
+                                scrollTitle = Text.of("Empty Scroll");
+                                scrollLineCountText = Text.empty();
+                            }
 
+                            if (ClientConfig.displayScrollInfoRequiresSneak) {
+                                if (player.isSneaking()) {
+                                    context.drawText(textRenderer, scrollTitle, scrollTitleX, scrollTitleY, 0xFFFFFFFF, true);
+                                    context.drawText(textRenderer, scrollLineCountText, scrollLineCountX, scrollTitleY + 11, 0xFFAAAAAA, true);
+                                }
+                            } else {
                                 context.drawText(textRenderer, scrollTitle, scrollTitleX, scrollTitleY, 0xFFFFFFFF, true);
                                 context.drawText(textRenderer, scrollLineCountText, scrollLineCountX, scrollTitleY + 11, 0xFFAAAAAA, true);
                             }

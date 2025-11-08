@@ -4,8 +4,12 @@
   "version": "${version}",
   "name": "Wingcrafter",
   "description": "Bring the world of Wings of Fire into Minecraft, with many interactive and exciting features!",
-  "authors": ["AussieBox/Stargazer"],
-  "contact": {},
+  "authors": ["AussieBox (aka. Stargazer)"],
+  "contact": {
+    "homepage": "https://modrinth.com/project/wingcrafter",
+    "sources": "https://github.com/AussieBox/Wingcrafter",
+    "issues": "https://github.com/AussieBox/Wingcrafter/issues"
+  },
   "license": "MIT",
   "icon": "assets/wingcrafter/icon.png",
   "environment": "*",
@@ -31,6 +35,7 @@
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
     "minecraft": "${minecraft_version}",
-    "yet_another_config_lib_v3": ">=3.8.0+1.21.9-fabric"
+    "yet_another_config_lib_v3": ">=3.8.0+1.21.9-fabric",
+    "fabric-key-binding-api-v1": "*"
   }
 }

@@ -8,8 +8,8 @@ import net.minecraft.util.Identifier;
 import org.aussiebox.wingcrafter.Wingcrafter;
 
 public record SoulKillPayload(String uuid) implements CustomPayload {
-    public static final Identifier SCROLL_TEXT_ID = Identifier.of(Wingcrafter.MOD_ID, "soul_kill");
-    public static final Id<SoulKillPayload> ID = new Id<>(SCROLL_TEXT_ID);
+    public static final Identifier SOUL_KILL_ID = Identifier.of(Wingcrafter.MOD_ID, "soul_kill");
+    public static final Id<SoulKillPayload> ID = new Id<>(SOUL_KILL_ID);
     public static final PacketCodec<RegistryByteBuf, SoulKillPayload> CODEC = PacketCodec.tuple(PacketCodecs.STRING, SoulKillPayload::uuid, SoulKillPayload::new);
 
     @Override

@@ -32,6 +32,9 @@ public class ClientConfig {
     @SerialEntry
     public static int soulDialogueYModifier = 0;
 
+    @SerialEntry(comment = "Controls whether displaying scroll information requires sneaking to be rendered.")
+    public static boolean displayScrollInfoRequiresSneak = true;
+
     public static YetAnotherConfigLib getLibConfig() {
         return YetAnotherConfigLib.createBuilder()
                 .title(Text.literal("Wingcrafter Client Configuration."))
@@ -68,6 +71,16 @@ public class ClientConfig {
                                         .description(OptionDescription.of(Text.translatable("wingcrafter.config.client.rendering.soul_dialogue.y_modifier.tooltip")))
                                         .binding(0, () -> soulDialogueYModifier, newVal -> soulDialogueYModifier = newVal)
                                         .controller(integerOption -> IntegerFieldControllerBuilder.create(integerOption).range(-1000, 1000))
+                                        .build())
+                                .build())
+                        .group(OptionGroup.createBuilder()
+                                .name(Text.translatable("wingcrafter.config.client.rendering.group.scrolls"))
+                                .description(OptionDescription.of(Text.translatable("wingcrafter.config.client.rendering.group.scrolls.tooltip")))
+                                .option(Option.<Boolean>createBuilder()
+                                        .name(Text.translatable("wingcrafter.config.client.rendering.scrolls.require_sneak"))
+                                        .description(OptionDescription.of(Text.translatable("wingcrafter.config.client.rendering.scrolls.require_sneak.tooltip")))
+                                        .binding(true, () -> displayScrollInfoRequiresSneak, newVal -> displayScrollInfoRequiresSneak = newVal)
+                                        .controller(TickBoxControllerBuilder::create)
                                         .build())
                                 .build())
                         .build())

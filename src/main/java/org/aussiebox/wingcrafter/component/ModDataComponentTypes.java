@@ -16,6 +16,18 @@ public class ModDataComponentTypes {
     public static final ComponentType<String> SCROLL_TITLE =
             register("scroll_title", builder -> builder.codec(Codec.STRING));
 
+    public static final ComponentType<String> SOUL_SCROLL_OWNER =
+            register("soul_scroll_owner", builder -> builder.codec(Codec.STRING));
+
+    public static final ComponentType<String> SOUL_SCROLL_OWNER_NAME =
+            register("soul_scroll_owner_name", builder -> builder.codec(Codec.STRING));
+
+    public static final ComponentType<SoulScrollSpells> SOUL_SCROLL_SPELLS = Registry.register(
+            Registries.DATA_COMPONENT_TYPE,
+            Identifier.of(Wingcrafter.MOD_ID, "soul_scroll_spells"),
+            ComponentType.<SoulScrollSpells>builder().codec(SoulScrollSpells.CODEC).build()
+    );
+
     private static <T>ComponentType<T> register(String name, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
         return Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(Wingcrafter.MOD_ID, name),
                 builderOperator.apply(ComponentType.builder()).build());
