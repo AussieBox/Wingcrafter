@@ -11,11 +11,14 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.BlockRenderLayer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.aussiebox.wingcrafter.Wingcrafter;
+import org.aussiebox.wingcrafter.block.ModBlockEntities;
 import org.aussiebox.wingcrafter.block.ModBlocks;
+import org.aussiebox.wingcrafter.block.blockentities.renderer.FireglobeBlockEntityRenderer;
 import org.aussiebox.wingcrafter.client.screen.ScrollScreen;
 import org.aussiebox.wingcrafter.client.screen.SoulScrollSpellSelectScreen;
 import org.aussiebox.wingcrafter.component.ModDataComponentTypes;
@@ -103,6 +106,7 @@ public class WingcrafterClient implements ClientModInitializer, DataGeneratorEnt
 
         BlockRenderLayerMap.putBlock(ModBlocks.SCROLL, BlockRenderLayer.TRANSLUCENT);
         BlockRenderLayerMap.putBlock(ModBlocks.FIREGLOBE, BlockRenderLayer.TRANSLUCENT);
+        BlockEntityRendererFactories.register(ModBlockEntities.FIREGLOBE_BLOCK_ENTITY, FireglobeBlockEntityRenderer::new);
     }
 
     @Override
