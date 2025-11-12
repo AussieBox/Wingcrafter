@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -18,6 +19,7 @@ import org.aussiebox.wingcrafter.Wingcrafter;
 import org.aussiebox.wingcrafter.block.ModBlocks;
 import org.aussiebox.wingcrafter.component.ModDataComponentTypes;
 import org.aussiebox.wingcrafter.component.SoulScrollSpells;
+import org.aussiebox.wingcrafter.item.custom.FireglobeItem;
 import org.aussiebox.wingcrafter.item.custom.SoulScrollItem;
 
 import java.util.Objects;
@@ -32,6 +34,9 @@ public class ModItems {
             .component(ModDataComponentTypes.SOUL_SCROLL_OWNER, null)
             .component(ModDataComponentTypes.SOUL_SCROLL_OWNER_NAME, null)
             .component(ModDataComponentTypes.SOUL_SCROLL_SPELLS, null)
+    );
+    public static final BlockItem FIREGLOBE = registerBlockItem("fireglobe", FireglobeItem::new, new Item.Settings()
+            .useBlockPrefixedTranslationKey()
     );
     public static final Item SEAL = registerItem("seal", Item::new, new Item.Settings()
             .maxCount(32)
@@ -54,6 +59,13 @@ public class ModItems {
         return item;
     }
 
+    public static BlockItem registerBlockItem(String name, Function<Item.Settings, BlockItem> itemFactory, Item.Settings settings) {
+        RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(Wingcrafter.MOD_ID, name));
+        BlockItem item = itemFactory.apply(settings.registryKey(itemKey));
+        Registry.register(Registries.ITEM, itemKey, item);
+        return item;
+    }
+
     public static void registerModItems() {
         Wingcrafter.LOGGER.info("Registering mod items for " + Wingcrafter.MOD_ID);
 
@@ -63,7 +75,7 @@ public class ModItems {
             itemGroup.add(SOUL_SCROLL);
             itemGroup.add(SEAL);
             itemGroup.add(QUILL);
-            itemGroup.add(ModBlocks.FIREGLOBE.asItem());
+            itemGroup.add(FIREGLOBE.getDefaultStack());
         });
 
         ItemTooltipCallback.EVENT.register((itemStack, tooltipContext, tooltipType, list) -> {

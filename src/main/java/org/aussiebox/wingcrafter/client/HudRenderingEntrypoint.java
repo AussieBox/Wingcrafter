@@ -79,7 +79,7 @@ public class HudRenderingEntrypoint implements ClientModInitializer {
         int height = context.getScaledWindowHeight();
 
         if (player.getInventory().count(ModItems.SOUL_SCROLL) >= 1) {
-            int progressEquation = 71-(soul*71/1000);
+            int progressEquation = 53-(soul*53/1000);
 
             context.drawTexture(
                     RenderPipelines.GUI_TEXTURED,
@@ -96,16 +96,16 @@ public class HudRenderingEntrypoint implements ClientModInitializer {
             context.drawTexture(
                     RenderPipelines.GUI_TEXTURED,
                     PROGRESS,
-                    (int) ((double) width/2+14.5),
-                    (int) ((double) height-53),
-                    (float) 71,
+                    (int) ((double) width/2+23.5),
+                    (int) ((double) height-55),
+                    (float) 0,
                     (float) 0,
                     progressEquation,
-                    8,
+                    12,
                     progressEquation,
-                    8,
-                    71,
-                    8
+                    12,
+                    53,
+                    12
             );
 
             if (ClientConfig.displaySoulChanges) {

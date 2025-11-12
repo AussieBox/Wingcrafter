@@ -28,6 +28,13 @@ public class ModDataComponentTypes {
             ComponentType.<SoulScrollSpells>builder().codec(SoulScrollSpells.CODEC).build()
     );
 
+    public static final ComponentType<FireglobeGlass> FIREGLOBE_GLASS = Registry.register(
+            Registries.DATA_COMPONENT_TYPE,
+            Identifier.of(Wingcrafter.MOD_ID, "fireglobe_glass"),
+            ComponentType.<FireglobeGlass>builder().codec(FireglobeGlass.CODEC).build()
+    );
+
+
     private static <T>ComponentType<T> register(String name, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
         return Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(Wingcrafter.MOD_ID, name),
                 builderOperator.apply(ComponentType.builder()).build());

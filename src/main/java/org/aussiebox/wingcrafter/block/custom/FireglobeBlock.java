@@ -4,6 +4,8 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -19,7 +21,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import org.aussiebox.wingcrafter.block.blockentities.FireglobeBlockEntity;
+import org.aussiebox.wingcrafter.component.FireglobeGlass;
+import org.aussiebox.wingcrafter.component.ModDataComponentTypes;
 import org.jetbrains.annotations.Nullable;
 
 public class FireglobeBlock extends HorizontalFacingBlock implements BlockEntityProvider {
@@ -98,6 +103,39 @@ public class FireglobeBlock extends HorizontalFacingBlock implements BlockEntity
             }
         }
         return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
+    }
+
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof FireglobeBlockEntity fireglobeBlockEntity) {
+            if (!world.isClient()) {
+                FireglobeGlass glass = itemStack.get(ModDataComponentTypes.FIREGLOBE_GLASS);
+                if (glass != null) {
+                    fireglobeBlockEntity.setGlass(glass.front(), glass.left(), glass.back(), glass.right());
+                }
+            }
+        }
+
+        super.onPlaced(world, pos, state, placer, itemStack);
+    }
+
+    @Override
+    public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof FireglobeBlockEntity fireglobeBlockEntity) {
+            if (!world.isClient()) {
+                ItemStack itemStack = new ItemStack(this);
+                itemStack.applyComponentsFrom(blockEntity.createComponentMap());
+                itemStack.set(ModDataComponentTypes.FIREGLOBE_GLASS, fireglobeBlockEntity.getGlass());
+
+                ItemEntity itemEntity = new ItemEntity((World) world, pos.getX(), pos.getY(), pos.getZ(), itemStack);
+                itemEntity.setToDefaultPickupDelay();
+                world.spawnEntity(itemEntity);
+            }
+        }
+
+        super.onBroken(world, pos, state);
     }
 
     @Override

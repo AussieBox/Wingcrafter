@@ -31,7 +31,7 @@ public class ModBlocks {
             "fireglobe",
             FireglobeBlock::new,
             AbstractBlock.Settings.create().sounds(BlockSoundGroup.LANTERN).luminance(FireglobeBlock::getLuminance).nonOpaque(),
-            true
+            false
     );
 
     private static Block register(String name, Function<AbstractBlock.Settings, Block> blockFactory, AbstractBlock.Settings settings, boolean shouldRegisterItem) {
