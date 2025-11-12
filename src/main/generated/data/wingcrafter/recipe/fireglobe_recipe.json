@@ -1,4 +1,17 @@
 {
-  "type": "wingcrafter:crafting_fireglobe",
-  "category": "misc"
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": "#wingcrafter:fireglobe_glass",
+    "C": "#minecraft:candles"
+  },
+  "pattern": [
+    " G ",
+    "GCG",
+    " G "
+  ],
+  "result": {
+    "count": 1,
+    "id": "wingcrafter:fireglobe"
+  }
 }

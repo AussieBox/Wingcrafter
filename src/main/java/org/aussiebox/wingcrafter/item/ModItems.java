@@ -17,6 +17,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import org.aussiebox.wingcrafter.Wingcrafter;
 import org.aussiebox.wingcrafter.block.ModBlocks;
+import org.aussiebox.wingcrafter.component.FireglobeGlass;
 import org.aussiebox.wingcrafter.component.ModDataComponentTypes;
 import org.aussiebox.wingcrafter.component.SoulScrollSpells;
 import org.aussiebox.wingcrafter.item.custom.FireglobeItem;
@@ -118,6 +119,14 @@ public class ModItems {
                 if (MinecraftClient.getInstance().options.advancedItemTooltips) {
                     list.add(list.size()-2, Text.translatable("item.wingcrafter.tooltip.spell_caster").withColor(0xFF555555));
                 }
+            }
+            if (itemStack.isOf(ModItems.FIREGLOBE)) {
+                FireglobeGlass glass = itemStack.get(ModDataComponentTypes.FIREGLOBE_GLASS);
+                list.add(1, Text.empty());
+                list.add(2, Text.translatable("glass.wingcrafter." + glass.front()).withColor(0xFF555555));
+                list.add(3, Text.translatable("glass.wingcrafter." + glass.left()).withColor(0xFF555555));
+                list.add(4, Text.translatable("glass.wingcrafter." + glass.back()).withColor(0xFF555555));
+                list.add(5, Text.translatable("glass.wingcrafter." + glass.right()).withColor(0xFF555555));
             }
         });
     }

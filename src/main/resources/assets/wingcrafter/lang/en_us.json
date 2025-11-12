@@ -3,6 +3,24 @@
   "block.wingcrafter.scroll": "Scroll",
   "block.wingcrafter.fireglobe": "Fireglobe",
 
+  "glass.wingcrafter.clear": "Clear Pane",
+  "glass.wingcrafter.white": "White Pane",
+  "glass.wingcrafter.light_gray": "Light Gray Pane",
+  "glass.wingcrafter.gray": "Gray Pane",
+  "glass.wingcrafter.black": "Black Pane",
+  "glass.wingcrafter.brown": "Brown Pane",
+  "glass.wingcrafter.red": "Red Pane",
+  "glass.wingcrafter.orange": "Orange Pane",
+  "glass.wingcrafter.yellow": "Yellow Pane",
+  "glass.wingcrafter.lime": "Lime Pane",
+  "glass.wingcrafter.green": "Green Pane",
+  "glass.wingcrafter.cyan": "Cyan Pane",
+  "glass.wingcrafter.light_blue": "Light Blue Pane",
+  "glass.wingcrafter.blue": "Blue Pane",
+  "glass.wingcrafter.purple": "Purple Pane",
+  "glass.wingcrafter.magenta": "Magenta Pane",
+  "glass.wingcrafter.pink": "Pink Pane",
+
   "item.wingcrafter.soul_scroll": "§bSoul Scroll",
   "item.wingcrafter.soul_scroll.tooltip.1": "A powerful piece of parchment, hidden away from",
   "item.wingcrafter.soul_scroll.tooltip.2": "dragonkind inside of the long-lost ancient cities.",
@@ -35,7 +53,7 @@
   "effect.wingcrafter.soul_decay": "Soul Decay",
 
   "tag.item.wingcrafter.animus_spell_casters": "Animus Spell Casters",
-  "tag.item.wingcrafter.stained_glass_panes": "Stained Glass Panes",
+  "tag.item.wingcrafter.fireglobe_glass": "Valid Fireglobe Glass Blocks",
 
   "wingcrafter.config.client.tab.rendering": "Rendering",
   "wingcrafter.config.client.tab.rendering.tooltip": "Configure rendering-related Wingcrafter features.",
