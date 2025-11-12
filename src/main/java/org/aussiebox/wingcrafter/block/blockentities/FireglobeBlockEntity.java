@@ -2,13 +2,14 @@ package org.aussiebox.wingcrafter.block.blockentities;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
-import org.aussiebox.wingcrafter.Wingcrafter;
 import org.aussiebox.wingcrafter.block.ModBlockEntities;
 import org.aussiebox.wingcrafter.component.FireglobeGlass;
 
@@ -24,11 +25,6 @@ public class FireglobeBlockEntity extends BlockEntity {
         super(ModBlockEntities.FIREGLOBE_BLOCK_ENTITY, pos, state);
     }
 
-    public FireglobeGlass getGlass() {
-        Wingcrafter.LOGGER.info(front);
-        return new FireglobeGlass(front, left, back, right);
-    }
-
     public void setGlass(String frontGlass, String leftGlass, String backGlass, String rightGlass) {
         front = frontGlass;
         left = leftGlass;
@@ -37,9 +33,13 @@ public class FireglobeBlockEntity extends BlockEntity {
         markDirty();
     }
 
+    public FireglobeGlass getGlass() {
+        return new FireglobeGlass(front, left, back, right);
+    }
+
     @Override
     protected void writeData(WriteView writeView) {
-        writeView.put("glass", FireglobeGlass.CODEC, new FireglobeGlass(front, left, back, right));
+        writeView.put("glass", FireglobeGlass.CODEC, getGlass());
         super.writeData(writeView);
     }
 
@@ -59,5 +59,10 @@ public class FireglobeBlockEntity extends BlockEntity {
     @Override
     public Packet<ClientPlayPacketListener> toUpdatePacket() {
         return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
+        return createNbt(registryLookup);
     }
 }

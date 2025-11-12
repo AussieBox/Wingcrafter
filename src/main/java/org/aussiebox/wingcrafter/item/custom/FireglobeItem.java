@@ -14,7 +14,7 @@ public class FireglobeItem extends BlockItem {
     @Override
     public ItemStack getDefaultStack() {
         ItemStack itemStack = super.getDefaultStack();
-        itemStack.set(ModDataComponentTypes.FIREGLOBE_GLASS, new FireglobeGlass("red", "lime", "yellow", "light_blue"));
+        itemStack.set(ModDataComponentTypes.FIREGLOBE_GLASS, new FireglobeGlass("clear", "clear", "clear", "clear"));
         return itemStack;
     }
 }
