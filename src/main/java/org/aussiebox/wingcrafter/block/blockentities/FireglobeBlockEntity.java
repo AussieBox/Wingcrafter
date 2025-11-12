@@ -2,6 +2,8 @@ package org.aussiebox.wingcrafter.block.blockentities;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.component.ComponentMap;
+import net.minecraft.component.ComponentsAccess;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
@@ -12,14 +14,15 @@ import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import org.aussiebox.wingcrafter.block.ModBlockEntities;
 import org.aussiebox.wingcrafter.component.FireglobeGlass;
+import org.aussiebox.wingcrafter.component.ModDataComponentTypes;
 
 import java.util.Optional;
 
 public class FireglobeBlockEntity extends BlockEntity {
-    private String front;
-    private String left;
-    private String back;
-    private String right;
+    public String front;
+    public String left;
+    public String back;
+    public String right;
 
     public FireglobeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FIREGLOBE_BLOCK_ENTITY, pos, state);
@@ -35,6 +38,22 @@ public class FireglobeBlockEntity extends BlockEntity {
 
     public FireglobeGlass getGlass() {
         return new FireglobeGlass(front, left, back, right);
+    }
+
+    @Override
+    protected void readComponents(ComponentsAccess components) {
+        super.readComponents(components);
+        FireglobeGlass glass = components.get(ModDataComponentTypes.FIREGLOBE_GLASS);
+        front = glass.front();
+        left = glass.left();
+        back = glass.back();
+        right = glass.right();
+    }
+
+    @Override
+    protected void addComponents(ComponentMap.Builder builder) {
+        super.addComponents(builder);
+        builder.add(ModDataComponentTypes.FIREGLOBE_GLASS, new FireglobeGlass(front, left, back, right));
     }
 
     @Override

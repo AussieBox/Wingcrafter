@@ -15,6 +15,8 @@ import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
@@ -32,6 +34,7 @@ import org.aussiebox.wingcrafter.network.CastSpellPayload;
 import org.aussiebox.wingcrafter.network.ScrollTextPayload;
 import org.aussiebox.wingcrafter.network.SoulKillPayload;
 import org.aussiebox.wingcrafter.network.UpdateSoulScrollDataPayload;
+import org.aussiebox.wingcrafter.recipe.FireglobeRecipeSerializer;
 import org.aussiebox.wingcrafter.spells.Spells;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -113,6 +116,8 @@ public class Wingcrafter implements ModInitializer {
                 tableBuilder.pool(poolBuilder);
             }
         });
+
+        Registry.register(Registries.RECIPE_SERIALIZER, FireglobeRecipeSerializer.ID, FireglobeRecipeSerializer.INSTANCE);
 
         ScreenHandlerTypeInit.init();
         ModItems.registerModItems();

@@ -1,17 +1,4 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "G": "#wingcrafter:stained_glass_panes",
-    "C": "#minecraft:candles"
-  },
-  "pattern": [
-    " G ",
-    "GCG",
-    " G "
-  ],
-  "result": {
-    "count": 1,
-    "id": "wingcrafter:fireglobe"
-  }
+  "type": "wingcrafter:crafting_fireglobe",
+  "category": "misc"
 }
