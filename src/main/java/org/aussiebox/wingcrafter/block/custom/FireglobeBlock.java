@@ -21,7 +21,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.aussiebox.wingcrafter.block.blockentities.FireglobeBlockEntity;
 import org.aussiebox.wingcrafter.component.FireglobeGlass;
@@ -135,21 +134,20 @@ public class FireglobeBlock extends HorizontalFacingBlock implements BlockEntity
     }
 
     @Override
-    public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
+    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof FireglobeBlockEntity fireglobeBlockEntity) {
             if (!world.isClient()) {
-                ItemStack itemStack = new ItemStack(this);
+                ItemStack itemStack = new ItemStack(ModItems.FIREGLOBE);
                 itemStack.applyComponentsFrom(blockEntity.createComponentMap());
                 itemStack.set(ModDataComponentTypes.FIREGLOBE_GLASS, fireglobeBlockEntity.getGlass());
 
-                ItemEntity itemEntity = new ItemEntity((World) world, pos.getX(), pos.getY(), pos.getZ(), itemStack);
+                ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), itemStack);
                 itemEntity.setToDefaultPickupDelay();
                 world.spawnEntity(itemEntity);
             }
         }
-
-        super.onBroken(world, pos, state);
+        return super.onBreak(world, pos, state, player);
     }
 
     @Override
