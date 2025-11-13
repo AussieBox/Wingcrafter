@@ -122,11 +122,13 @@ public class ModItems {
             }
             if (itemStack.isOf(ModItems.FIREGLOBE)) {
                 FireglobeGlass glass = itemStack.get(ModDataComponentTypes.FIREGLOBE_GLASS);
-                list.add(1, Text.empty());
-                list.add(2, Text.translatable("glass.wingcrafter." + glass.front()).withColor(0xFF555555));
-                list.add(3, Text.translatable("glass.wingcrafter." + glass.left()).withColor(0xFF555555));
-                list.add(4, Text.translatable("glass.wingcrafter." + glass.back()).withColor(0xFF555555));
-                list.add(5, Text.translatable("glass.wingcrafter." + glass.right()).withColor(0xFF555555));
+                if (glass != null) {
+                    list.add(1, Text.empty());
+                    list.add(2, Text.translatable("glass.wingcrafter." + glass.front()).withColor(0xFFAAAAAA));
+                    list.add(3, Text.translatable("glass.wingcrafter." + glass.left()).withColor(0xFFAAAAAA));
+                    list.add(4, Text.translatable("glass.wingcrafter." + glass.back()).withColor(0xFFAAAAAA));
+                    list.add(5, Text.translatable("glass.wingcrafter." + glass.right()).withColor(0xFFAAAAAA));
+                }
             }
         });
     }

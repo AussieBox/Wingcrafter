@@ -101,6 +101,7 @@ public class FireglobeBlockEntityRenderer implements BlockEntityRenderer<Fireglo
     private SpriteIdentifier backTexture;
     private SpriteIdentifier leftTexture;
     private SpriteIdentifier rightTexture;
+    private FireglobeGlass glass;
 
     public FireglobeBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
         ModelPart modelPart = context.getLayerModelPart(FIREGLOBE_SIDES);
@@ -136,57 +137,63 @@ public class FireglobeBlockEntityRenderer implements BlockEntityRenderer<Fireglo
     @Override
     public void updateRenderState(FireglobeBlockEntity blockEntity, FireglobeBlockEntityRenderState state, float tickProgress, Vec3d cameraPos, @Nullable ModelCommandRenderer.CrumblingOverlayCommand crumblingOverlay) {
         getSpriteIDs();
-        FireglobeGlass glass = blockEntity.getGlass();
-        this.frontTexture = spriteIDs.get(glass.front());
-        this.leftTexture = spriteIDs.get(glass.left());
-        this.backTexture = spriteIDs.get(glass.back());
-        this.rightTexture = spriteIDs.get(glass.right());
+        this.glass = blockEntity.getGlass();
+        Wingcrafter.LOGGER.info("{} | {}", this.glass, blockEntity.getPos());
+        this.frontTexture = spriteIDs.get(this.glass.front());
+        this.leftTexture = spriteIDs.get(this.glass.left());
+        this.backTexture = spriteIDs.get(this.glass.back());
+        this.rightTexture = spriteIDs.get(this.glass.right());
         BlockEntityRenderer.super.updateRenderState(blockEntity, state, tickProgress, cameraPos, crumblingOverlay);
+    }
+
+    @Override
+    public boolean rendersOutsideBoundingBox() {
+        return true;
     }
 
     @Override
     public void render(FireglobeBlockEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
         matrices.push();
-        if (frontTexture != null) {
-            queue.submitModelPart(
-                    this.front,
-                    matrices,
-                    RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
-                    state.lightmapCoordinates,
-                    OverlayTexture.DEFAULT_UV,
-                    this.materials.getSprite(frontTexture)
-            );
-        }
-        if (leftTexture != null) {
-            queue.submitModelPart(
-                    this.left,
-                    matrices,
-                    RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
-                    state.lightmapCoordinates,
-                    OverlayTexture.DEFAULT_UV,
-                    this.materials.getSprite(leftTexture)
-            );
-        }
-        if (backTexture != null) {
-            queue.submitModelPart(
-                    this.back,
-                    matrices,
-                    RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
-                    state.lightmapCoordinates,
-                    OverlayTexture.DEFAULT_UV,
-                    this.materials.getSprite(backTexture)
-            );
-        }
-        if (rightTexture != null) {
-            queue.submitModelPart(
-                    this.right,
-                    matrices,
-                    RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
-                    state.lightmapCoordinates,
-                    OverlayTexture.DEFAULT_UV,
-                    this.materials.getSprite(rightTexture)
-            );
-        }
+            if (frontTexture != null) {
+                queue.submitModelPart(
+                        this.front,
+                        matrices,
+                        RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
+                        state.lightmapCoordinates,
+                        OverlayTexture.DEFAULT_UV,
+                        this.materials.getSprite(this.frontTexture)
+                );
+            }
+            if (leftTexture != null) {
+                queue.submitModelPart(
+                        this.left,
+                        matrices,
+                        RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
+                        state.lightmapCoordinates,
+                        OverlayTexture.DEFAULT_UV,
+                        this.materials.getSprite(this.leftTexture)
+                );
+            }
+            if (backTexture != null) {
+                queue.submitModelPart(
+                        this.back,
+                        matrices,
+                        RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
+                        state.lightmapCoordinates,
+                        OverlayTexture.DEFAULT_UV,
+                        this.materials.getSprite(this.backTexture)
+                );
+            }
+            if (rightTexture != null) {
+                queue.submitModelPart(
+                        this.right,
+                        matrices,
+                        RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
+                        state.lightmapCoordinates,
+                        OverlayTexture.DEFAULT_UV,
+                        this.materials.getSprite(this.rightTexture)
+                );
+            }
         matrices.pop();
     }
 }

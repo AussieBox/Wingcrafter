@@ -29,31 +29,31 @@ public class FireglobeBlockEntity extends BlockEntity {
     }
 
     public void setGlass(String frontGlass, String leftGlass, String backGlass, String rightGlass) {
-        front = frontGlass;
-        left = leftGlass;
-        back = backGlass;
-        right = rightGlass;
+        this.front = frontGlass;
+        this.left = leftGlass;
+        this.back = backGlass;
+        this.right = rightGlass;
         markDirty();
     }
 
     public FireglobeGlass getGlass() {
-        return new FireglobeGlass(front, left, back, right);
+        return new FireglobeGlass(this.front, this.left, this.back, this.right);
     }
 
     @Override
     protected void readComponents(ComponentsAccess components) {
         super.readComponents(components);
         FireglobeGlass glass = components.get(ModDataComponentTypes.FIREGLOBE_GLASS);
-        front = glass.front();
-        left = glass.left();
-        back = glass.back();
-        right = glass.right();
+        this.front = glass.front();
+        this.left = glass.left();
+        this.back = glass.back();
+        this.right = glass.right();
     }
 
     @Override
     protected void addComponents(ComponentMap.Builder builder) {
         super.addComponents(builder);
-        builder.add(ModDataComponentTypes.FIREGLOBE_GLASS, new FireglobeGlass(front, left, back, right));
+        builder.add(ModDataComponentTypes.FIREGLOBE_GLASS, new FireglobeGlass(this.front, this.left, this.back, this.right));
     }
 
     @Override
@@ -68,10 +68,10 @@ public class FireglobeBlockEntity extends BlockEntity {
         Optional<FireglobeGlass> readGlass = readView.read("glass", FireglobeGlass.CODEC);
         if (readGlass.isPresent()) {
             FireglobeGlass glass = readGlass.get();
-            front = glass.front();
-            left = glass.left();
-            back = glass.back();
-            right = glass.right();
+            this.front = glass.front();
+            this.left = glass.left();
+            this.back = glass.back();
+            this.right = glass.right();
         }
     }
 
