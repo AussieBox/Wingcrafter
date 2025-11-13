@@ -16,11 +16,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import org.aussiebox.wingcrafter.Wingcrafter;
 import org.aussiebox.wingcrafter.block.blockentities.FireglobeBlockEntity;
 import org.aussiebox.wingcrafter.client.WingcrafterClient;
-import org.aussiebox.wingcrafter.component.FireglobeGlass;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
@@ -97,11 +97,6 @@ public class FireglobeBlockEntityRenderer implements BlockEntityRenderer<Fireglo
     private final ModelPart left;
     private final ModelPart right;
     private final SpriteHolder materials;
-    private SpriteIdentifier frontTexture;
-    private SpriteIdentifier backTexture;
-    private SpriteIdentifier leftTexture;
-    private SpriteIdentifier rightTexture;
-    private FireglobeGlass glass;
 
     public FireglobeBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
         ModelPart modelPart = context.getLayerModelPart(FIREGLOBE_SIDES);
@@ -110,10 +105,6 @@ public class FireglobeBlockEntityRenderer implements BlockEntityRenderer<Fireglo
         this.left = modelPart.getChild("left");
         this.right = modelPart.getChild("right");
         this.materials = context.spriteHolder();
-        this.frontTexture = CLEAR;
-        this.backTexture = CLEAR;
-        this.leftTexture = CLEAR;
-        this.rightTexture = CLEAR;
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -136,14 +127,14 @@ public class FireglobeBlockEntityRenderer implements BlockEntityRenderer<Fireglo
 
     @Override
     public void updateRenderState(FireglobeBlockEntity blockEntity, FireglobeBlockEntityRenderState state, float tickProgress, Vec3d cameraPos, @Nullable ModelCommandRenderer.CrumblingOverlayCommand crumblingOverlay) {
-        getSpriteIDs();
-        this.glass = blockEntity.getGlass();
-        Wingcrafter.LOGGER.info("{} | {}", this.glass, blockEntity.getPos());
-        this.frontTexture = spriteIDs.get(this.glass.front());
-        this.leftTexture = spriteIDs.get(this.glass.left());
-        this.backTexture = spriteIDs.get(this.glass.back());
-        this.rightTexture = spriteIDs.get(this.glass.right());
         BlockEntityRenderer.super.updateRenderState(blockEntity, state, tickProgress, cameraPos, crumblingOverlay);
+        spriteIDs = getSpriteIDs();
+        state.glass = blockEntity.getGlass();
+        state.frontTexture = spriteIDs.get(state.glass.front());
+        state.leftTexture = spriteIDs.get(state.glass.left());
+        state.backTexture = spriteIDs.get(state.glass.back());
+        state.rightTexture = spriteIDs.get(state.glass.right());
+        state.facing = blockEntity.getHorizontalFacing();
     }
 
     @Override
@@ -154,44 +145,69 @@ public class FireglobeBlockEntityRenderer implements BlockEntityRenderer<Fireglo
     @Override
     public void render(FireglobeBlockEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
         matrices.push();
-            if (frontTexture != null) {
+
+        Direction direction = state.facing;
+        matrices.translate(0.5, 0.0, 0.5);
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(360.0F - direction.getPositiveHorizontalDegrees()));
+        matrices.translate(-0.5, 0.0, -0.5);
+
+            if (state.frontTexture != null) {
                 queue.submitModelPart(
                         this.front,
                         matrices,
                         RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
                         state.lightmapCoordinates,
                         OverlayTexture.DEFAULT_UV,
-                        this.materials.getSprite(this.frontTexture)
+                        this.materials.getSprite(state.frontTexture),
+                        false,
+                        false,
+                        -1,
+                        state.crumblingOverlay,
+                        0
                 );
             }
-            if (leftTexture != null) {
+            if (state.leftTexture != null) {
                 queue.submitModelPart(
                         this.left,
                         matrices,
                         RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
                         state.lightmapCoordinates,
                         OverlayTexture.DEFAULT_UV,
-                        this.materials.getSprite(this.leftTexture)
+                        this.materials.getSprite(state.leftTexture),
+                        false,
+                        false,
+                        -1,
+                        state.crumblingOverlay,
+                        0
                 );
             }
-            if (backTexture != null) {
+            if (state.backTexture != null) {
                 queue.submitModelPart(
                         this.back,
                         matrices,
                         RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
                         state.lightmapCoordinates,
                         OverlayTexture.DEFAULT_UV,
-                        this.materials.getSprite(this.backTexture)
+                        this.materials.getSprite(state.backTexture),
+                        false,
+                        false,
+                        -1,
+                        state.crumblingOverlay,
+                        0
                 );
             }
-            if (rightTexture != null) {
+            if (state.rightTexture != null) {
                 queue.submitModelPart(
                         this.right,
                         matrices,
                         RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
                         state.lightmapCoordinates,
                         OverlayTexture.DEFAULT_UV,
-                        this.materials.getSprite(this.rightTexture)
+                        this.materials.getSprite(state.rightTexture),false,
+                        false,
+                        -1,
+                        state.crumblingOverlay,
+                        0
                 );
             }
         matrices.pop();

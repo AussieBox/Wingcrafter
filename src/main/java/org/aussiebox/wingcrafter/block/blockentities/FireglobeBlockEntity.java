@@ -9,9 +9,11 @@ import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.state.property.Properties;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import org.aussiebox.wingcrafter.block.ModBlockEntities;
 import org.aussiebox.wingcrafter.component.FireglobeGlass;
 import org.aussiebox.wingcrafter.component.ModDataComponentTypes;
@@ -38,6 +40,10 @@ public class FireglobeBlockEntity extends BlockEntity {
 
     public FireglobeGlass getGlass() {
         return new FireglobeGlass(this.front, this.left, this.back, this.right);
+    }
+
+    public Direction getHorizontalFacing() {
+        return this.getCachedState().get(Properties.HORIZONTAL_FACING);
     }
 
     @Override

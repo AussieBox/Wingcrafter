@@ -23,14 +23,20 @@ public class ModBlocks {
     public static final Block SCROLL = register(
             "scroll",
             ScrollBlock::new,
-            AbstractBlock.Settings.create().sounds(BlockSoundGroup.WOOD).nonOpaque(),
+            AbstractBlock.Settings.create()
+                    .sounds(BlockSoundGroup.WOOD)
+                    .nonOpaque(),
             true
     );
 
     public static final Block FIREGLOBE = register(
             "fireglobe",
             FireglobeBlock::new,
-            AbstractBlock.Settings.create().sounds(BlockSoundGroup.LANTERN).luminance(FireglobeBlock::getLuminance).nonOpaque(),
+            AbstractBlock.Settings.create()
+                    .sounds(BlockSoundGroup.LANTERN)
+                    .luminance(FireglobeBlock::getLuminance)
+                    .strength(3.5F)
+                    .nonOpaque(),
             false
     );
 

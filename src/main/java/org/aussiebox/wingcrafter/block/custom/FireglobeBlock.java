@@ -22,9 +22,11 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
 import org.aussiebox.wingcrafter.block.blockentities.FireglobeBlockEntity;
 import org.aussiebox.wingcrafter.component.FireglobeGlass;
 import org.aussiebox.wingcrafter.component.ModDataComponentTypes;
+import org.aussiebox.wingcrafter.item.ModItems;
 import org.jetbrains.annotations.Nullable;
 
 public class FireglobeBlock extends HorizontalFacingBlock implements BlockEntityProvider {
@@ -113,11 +115,23 @@ public class FireglobeBlock extends HorizontalFacingBlock implements BlockEntity
                 FireglobeGlass glass = itemStack.get(ModDataComponentTypes.FIREGLOBE_GLASS);
                 if (glass != null) {
                     fireglobeBlockEntity.setGlass(glass.front(), glass.left(), glass.back(), glass.right());
+                    world.updateListeners(pos, state, state, 0);
                 }
             }
         }
 
         super.onPlaced(world, pos, state, placer, itemStack);
+    }
+
+    @Override
+    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+        ItemStack itemStack = new ItemStack(ModItems.FIREGLOBE);
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof FireglobeBlockEntity fireglobeBlockEntity) {
+            itemStack.set(ModDataComponentTypes.FIREGLOBE_GLASS, fireglobeBlockEntity.getGlass());
+            return itemStack;
+        }
+        return super.getPickStack(world, pos, state, includeData);
     }
 
     @Override

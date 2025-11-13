@@ -74,6 +74,9 @@ public class Spells {
                         if (world.getBlockState(BlockPos.ofFloored(x, y, z)).isOpaque() || world.getBlockState(BlockPos.ofFloored(x, y, z)).isOf(Blocks.WATER)) {
                             world.setBlockState(BlockPos.ofFloored(x, y, z), Blocks.ICE.getDefaultState());
                         }
+                        if (world.getBlockState(BlockPos.ofFloored(x, y, z)).isOf(Blocks.FIRE)) {
+                            world.setBlockState(BlockPos.ofFloored(x, y, z), Blocks.AIR.getDefaultState());
+                        }
                     }
                 }
             }
