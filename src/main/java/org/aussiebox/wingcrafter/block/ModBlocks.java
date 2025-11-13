@@ -36,6 +36,7 @@ public class ModBlocks {
                     .sounds(BlockSoundGroup.LANTERN)
                     .luminance(FireglobeBlock::getLuminance)
                     .strength(3.5F)
+                    .solid()
                     .nonOpaque(),
             false
     );

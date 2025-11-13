@@ -42,8 +42,8 @@ public class FireglobeBlockEntity extends BlockEntity {
         return new FireglobeGlass(this.front, this.left, this.back, this.right);
     }
 
-    public Direction getHorizontalFacing() {
-        return this.getCachedState().get(Properties.HORIZONTAL_FACING);
+    public Direction getFacing() {
+        return this.getCachedState().get(Properties.FACING);
     }
 
     @Override

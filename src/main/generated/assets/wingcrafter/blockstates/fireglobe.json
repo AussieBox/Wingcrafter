@@ -1,10 +1,16 @@
 {
   "variants": {
-    "lit=false": {
-      "model": "wingcrafter:block/fireglobe"
+    "hanging=false,lit=false": {
+      "model": "wingcrafter:block/fireglobe_standing"
     },
-    "lit=true": {
-      "model": "wingcrafter:block/fireglobe_lit"
+    "hanging=false,lit=true": {
+      "model": "wingcrafter:block/fireglobe_standing_lit"
+    },
+    "hanging=true,lit=false": {
+      "model": "wingcrafter:block/fireglobe_hanging"
+    },
+    "hanging=true,lit=true": {
+      "model": "wingcrafter:block/fireglobe_hanging_lit"
     }
   }
 }

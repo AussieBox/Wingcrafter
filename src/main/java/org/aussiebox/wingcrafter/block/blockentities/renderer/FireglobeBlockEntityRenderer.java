@@ -20,6 +20,7 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import org.aussiebox.wingcrafter.Wingcrafter;
 import org.aussiebox.wingcrafter.block.blockentities.FireglobeBlockEntity;
+import org.aussiebox.wingcrafter.block.custom.FireglobeBlock;
 import org.aussiebox.wingcrafter.client.WingcrafterClient;
 import org.jetbrains.annotations.Nullable;
 
@@ -134,7 +135,7 @@ public class FireglobeBlockEntityRenderer implements BlockEntityRenderer<Fireglo
         state.leftTexture = spriteIDs.get(state.glass.left());
         state.backTexture = spriteIDs.get(state.glass.back());
         state.rightTexture = spriteIDs.get(state.glass.right());
-        state.facing = blockEntity.getHorizontalFacing();
+        state.facing = blockEntity.getFacing();
     }
 
     @Override
@@ -151,65 +152,69 @@ public class FireglobeBlockEntityRenderer implements BlockEntityRenderer<Fireglo
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(360.0F - direction.getPositiveHorizontalDegrees()));
         matrices.translate(-0.5, 0.0, -0.5);
 
-            if (state.frontTexture != null) {
-                queue.submitModelPart(
-                        this.front,
-                        matrices,
-                        RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
-                        state.lightmapCoordinates,
-                        OverlayTexture.DEFAULT_UV,
-                        this.materials.getSprite(state.frontTexture),
-                        false,
-                        false,
-                        -1,
-                        state.crumblingOverlay,
-                        0
-                );
-            }
-            if (state.leftTexture != null) {
-                queue.submitModelPart(
-                        this.left,
-                        matrices,
-                        RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
-                        state.lightmapCoordinates,
-                        OverlayTexture.DEFAULT_UV,
-                        this.materials.getSprite(state.leftTexture),
-                        false,
-                        false,
-                        -1,
-                        state.crumblingOverlay,
-                        0
-                );
-            }
-            if (state.backTexture != null) {
-                queue.submitModelPart(
-                        this.back,
-                        matrices,
-                        RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
-                        state.lightmapCoordinates,
-                        OverlayTexture.DEFAULT_UV,
-                        this.materials.getSprite(state.backTexture),
-                        false,
-                        false,
-                        -1,
-                        state.crumblingOverlay,
-                        0
-                );
-            }
-            if (state.rightTexture != null) {
-                queue.submitModelPart(
-                        this.right,
-                        matrices,
-                        RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
-                        state.lightmapCoordinates,
-                        OverlayTexture.DEFAULT_UV,
-                        this.materials.getSprite(state.rightTexture),false,
-                        false,
-                        -1,
-                        state.crumblingOverlay,
-                        0
-                );
-            }
+        if (!state.blockState.get(FireglobeBlock.HANGING)) {
+            matrices.translate(0, -0.1245, 0);
+        }
+
+        if (state.frontTexture != null) {
+            queue.submitModelPart(
+                    this.front,
+                    matrices,
+                    RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
+                    state.lightmapCoordinates,
+                    OverlayTexture.DEFAULT_UV,
+                    this.materials.getSprite(state.frontTexture),
+                    false,
+                    false,
+                    -1,
+                    state.crumblingOverlay,
+                    0
+            );
+        }
+        if (state.leftTexture != null) {
+            queue.submitModelPart(
+                    this.left,
+                    matrices,
+                    RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
+                    state.lightmapCoordinates,
+                    OverlayTexture.DEFAULT_UV,
+                    this.materials.getSprite(state.leftTexture),
+                    false,
+                    false,
+                    -1,
+                    state.crumblingOverlay,
+                    0
+            );
+        }
+        if (state.backTexture != null) {
+            queue.submitModelPart(
+                    this.back,
+                    matrices,
+                    RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
+                    state.lightmapCoordinates,
+                    OverlayTexture.DEFAULT_UV,
+                    this.materials.getSprite(state.backTexture),
+                    false,
+                    false,
+                    -1,
+                    state.crumblingOverlay,
+                    0
+            );
+        }
+        if (state.rightTexture != null) {
+            queue.submitModelPart(
+                    this.right,
+                    matrices,
+                    RenderLayer.getEntityTranslucent(WingcrafterClient.FIREGLOBE_GLASS_ATLAS_PATH),
+                    state.lightmapCoordinates,
+                    OverlayTexture.DEFAULT_UV,
+                    this.materials.getSprite(state.rightTexture),false,
+                    false,
+                    -1,
+                    state.crumblingOverlay,
+                    0
+            );
+        }
         matrices.pop();
     }
 }
