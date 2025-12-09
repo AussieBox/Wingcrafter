@@ -1,16 +1,46 @@
 {
   "variants": {
-    "hanging=false,lit=false": {
+    "mounted=false,hanging=false,lit=false": {
       "model": "wingcrafter:block/fireglobe_standing"
     },
-    "hanging=false,lit=true": {
+    "mounted=false,hanging=false,lit=true": {
       "model": "wingcrafter:block/fireglobe_standing_lit"
     },
-    "hanging=true,lit=false": {
+    "mounted=false,hanging=true,lit=false": {
       "model": "wingcrafter:block/fireglobe_hanging"
     },
-    "hanging=true,lit=true": {
+    "mounted=false,hanging=true,lit=true": {
       "model": "wingcrafter:block/fireglobe_hanging_lit"
+    },
+    "facing=east,mounted=true,hanging=false,lit=false": {
+      "model": "wingcrafter:block/fireglobe_hanging_wall",
+      "y": 90
+    },
+    "facing=north,mounted=true,hanging=false,lit=false": {
+      "model": "wingcrafter:block/fireglobe_hanging_wall"
+    },
+    "facing=south,mounted=true,hanging=false,lit=false": {
+      "model": "wingcrafter:block/fireglobe_hanging_wall",
+      "y": 180
+    },
+    "facing=west,mounted=true,hanging=false,lit=false": {
+      "model": "wingcrafter:block/fireglobe_hanging_wall",
+      "y": 270
+    },
+    "facing=east,mounted=true,hanging=false,lit=true": {
+      "model": "wingcrafter:block/fireglobe_hanging_wall_lit",
+      "y": 90
+    },
+    "facing=north,mounted=true,hanging=false,lit=true": {
+      "model": "wingcrafter:block/fireglobe_hanging_wall_lit"
+    },
+    "facing=south,mounted=true,hanging=false,lit=true": {
+      "model": "wingcrafter:block/fireglobe_hanging_wall_lit",
+      "y": 180
+    },
+    "facing=west,mounted=true,hanging=false,lit=true": {
+      "model": "wingcrafter:block/fireglobe_hanging_wall_lit",
+      "y": 270
     }
   }
 }

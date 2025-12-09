@@ -3,6 +3,8 @@ package org.aussiebox.wingcrafter.block.custom;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
@@ -16,6 +18,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -28,36 +31,76 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
+import org.aussiebox.wingcrafter.block.ModBlockEntities;
 import org.aussiebox.wingcrafter.block.blockentities.FireglobeBlockEntity;
 import org.aussiebox.wingcrafter.component.FireglobeGlass;
 import org.aussiebox.wingcrafter.component.ModDataComponentTypes;
 import org.aussiebox.wingcrafter.item.ModItems;
 import org.jetbrains.annotations.Nullable;
 
-public class FireglobeBlock extends FacingBlock implements BlockEntityProvider, Waterloggable {
+public class FireglobeBlock extends BlockWithEntity implements BlockEntityProvider, Waterloggable {
     public static final MapCodec<FireglobeBlock> CODEC = createCodec(FireglobeBlock::new);
     private static final VoxelShape HANGING_SHAPE = Block.createCuboidShape(4, 2, 4, 12, 10, 12);
     private static final VoxelShape STANDING_SHAPE = Block.createCuboidShape(4, 0, 4, 12, 8, 12);
+    private static final VoxelShape MOUNTED_EAST_SHAPE = Block.createCuboidShape(1, 2, 4, 9, 10, 12);
+    private static final VoxelShape MOUNTED_NORTH_SHAPE = Block.createCuboidShape(4, 2, 7, 12, 10, 15);
+    private static final VoxelShape MOUNTED_SOUTH_SHAPE = Block.createCuboidShape(4, 2, 1, 12, 10, 9);
+    private static final VoxelShape MOUNTED_WEST_SHAPE = Block.createCuboidShape(7, 2, 4, 15, 10, 12);
 
+    public static final EnumProperty<Direction> FACING = FacingBlock.FACING;
     public static final BooleanProperty LIT = BooleanProperty.of("lit");
     public static final BooleanProperty HANGING = Properties.HANGING;
+    public static final BooleanProperty MOUNTED = BooleanProperty.of("mounted");
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return state.get(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
+        if (state.get(MOUNTED)) {
+            if (state.get(FACING) == Direction.EAST) {
+                return MOUNTED_EAST_SHAPE;
+            } else if (state.get(FACING) == Direction.NORTH) {
+                return MOUNTED_NORTH_SHAPE;
+            } else if (state.get(FACING) == Direction.SOUTH) {
+                return MOUNTED_SOUTH_SHAPE;
+            } else if (state.get(FACING) == Direction.WEST) {
+                return MOUNTED_WEST_SHAPE;
+            } else {
+                return STANDING_SHAPE;
+            }
+        } else if (state.get(HANGING)) {
+            return HANGING_SHAPE;
+        } else {
+            return STANDING_SHAPE;
+        }
     }
 
     @Override
     protected VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return state.get(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
+        if (state.get(MOUNTED)) {
+            if (state.get(FACING) == Direction.EAST) {
+                return MOUNTED_EAST_SHAPE;
+            } else if (state.get(FACING) == Direction.NORTH) {
+                return MOUNTED_NORTH_SHAPE;
+            } else if (state.get(FACING) == Direction.SOUTH) {
+                return MOUNTED_SOUTH_SHAPE;
+            } else if (state.get(FACING) == Direction.WEST) {
+                return MOUNTED_WEST_SHAPE;
+            } else {
+                return STANDING_SHAPE;
+            }
+        } else if (state.get(HANGING)) {
+            return HANGING_SHAPE;
+        } else {
+            return STANDING_SHAPE;
+        }
     }
 
     public FireglobeBlock(Settings settings) {
         super(settings);
         setDefaultState(getDefaultState().with(LIT, false));
         setDefaultState(getDefaultState().with(HANGING, false));
+        setDefaultState(getDefaultState().with(MOUNTED, false));
         setDefaultState(getDefaultState().with(WATERLOGGED, false));
     }
 
@@ -67,7 +110,7 @@ public class FireglobeBlock extends FacingBlock implements BlockEntityProvider, 
     }
 
     @Override
-    protected MapCodec<? extends FacingBlock> getCodec() {
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
         return CODEC;
     }
 
@@ -94,7 +137,7 @@ public class FireglobeBlock extends FacingBlock implements BlockEntityProvider, 
         if (!player.getAbilities().allowModifyWorld) {
             return ActionResult.PASS;
         } else {
-            if (!(world.getBlockEntity(pos) instanceof FireglobeBlockEntity fireglobeBlockEntity)) {
+            if (!(world.getBlockEntity(pos) instanceof FireglobeBlockEntity)) {
                 return super.onUse(state, world, pos, player, hit);
             }
             if (stack.isOf(Items.FLINT_AND_STEEL)) {
@@ -136,9 +179,10 @@ public class FireglobeBlock extends FacingBlock implements BlockEntityProvider, 
 
     @Override
     protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
-        ItemStack itemStack = new ItemStack(ModItems.FIREGLOBE);
+        ItemStack itemStack = ModItems.FIREGLOBE.getDefaultStack();
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof FireglobeBlockEntity fireglobeBlockEntity) {
+            itemStack.applyComponentsFrom(blockEntity.createComponentMap());
             itemStack.set(ModDataComponentTypes.FIREGLOBE_GLASS, fireglobeBlockEntity.getGlass());
             return itemStack;
         }
@@ -172,12 +216,24 @@ public class FireglobeBlock extends FacingBlock implements BlockEntityProvider, 
                     return blockState.with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
                 }
             }
+            if (direction.getAxis() == Direction.Axis.X || direction.getAxis() == Direction.Axis.Z) {
+                BlockState blockState = this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(MOUNTED, true);
+                if (blockState.canPlaceAt(ctx.getWorld(), ctx.getBlockPos())) {
+                    return blockState.with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+                }
+            }
         }
         return null;
     }
 
     protected static Direction attachedDirection(BlockState state) {
-        return state.get(HANGING) ? Direction.DOWN : Direction.UP;
+        if (state.get(HANGING)) {
+            return Direction.DOWN;
+        } else if (state.get(MOUNTED)) {
+            return state.get(FACING);
+        } else {
+            return Direction.UP;
+        }
     }
 
     @Override
@@ -220,7 +276,14 @@ public class FireglobeBlock extends FacingBlock implements BlockEntityProvider, 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING);
         builder.add(HANGING);
+        builder.add(MOUNTED);
         builder.add(WATERLOGGED);
         builder.add(LIT);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return validateTicker(type, ModBlockEntities.FIREGLOBE_BLOCK_ENTITY, FireglobeBlockEntity::tick);
     }
 }

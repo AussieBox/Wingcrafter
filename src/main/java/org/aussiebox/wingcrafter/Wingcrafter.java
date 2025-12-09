@@ -44,6 +44,7 @@ import static org.aussiebox.wingcrafter.block.custom.ScrollBlock.WRITTEN;
 public class Wingcrafter implements ModInitializer {
     public static final String MOD_ID = "wingcrafter";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    // "i don't know bro stop harassing me!" -my friend, replying to "give me a comment to put in my code"
 
     public static Identifier id(String path) {
         return Identifier.of(MOD_ID, path);
@@ -76,16 +77,13 @@ public class Wingcrafter implements ModInitializer {
         PayloadTypeRegistry.playC2S().register(SoulKillPayload.ID, SoulKillPayload.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(SoulKillPayload.ID, (payload, context) -> {
             PlayerEntity player = context.player();
-
             World world = player.getEntityWorld();
-
             RegistryKey<DamageType> SOUL_DAMAGE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(Wingcrafter.MOD_ID, "soul"));
             DamageSource damageSource = new DamageSource(
                     world.getRegistryManager()
                             .getOrThrow(RegistryKeys.DAMAGE_TYPE)
                             .getEntry(SOUL_DAMAGE.getValue()).get()
             );
-
             player.damage((ServerWorld) world, damageSource, 1337);
         });
 

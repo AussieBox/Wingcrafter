@@ -152,7 +152,9 @@ public class FireglobeBlockEntityRenderer implements BlockEntityRenderer<Fireglo
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(360.0F - direction.getPositiveHorizontalDegrees()));
         matrices.translate(-0.5, 0.0, -0.5);
 
-        if (!state.blockState.get(FireglobeBlock.HANGING)) {
+        if (state.blockState.get(FireglobeBlock.MOUNTED)) {
+            matrices.translate(0, 0, -0.1875);
+        } else if (!state.blockState.get(FireglobeBlock.HANGING)) {
             matrices.translate(0, -0.1245, 0);
         }
 

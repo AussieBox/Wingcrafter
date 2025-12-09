@@ -123,7 +123,6 @@ public class Spells {
             player.setFrozenTicks(100);
             player.addStatusEffect(new StatusEffectInstance(RegistryEntry.of(ModEffects.FREEZE), 50, 255, true, false, false));
         }
-
         if (Objects.equals(spellID, "flamethrower")) {
             player.addStatusEffect(new StatusEffectInstance(RegistryEntry.of(ModEffects.FLAMEBREATH), 100, 0, true, false, false));
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 100, 0, true, false, false));
