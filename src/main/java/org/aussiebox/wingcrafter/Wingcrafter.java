@@ -26,6 +26,7 @@ import org.aussiebox.wingcrafter.block.blockentities.ScrollBlockEntity;
 import org.aussiebox.wingcrafter.component.ModDataComponentTypes;
 import org.aussiebox.wingcrafter.component.SoulScrollSpells;
 import org.aussiebox.wingcrafter.effect.ModEffects;
+import org.aussiebox.wingcrafter.entity.ModEntities;
 import org.aussiebox.wingcrafter.init.ScreenHandlerTypeInit;
 import org.aussiebox.wingcrafter.item.ModItems;
 import org.aussiebox.wingcrafter.network.CastSpellPayload;
@@ -118,5 +119,6 @@ public class Wingcrafter implements ModInitializer {
         ModDataComponentTypes.registerDataComponentTypes();
         ModBlocks.registerModBlocks();
         ModEffects.registerStatusEffects();
+        ModEntities.registerModEntities();
     }
 }

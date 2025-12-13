@@ -34,6 +34,9 @@ public class ModDataComponentTypes {
             ComponentType.<FireglobeGlass>builder().codec(FireglobeGlass.CODEC).build()
     );
 
+    public static final ComponentType<Integer> DRAGONFLAME_CACTUS_FUSE =
+            register("dragonflame_cactus_fuse", builder -> builder.codec(Codec.INT));
+
 
     private static <T>ComponentType<T> register(String name, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
         return Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(Wingcrafter.MOD_ID, name),

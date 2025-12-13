@@ -2,6 +2,15 @@
   "itemGroup.wingcrafter.wingcrafter": "Wingcrafter",
   "block.wingcrafter.scroll": "Scroll",
   "block.wingcrafter.fireglobe": "Fireglobe",
+  "item.wingcrafter.seal": "Seal",
+  "item.wingcrafter.dragonflame_cactus": "Dragonflame Cactus",
+      "item.wingcrafter.dragonflame_cactus.tooltip.fuse.1": "Fuse Time: ",
+      "item.wingcrafter.dragonflame_cactus.tooltip.fuse.2": " ticks (",
+      "item.wingcrafter.dragonflame_cactus.tooltip.fuse.3": " seconds)",
+  "item.wingcrafter.quill": "Quill",
+      "item.wingcrafter.quill.tooltip.1": "Used by dragons of all tribes to copy scrolls.",
+      "item.wingcrafter.quill.tooltip.2": "To use, hold an empty scroll in your offhand and",
+      "item.wingcrafter.quill.tooltip.3": "interact with a scroll placed in the world.",
 
   "glass.wingcrafter.clear": "Clear Pane",
   "glass.wingcrafter.white": "White Pane",
@@ -22,29 +31,24 @@
   "glass.wingcrafter.pink": "Pink Pane",
 
   "item.wingcrafter.soul_scroll": "§bSoul Scroll",
-  "item.wingcrafter.soul_scroll.tooltip.1": "A powerful piece of parchment, hidden away from",
-  "item.wingcrafter.soul_scroll.tooltip.2": "dragonkind inside of the long-lost ancient cities.",
-  "item.wingcrafter.soul_scroll.tooltip.3": "Its power allows the bearer to cast Animus spells.",
-  "item.wingcrafter.tooltip.spell_caster": "This item can cast potentially dangerous spells.",
-  "item.wingcrafter.soul_scroll.tooltip.owner": "Rightfully Owned By: ",
-  "item.wingcrafter.soul_scroll.tooltip.spell1": "Spell 1: ",
-  "item.wingcrafter.soul_scroll.tooltip.spell2": "Spell 2: ",
-  "item.wingcrafter.soul_scroll.tooltip.spell3": "Spell 3: ",
+      "item.wingcrafter.soul_scroll.tooltip.1": "A powerful piece of parchment, hidden away from",
+      "item.wingcrafter.soul_scroll.tooltip.2": "dragonkind inside of the long-lost ancient cities.",
+      "item.wingcrafter.soul_scroll.tooltip.3": "Its power allows the bearer to cast Animus spells.",
+      "item.wingcrafter.tooltip.spell_caster": "This item can cast potentially dangerous spells.",
+      "item.wingcrafter.soul_scroll.tooltip.owner": "Rightfully Owned By: ",
+      "item.wingcrafter.soul_scroll.tooltip.spell1": "Spell 1: ",
+      "item.wingcrafter.soul_scroll.tooltip.spell2": "Spell 2: ",
+      "item.wingcrafter.soul_scroll.tooltip.spell3": "Spell 3: ",
 
   "spell.wingcrafter.frostbeam": "Frostbeam",
   "spell.wingcrafter.flamethrower": "Flamethrower",
 
-  "item.wingcrafter.seal": "Seal",
-
-  "item.wingcrafter.quill": "Quill",
-  "item.wingcrafter.quill.tooltip.1": "Used by dragons of all tribes to copy scrolls.",
-  "item.wingcrafter.quill.tooltip.2": "To use, hold an empty scroll in your offhand and",
-  "item.wingcrafter.quill.tooltip.3": "interact with a scroll placed in the world.",
+  "entity.wingcrafter.dragonflame_cactus": "Dragonflame Cactus",
 
   "key.category.wingcrafter.keybinds": "Wingcrafter",
-  "key.wingcrafter.spell1": "Cast Spell In First Slot",
-  "key.wingcrafter.spell2": "Cast Spell In Second Slot",
-  "key.wingcrafter.spell3": "Cast Spell In Third Slot",
+      "key.wingcrafter.spell1": "Cast Spell In First Slot",
+      "key.wingcrafter.spell2": "Cast Spell In Second Slot",
+      "key.wingcrafter.spell3": "Cast Spell In Third Slot",
 
   "death.attack.soul": "%1$s yearned for more power than they could handle",
 
@@ -56,24 +60,27 @@
   "tag.item.wingcrafter.fireglobe_glass": "Valid Fireglobe Glass Blocks",
 
   "wingcrafter.config.client.tab.rendering": "Rendering",
-  "wingcrafter.config.client.tab.rendering.tooltip": "Configure rendering-related Wingcrafter features.",
+      "wingcrafter.config.client.tab.rendering.tooltip": "Configure rendering-related Wingcrafter features.",
 
-  "wingcrafter.config.client.rendering.group.soul_change": "Soul Change",
-  "wingcrafter.config.client.rendering.group.soul_change.tooltip": "Configure how the Soul change notifier renders.\n\nSoul change appears above the soul meter when your soul meter is modified.",
-  "wingcrafter.config.client.rendering.soul_change.render": "Render Text",
-  "wingcrafter.config.client.rendering.soul_change.render.tooltip": "Whether the mod should render the Soul change notifier.",
-  "wingcrafter.config.client.rendering.soul_change.y_modifier": "Y Modifier",
-  "wingcrafter.config.client.rendering.soul_change.y_modifier.tooltip": "The number of pixels (on the Y axis) that the Soul change text is shifted.",
+      "wingcrafter.config.client.rendering.group.soul_change": "Soul Change",
+          "wingcrafter.config.client.rendering.group.soul_change.tooltip": "Configure how the Soul change notifier renders.\n\nSoul change appears above the soul meter when your soul meter is modified.",
 
-  "wingcrafter.config.client.rendering.group.soul_dialogue": "Soul Dialogue",
-  "wingcrafter.config.client.rendering.group.soul_dialogue.tooltip": "Configure how Soul dialogue renders.\n\nSoul dialogue appears when your soul falls below a certain threshold.",
-  "wingcrafter.config.client.rendering.soul_dialogue.render": "Render Dialogue",
-  "wingcrafter.config.client.rendering.soul_dialogue.render.tooltip": "Whether the mod should render the Soul dialogue lines.",
-  "wingcrafter.config.client.rendering.soul_dialogue.y_modifier": "Y Modifier",
-  "wingcrafter.config.client.rendering.soul_dialogue.y_modifier.tooltip": "The number of pixels (on the Y axis) that the Soul dialogue lines are shifted.",
+          "wingcrafter.config.client.rendering.soul_change.render": "Render Text",
+              "wingcrafter.config.client.rendering.soul_change.render.tooltip": "Whether the mod should render the Soul change notifier.",
+          "wingcrafter.config.client.rendering.soul_change.y_modifier": "Y Modifier",
+              "wingcrafter.config.client.rendering.soul_change.y_modifier.tooltip": "The number of pixels (on the Y axis) that the Soul change text is shifted.",
+
+      "wingcrafter.config.client.rendering.group.soul_dialogue": "Soul Dialogue",
+          "wingcrafter.config.client.rendering.group.soul_dialogue.tooltip": "Configure how Soul dialogue renders.\n\nSoul dialogue appears when your soul falls below a certain threshold.",
+
+          "wingcrafter.config.client.rendering.soul_dialogue.render": "Render Dialogue",
+              "wingcrafter.config.client.rendering.soul_dialogue.render.tooltip": "Whether the mod should render the Soul dialogue lines.",
+          "wingcrafter.config.client.rendering.soul_dialogue.y_modifier": "Y Modifier",
+              "wingcrafter.config.client.rendering.soul_dialogue.y_modifier.tooltip": "The number of pixels (on the Y axis) that the Soul dialogue lines are shifted.",
 
   "wingcrafter.config.client.rendering.group.scrolls": "Scrolls",
-  "wingcrafter.config.client.rendering.group.scrolls.tooltip": "Configure how Scroll-related features render.",
-  "wingcrafter.config.client.rendering.scrolls.require_sneak": "Scroll Information Requires Sneaking",
-  "wingcrafter.config.client.rendering.scrolls.require_sneak.tooltip": "Whether information about the scroll you're looking at requires you to be sneaking to render."
+      "wingcrafter.config.client.rendering.group.scrolls.tooltip": "Configure how Scroll-related features render.",
+
+      "wingcrafter.config.client.rendering.scrolls.require_sneak": "Scroll Information Requires Sneaking",
+          "wingcrafter.config.client.rendering.scrolls.require_sneak.tooltip": "Whether information about the scroll you're looking at requires you to be sneaking to render."
 }

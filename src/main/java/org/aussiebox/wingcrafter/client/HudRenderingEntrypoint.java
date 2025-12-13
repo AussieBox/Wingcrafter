@@ -22,7 +22,7 @@ import net.minecraft.util.math.ColorHelper;
 import net.minecraft.world.World;
 import org.aussiebox.wingcrafter.Wingcrafter;
 import org.aussiebox.wingcrafter.attach.ModAttachmentTypes;
-import org.aussiebox.wingcrafter.attach.ModCustomAttachedData;
+import org.aussiebox.wingcrafter.attach.SoulAttachedData;
 import org.aussiebox.wingcrafter.block.ModBlocks;
 import org.aussiebox.wingcrafter.block.blockentities.ScrollBlockEntity;
 import org.aussiebox.wingcrafter.config.ClientConfig;
@@ -73,7 +73,7 @@ public class HudRenderingEntrypoint implements ClientModInitializer {
     private static void renderSoul(DrawContext context, RenderTickCounter tickCounter) {
         PlayerEntity player = MinecraftClient.getInstance().player;
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-        ModCustomAttachedData data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, ModCustomAttachedData.DEFAULT);
+        SoulAttachedData data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, SoulAttachedData.DEFAULT);
         int soul = data.soul();
         int width = context.getScaledWindowWidth();
         int height = context.getScaledWindowHeight();

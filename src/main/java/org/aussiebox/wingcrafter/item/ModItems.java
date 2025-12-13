@@ -20,9 +20,11 @@ import org.aussiebox.wingcrafter.block.ModBlocks;
 import org.aussiebox.wingcrafter.component.FireglobeGlass;
 import org.aussiebox.wingcrafter.component.ModDataComponentTypes;
 import org.aussiebox.wingcrafter.component.SoulScrollSpells;
+import org.aussiebox.wingcrafter.item.custom.DragonflameCactusItem;
 import org.aussiebox.wingcrafter.item.custom.FireglobeItem;
 import org.aussiebox.wingcrafter.item.custom.SoulScrollItem;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -45,6 +47,9 @@ public class ModItems {
     public static final Item QUILL = registerItem("quill", Item::new, new Item.Settings()
             .maxCount(1)
             .maxDamage(64)
+    );
+    public static final Item DRAGONFLAME_CACTUS = registerItem("dragonflame_cactus", DragonflameCactusItem::new, new Item.Settings()
+
     );
 
     public static final RegistryKey<ItemGroup> WINGCRAFTER_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(Wingcrafter.MOD_ID, "wingcrafter"));
@@ -77,6 +82,7 @@ public class ModItems {
             itemGroup.add(SEAL);
             itemGroup.add(QUILL);
             itemGroup.add(FIREGLOBE.getDefaultStack());
+            itemGroup.add(DRAGONFLAME_CACTUS.getDefaultStack());
         });
 
         ItemTooltipCallback.EVENT.register((itemStack, tooltipContext, tooltipType, list) -> {
@@ -128,6 +134,17 @@ public class ModItems {
                     list.add(3, Text.translatable("glass.wingcrafter." + glass.left()).withColor(0xFFAAAAAA));
                     list.add(4, Text.translatable("glass.wingcrafter." + glass.back()).withColor(0xFFAAAAAA));
                     list.add(5, Text.translatable("glass.wingcrafter." + glass.right()).withColor(0xFFAAAAAA));
+                }
+            }
+            if (itemStack.isOf(ModItems.DRAGONFLAME_CACTUS)) {
+                if (itemStack.contains(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE)) {
+                    int fuseTicks = itemStack.get(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE);
+                    String fuseSeconds = new DecimalFormat("0.0").format(fuseTicks/20); // ! FIX THIS- WILL NEVER DISPLAY AS x.5 SECONDS!
+                    list.add(1, Text.translatable("item.wingcrafter.dragonflame_cactus.tooltip.fuse.1").withColor(0xAAAAAA)
+                            .append(Text.literal(String.valueOf(fuseTicks)).withColor(0xFFAAAAAA))
+                            .append(Text.translatable("item.wingcrafter.dragonflame_cactus.tooltip.fuse.2").withColor(0xFFAAAAAA))
+                            .append(Text.literal(fuseSeconds).withColor(0xFFAAAAAA))
+                            .append(Text.translatable("item.wingcrafter.dragonflame_cactus.tooltip.fuse.3").withColor(0xFFAAAAAA)));
                 }
             }
         });

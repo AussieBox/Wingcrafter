@@ -13,6 +13,7 @@ import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.entity.EntityRendererFactories;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.SpriteMapper;
 import net.minecraft.item.ItemStack;
@@ -28,6 +29,8 @@ import org.aussiebox.wingcrafter.component.SoulScrollSpells;
 import org.aussiebox.wingcrafter.config.ClientConfig;
 import org.aussiebox.wingcrafter.datagen.AdvancementProvider;
 import org.aussiebox.wingcrafter.datagen.ModelProvider;
+import org.aussiebox.wingcrafter.entity.ModEntities;
+import org.aussiebox.wingcrafter.entity.render.StaticFlyingItemEntityRenderer;
 import org.aussiebox.wingcrafter.init.ScreenHandlerTypeInit;
 import org.aussiebox.wingcrafter.item.ModItems;
 import org.aussiebox.wingcrafter.network.CastSpellPayload;
@@ -114,6 +117,8 @@ public class WingcrafterClient implements ClientModInitializer, DataGeneratorEnt
         BlockRenderLayerMap.putBlock(ModBlocks.FIREGLOBE, BlockRenderLayer.TRANSLUCENT);
         BlockEntityRendererFactories.register(ModBlockEntities.FIREGLOBE_BLOCK_ENTITY, FireglobeBlockEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(FireglobeBlockEntityRenderer.FIREGLOBE_SIDES, FireglobeBlockEntityRenderer::getTexturedModelData);
+
+        EntityRendererFactories.register(ModEntities.DragonflameCactusEntityType, StaticFlyingItemEntityRenderer::new);
     }
 
     @Override

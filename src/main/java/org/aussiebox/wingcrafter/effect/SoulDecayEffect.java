@@ -6,7 +6,7 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import org.aussiebox.wingcrafter.attach.ModAttachmentTypes;
-import org.aussiebox.wingcrafter.attach.ModCustomAttachedData;
+import org.aussiebox.wingcrafter.attach.SoulAttachedData;
 
 public class SoulDecayEffect extends StatusEffect {
     int ticksSinceDecay = 0;
@@ -20,7 +20,7 @@ public class SoulDecayEffect extends StatusEffect {
         if (ticksSinceDecay > 50-(amplifier*2.5)) {
             ticksSinceDecay = 0;
             if (entity instanceof ServerPlayerEntity player) {
-                ModCustomAttachedData data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, ModCustomAttachedData.DEFAULT);
+                SoulAttachedData data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, SoulAttachedData.DEFAULT);
                 player.setAttached(ModAttachmentTypes.SOUL_ATTACH, data.removeSoul(data, (amplifier/2)));
             }
         }

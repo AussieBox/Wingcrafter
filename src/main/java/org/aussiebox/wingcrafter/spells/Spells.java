@@ -21,7 +21,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import org.aussiebox.wingcrafter.attach.ModAttachmentTypes;
-import org.aussiebox.wingcrafter.attach.ModCustomAttachedData;
+import org.aussiebox.wingcrafter.attach.SoulAttachedData;
 import org.aussiebox.wingcrafter.effect.ModEffects;
 
 import java.util.List;
@@ -41,7 +41,7 @@ public class Spells {
         int i = 0;
         for (String spell : spells) {
             if (Objects.equals(spell, spellID)) {
-                ModCustomAttachedData data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, ModCustomAttachedData.DEFAULT);
+                SoulAttachedData data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, SoulAttachedData.DEFAULT);
                 player.setAttached(ModAttachmentTypes.SOUL_ATTACH, data.removeSoul(data, soulTaken[i]));
             }
             i++;
@@ -90,10 +90,10 @@ public class Spells {
             );
             for (Entity entity : entities) {
                 entity.damage(world, damageSource, 5);
-                ModCustomAttachedData data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, ModCustomAttachedData.DEFAULT);
+                SoulAttachedData data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, SoulAttachedData.DEFAULT);
                 player.setAttached(ModAttachmentTypes.SOUL_ATTACH, data.removeSoul(data, 5));
                 if (!entity.isAlive()) {
-                    data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, ModCustomAttachedData.DEFAULT);
+                    data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, SoulAttachedData.DEFAULT);
                     player.setAttached(ModAttachmentTypes.SOUL_ATTACH, data.removeSoul(data, 10));
                 }
             }
