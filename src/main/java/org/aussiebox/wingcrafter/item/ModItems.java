@@ -139,7 +139,7 @@ public class ModItems {
             if (itemStack.isOf(ModItems.DRAGONFLAME_CACTUS)) {
                 if (itemStack.contains(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE)) {
                     int fuseTicks = itemStack.get(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE);
-                    String fuseSeconds = new DecimalFormat("0.0").format(fuseTicks/20); // ! FIX THIS- WILL NEVER DISPLAY AS x.5 SECONDS!
+                    String fuseSeconds = new DecimalFormat("0.00").format((double) fuseTicks/20);
                     list.add(1, Text.translatable("item.wingcrafter.dragonflame_cactus.tooltip.fuse.1").withColor(0xAAAAAA)
                             .append(Text.literal(String.valueOf(fuseTicks)).withColor(0xFFAAAAAA))
                             .append(Text.translatable("item.wingcrafter.dragonflame_cactus.tooltip.fuse.2").withColor(0xFFAAAAAA))

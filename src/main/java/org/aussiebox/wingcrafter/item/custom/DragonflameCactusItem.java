@@ -57,7 +57,11 @@ public class DragonflameCactusItem extends Item {
             stack.set(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE, cactus.get(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE) + 10);
         }
         if (craftType.equals("subtract")) {
-            stack.set(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE, cactus.get(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE) - 1);
+            if (cactus.get(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE) - 2 < 1) {
+                stack.set(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE, 1);
+            } else {
+                stack.set(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE, cactus.get(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE) - 2);
+            }
         }
         player.getInventory().markDirty();
     }

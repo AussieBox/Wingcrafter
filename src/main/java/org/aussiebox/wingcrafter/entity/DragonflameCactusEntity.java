@@ -1,8 +1,6 @@
 package org.aussiebox.wingcrafter.entity;
 
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.minecraft.advancement.AdvancementEntry;
-import net.minecraft.advancement.PlayerAdvancementTracker;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -13,15 +11,14 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.aussiebox.wingcrafter.Wingcrafter;
 import org.aussiebox.wingcrafter.attach.DragonflameCactusFuseAttachedData;
 import org.aussiebox.wingcrafter.attach.ModAttachmentTypes;
 import org.aussiebox.wingcrafter.item.ModItems;
+import org.aussiebox.wingcrafter.util.WingcrafterUtil;
 
 public class DragonflameCactusEntity extends PersistentProjectileEntity {
 
@@ -39,11 +36,17 @@ public class DragonflameCactusEntity extends PersistentProjectileEntity {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
         World world = entity.getEntityWorld();
-        if (entity instanceof LivingEntity livingEntity) {
-            Vec3d pos = entityHitResult.getPos();
-            world.createExplosion(this, pos.x, pos.y, pos.z, 2, true, World.ExplosionSourceType.NONE);
+        if (!world.isClient()) {
+            if (entity instanceof LivingEntity livingEntity) {
+                Vec3d pos = entityHitResult.getPos();
+                world.createExplosion(this, pos.x, pos.y, pos.z, 2, true, World.ExplosionSourceType.NONE);
+                if (this.getOwner() instanceof ServerPlayerEntity player) {
+                    if (player.distanceTo(entity) >= 25) {
+                        WingcrafterUtil.grantAdvancement(player, "hit_dragonflame_cactus");
+                    }
+                }
+            }
         }
-        this.kill((ServerWorld) world);
     }
 
     @Override
@@ -68,15 +71,9 @@ public class DragonflameCactusEntity extends PersistentProjectileEntity {
                 }
                 if (data.fuse() == 10) {
                     if (this.getEntityWorld().getServer() != null) {
-                        AdvancementEntry advancement = this.getEntityWorld().getServer().getAdvancementLoader().get(Identifier.of(Wingcrafter.MOD_ID, "witness_dragonflame_cactus"));
                         for (ServerPlayerEntity player : PlayerLookup.all(this.getEntityWorld().getServer())) {
                             if (player.distanceTo(this) <= 5) {
-                                PlayerAdvancementTracker advancementTracker = player.getAdvancementTracker();
-                                if (!advancementTracker.getProgress(advancement).isDone()) {
-                                    for (String missing : advancementTracker.getProgress(advancement).getUnobtainedCriteria()) {
-                                        advancementTracker.grantCriterion(advancement, missing);
-                                    }
-                                }
+                                WingcrafterUtil.grantAdvancement(player, "witness_dragonflame_cactus");
                             }
                         }
                     }
