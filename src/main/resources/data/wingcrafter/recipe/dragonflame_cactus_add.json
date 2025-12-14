@@ -2,7 +2,6 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     "wingcrafter:dragonflame_cactus",
-    "minecraft:gunpowder",
     "minecraft:lead"
   ],
   "result": {

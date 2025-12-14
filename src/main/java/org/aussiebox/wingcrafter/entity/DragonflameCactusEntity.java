@@ -1,18 +1,24 @@
 package org.aussiebox.wingcrafter.entity;
 
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.minecraft.advancement.AdvancementEntry;
+import net.minecraft.advancement.PlayerAdvancementTracker;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.aussiebox.wingcrafter.Wingcrafter;
 import org.aussiebox.wingcrafter.attach.DragonflameCactusFuseAttachedData;
 import org.aussiebox.wingcrafter.attach.ModAttachmentTypes;
 import org.aussiebox.wingcrafter.item.ModItems;
@@ -59,6 +65,21 @@ public class DragonflameCactusEntity extends PersistentProjectileEntity {
                 if (data.fuse() <= 0) {
                     world.createExplosion(this, this.lastX, this.lastY, this.lastZ, 2, true, World.ExplosionSourceType.NONE);
                     this.kill((ServerWorld) world);
+                }
+                if (data.fuse() == 10) {
+                    if (this.getEntityWorld().getServer() != null) {
+                        AdvancementEntry advancement = this.getEntityWorld().getServer().getAdvancementLoader().get(Identifier.of(Wingcrafter.MOD_ID, "witness_dragonflame_cactus"));
+                        for (ServerPlayerEntity player : PlayerLookup.all(this.getEntityWorld().getServer())) {
+                            if (player.distanceTo(this) <= 5) {
+                                PlayerAdvancementTracker advancementTracker = player.getAdvancementTracker();
+                                if (!advancementTracker.getProgress(advancement).isDone()) {
+                                    for (String missing : advancementTracker.getProgress(advancement).getUnobtainedCriteria()) {
+                                        advancementTracker.grantCriterion(advancement, missing);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
             if (this.isOnFire()) {

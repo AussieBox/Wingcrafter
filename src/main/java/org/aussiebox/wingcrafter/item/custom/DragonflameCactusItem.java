@@ -3,6 +3,7 @@ package org.aussiebox.wingcrafter.item.custom;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -42,13 +43,22 @@ public class DragonflameCactusItem extends Item {
     @Override
     public void onCraftByPlayer(ItemStack stack, PlayerEntity player) {
         super.onCraftByPlayer(stack, player);
-        ItemStack itemStack = this.getDefaultStack();
+        String craftType = "add";
+        ItemStack cactus = this.getDefaultStack();
         for (int i = 1; i <= 9; i++) {
             if (player.currentScreenHandler.getSlot(i).getStack().isOf(ModItems.DRAGONFLAME_CACTUS)) {
-                itemStack = player.currentScreenHandler.getSlot(i).getStack();
+                cactus = player.currentScreenHandler.getSlot(i).getStack();
+            }
+            if (player.currentScreenHandler.getSlot(i).getStack().isOf(Items.GUNPOWDER)) {
+                craftType = "subtract";
             }
         }
-        stack.set(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE, itemStack.get(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE) + 10);
+        if (craftType.equals("add")) {
+            stack.set(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE, cactus.get(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE) + 10);
+        }
+        if (craftType.equals("subtract")) {
+            stack.set(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE, cactus.get(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE) - 1);
+        }
         player.getInventory().markDirty();
     }
 }

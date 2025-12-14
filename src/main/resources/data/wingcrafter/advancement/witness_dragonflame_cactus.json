@@ -1,0 +1,25 @@
+{
+  "parent": "wingcrafter:root",
+  "criteria": {
+    "custom_obtainment": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": "Be a little too close to a Dragonflame Cactus just before its detonation.",
+    "icon": {
+      "count": 1,
+      "id": "wingcrafter:dragonflame_cactus"
+    },
+    "title": "Moment's Notice",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "requirements": [
+    [
+      "custom_obtainment"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
