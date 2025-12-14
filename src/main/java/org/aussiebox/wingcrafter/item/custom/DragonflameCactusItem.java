@@ -28,7 +28,7 @@ public class DragonflameCactusItem extends Item {
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         if (!world.isClient()) {
-            DragonflameCactusEntity dragonflameCactusEntity = new DragonflameCactusEntity(user, world, itemStack);
+            DragonflameCactusEntity dragonflameCactusEntity = new DragonflameCactusEntity(world, user);
             int fuse = itemStack.get(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE);
             dragonflameCactusEntity.setOwner(user);
             dragonflameCactusEntity.setAttached(ModAttachmentTypes.DRAGONFLAME_CACTUS_FUSE_ATTACH, new DragonflameCactusFuseAttachedData(fuse));

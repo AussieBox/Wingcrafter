@@ -30,7 +30,8 @@ import org.aussiebox.wingcrafter.config.ClientConfig;
 import org.aussiebox.wingcrafter.datagen.AdvancementProvider;
 import org.aussiebox.wingcrafter.datagen.ModelProvider;
 import org.aussiebox.wingcrafter.entity.ModEntities;
-import org.aussiebox.wingcrafter.entity.render.StaticFlyingItemEntityRenderer;
+import org.aussiebox.wingcrafter.entity.model.DragonflameCactusEntityModel;
+import org.aussiebox.wingcrafter.entity.render.DragonflameCactusEntityRenderer;
 import org.aussiebox.wingcrafter.init.ScreenHandlerTypeInit;
 import org.aussiebox.wingcrafter.item.ModItems;
 import org.aussiebox.wingcrafter.network.CastSpellPayload;
@@ -117,8 +118,9 @@ public class WingcrafterClient implements ClientModInitializer, DataGeneratorEnt
         BlockRenderLayerMap.putBlock(ModBlocks.FIREGLOBE, BlockRenderLayer.TRANSLUCENT);
         BlockEntityRendererFactories.register(ModBlockEntities.FIREGLOBE_BLOCK_ENTITY, FireglobeBlockEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(FireglobeBlockEntityRenderer.FIREGLOBE_SIDES, FireglobeBlockEntityRenderer::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(DragonflameCactusEntityModel.CACTUS, DragonflameCactusEntityModel::getTexturedModelData);
 
-        EntityRendererFactories.register(ModEntities.DragonflameCactusEntityType, StaticFlyingItemEntityRenderer::new);
+        EntityRendererFactories.register(ModEntities.DragonflameCactusEntityType, DragonflameCactusEntityRenderer::new);
     }
 
     @Override

@@ -3,10 +3,12 @@ package org.aussiebox.wingcrafter.entity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
-import net.minecraft.item.Item;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Vec3d;
@@ -15,22 +17,16 @@ import org.aussiebox.wingcrafter.attach.DragonflameCactusFuseAttachedData;
 import org.aussiebox.wingcrafter.attach.ModAttachmentTypes;
 import org.aussiebox.wingcrafter.item.ModItems;
 
-public class DragonflameCactusEntity extends ThrownItemEntity {
-    double x;
-    double y;
-    double z;
+public class DragonflameCactusEntity extends PersistentProjectileEntity {
 
-    public DragonflameCactusEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
+    public DragonflameCactusEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public DragonflameCactusEntity(double x, double y, double z, World world, ItemStack stack) {
-        super(ModEntities.DragonflameCactusEntityType, x, y, z, world, stack);
+    public DragonflameCactusEntity(World world, PlayerEntity player) {
+        super(ModEntities.DragonflameCactusEntityType, player, world, ModItems.DRAGONFLAME_CACTUS.getDefaultStack(), null);
     }
 
-    public DragonflameCactusEntity(LivingEntity owner, World world, ItemStack stack) {
-        super(ModEntities.DragonflameCactusEntityType, owner, world, stack);
-    }
 
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
@@ -49,9 +45,6 @@ public class DragonflameCactusEntity extends ThrownItemEntity {
         super.onBlockHit(blockHitResult);
         if (!this.getEntityWorld().isClient()) {
             this.setOnGround(true);
-            this.x = this.lastX;
-            this.y = this.lastY;
-            this.z = this.lastZ;
         }
     }
 
@@ -68,14 +61,25 @@ public class DragonflameCactusEntity extends ThrownItemEntity {
                     this.kill((ServerWorld) world);
                 }
             }
-            if (this.isOnGround()) {
-                this.requestTeleport(this.x, this.y, this.z);
+            if (this.isOnFire()) {
+                world.createExplosion(this, this.lastX, this.lastY, this.lastZ, 2, true, World.ExplosionSourceType.NONE);
+                this.kill((ServerWorld) world);
             }
         }
     }
 
     @Override
-    protected Item getDefaultItem() {
-        return ModItems.DRAGONFLAME_CACTUS;
+    protected ItemStack getDefaultItemStack() {
+        return ModItems.DRAGONFLAME_CACTUS.getDefaultStack();
+    }
+
+    @Override
+    protected boolean tryPickup(PlayerEntity player) {
+        return false;
+    }
+
+    @Override
+    protected SoundEvent getHitSound() {
+        return SoundEvents.ENCHANT_THORNS_HIT;
     }
 }
