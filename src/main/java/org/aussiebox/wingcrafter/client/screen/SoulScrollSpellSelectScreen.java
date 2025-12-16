@@ -12,7 +12,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.aussiebox.wingcrafter.Wingcrafter;
-import org.aussiebox.wingcrafter.client.screen.widget.SoulScrollSpellButtonListWidget;
 import org.aussiebox.wingcrafter.network.UpdateSoulScrollDataPayload;
 import org.aussiebox.wingcrafter.screenhandler.SoulScrollSpellSelectScreenHandler;
 
@@ -55,8 +54,6 @@ public class SoulScrollSpellSelectScreen extends HandledScreen<SoulScrollSpellSe
         selectedSlot = 3;
     });
 
-    SoulScrollSpellButtonListWidget widget = new SoulScrollSpellButtonListWidget(this, this.client, 6, 7, 6, 7);
-
     // -[ SPELL BUTTONS]- //
 
     ButtonTextures frostbeamSpellTexture = new ButtonTextures(Identifier.of("wingcrafter:soul_scroll/spells/frostbeam"));
@@ -89,7 +86,6 @@ public class SoulScrollSpellSelectScreen extends HandledScreen<SoulScrollSpellSe
         this.addDrawableChild(spellSlot1);
         this.addDrawableChild(spellSlot2);
         this.addDrawableChild(spellSlot3);
-        this.addDrawableChild(widget);
 
         for (TexturedButtonWidget widget : spells) {
             this.addDrawableChild(widget);
