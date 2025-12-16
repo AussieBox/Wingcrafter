@@ -126,6 +126,11 @@ public class DragonflameCactusPlantBlock extends HorizontalFacingBlock {
     }
 
     @Override
+    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+        return ModItems.DRAGONFLAME_CACTUS.getDefaultStack();
+    }
+
+    @Override
     public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
         super.afterBreak(world, player, pos, state, blockEntity, tool);
         if (!world.isClient()) {

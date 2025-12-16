@@ -12,6 +12,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.aussiebox.wingcrafter.Wingcrafter;
+import org.aussiebox.wingcrafter.client.screen.widget.SoulScrollSpellButtonListWidget;
 import org.aussiebox.wingcrafter.network.UpdateSoulScrollDataPayload;
 import org.aussiebox.wingcrafter.screenhandler.SoulScrollSpellSelectScreenHandler;
 
@@ -21,8 +22,8 @@ import java.util.Objects;
 public class SoulScrollSpellSelectScreen extends HandledScreen<SoulScrollSpellSelectScreenHandler> {
     int screenWidth = MinecraftClient.getInstance().getWindow().getScaledWidth();
     int screenHeight = MinecraftClient.getInstance().getWindow().getScaledHeight();
-    int selectedSlot = 1;
-    String[] selectedSpells = {this.handler.spell1, this.handler.spell2, this.handler.spell3};
+    public int selectedSlot = 1;
+    public String[] selectedSpells = {this.handler.spell1, this.handler.spell2, this.handler.spell3};
 
     public static final Identifier SELECTED = Identifier.of(Wingcrafter.MOD_ID, "textures/gui/sprites/soul_scroll/spell_select/selection.png");
     public static final Identifier SLOT = Identifier.of(Wingcrafter.MOD_ID, "textures/gui/sprites/soul_scroll/spell_select/slot.png");
@@ -53,6 +54,8 @@ public class SoulScrollSpellSelectScreen extends HandledScreen<SoulScrollSpellSe
         }
         selectedSlot = 3;
     });
+
+    SoulScrollSpellButtonListWidget widget = new SoulScrollSpellButtonListWidget(this, this.client, 6, 7, 6, 7);
 
     // -[ SPELL BUTTONS]- //
 
@@ -86,6 +89,7 @@ public class SoulScrollSpellSelectScreen extends HandledScreen<SoulScrollSpellSe
         this.addDrawableChild(spellSlot1);
         this.addDrawableChild(spellSlot2);
         this.addDrawableChild(spellSlot3);
+        this.addDrawableChild(widget);
 
         for (TexturedButtonWidget widget : spells) {
             this.addDrawableChild(widget);
