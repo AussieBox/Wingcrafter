@@ -7,8 +7,10 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
@@ -68,6 +70,14 @@ public class DragonflameCactusEntity extends PersistentProjectileEntity {
                 if (data.fuse() <= 0) {
                     world.createExplosion(this, this.lastX, this.lastY, this.lastZ, 2, true, World.ExplosionSourceType.NONE);
                     this.kill((ServerWorld) world);
+                }
+                if (data.fuse() == 20) {
+                    world.playSoundFromEntity(this, this, SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.HOSTILE, 1.0F, 1.5F);
+                }
+                if (data.fuse() <= 20) {
+                    if (world instanceof ServerWorld serverWorld) {
+                        serverWorld.spawnParticles(ParticleTypes.SMOKE, this.lastX, this.lastY+0.45, this.lastZ, 1, 0, 0.1, 0, 0);
+                    }
                 }
                 if (data.fuse() == 10) {
                     if (this.getEntityWorld().getServer() != null) {

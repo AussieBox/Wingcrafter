@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:coal",
+    "minecraft:raw_copper",
+    "minecraft:copper_ingot",
+    "minecraft:diamond",
+    "minecraft:emerald",
+    "minecraft:raw_gold",
+    "minecraft:gold_ingot",
+    "minecraft:raw_iron",
+    "minecraft:iron_ingot",
+    "minecraft:lapis_lazuli",
+    "minecraft:redstone",
+    "minecraft:netherite_scrap",
+    "minecraft:netherite_ingot",
+    "minecraft:quartz"
+  ]
+}

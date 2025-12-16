@@ -1,23 +1,12 @@
 {
   "parent": "wingcrafter:place_scroll",
   "criteria": {
-    "place_written_scroll": {
-      "trigger": "minecraft:placed_block",
-      "conditions": {
-        "location": [
-          {
-            "condition": "minecraft:block_state_property",
-            "block": "wingcrafter:scroll",
-            "properties": {
-              "written": "true"
-            }
-          }
-        ]
-      }
+    "custom_obtainment": {
+      "trigger": "minecraft:impossible"
     }
   },
   "display": {
-    "description": "Place down a scroll that already contains writing.",
+    "description": "Leave your mark within a Scroll.",
     "icon": {
       "components": {
         "minecraft:block_state": {
@@ -34,7 +23,7 @@
   },
   "requirements": [
     [
-      "place_written_scroll"
+      "custom_obtainment"
     ]
   ],
   "sends_telemetry_event": true

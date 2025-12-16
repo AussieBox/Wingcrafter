@@ -11,6 +11,7 @@
       "item.wingcrafter.quill.tooltip.1": "Used by dragons of all tribes to copy scrolls.",
       "item.wingcrafter.quill.tooltip.2": "To use, hold an empty scroll in your offhand and",
       "item.wingcrafter.quill.tooltip.3": "interact with a scroll placed in the world.",
+  "block.wingcrafter.dragonflame_cactus_block": "Dragonflame Cactus Stem",
 
   "glass.wingcrafter.clear": "Clear Pane",
   "glass.wingcrafter.white": "White Pane",
@@ -57,7 +58,14 @@
   "effect.wingcrafter.soul_decay": "Soul Decay",
 
   "tag.item.wingcrafter.animus_spell_casters": "Animus Spell Casters",
+  "tag.item.wingcrafter.banner_patterns": "Banner Patterns",
+  "tag.item.wingcrafter.dragonflame_cactus_collision_immune": "Not Destroyed Upon Dragonflame Cactus Stem Collision",
   "tag.item.wingcrafter.fireglobe_glass": "Valid Fireglobe Glass Blocks",
+  "tag.item.wingcrafter.ore_blocks": "Ore Drop Blocks",
+  "tag.item.wingcrafter.ore_drops": "Ore Drops",
+  "tag.item.wingcrafter.ores": "Ore Blocks",
+  "tag.item.wingcrafter.templates": "Upgrade Templates",
+  "tag.item.wingcrafter.tools": "Tools",
 
   "wingcrafter.config.client.tab.rendering": "Rendering",
       "wingcrafter.config.client.tab.rendering.tooltip": "Configure rendering-related Wingcrafter features.",

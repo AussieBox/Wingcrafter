@@ -3,6 +3,8 @@ package org.aussiebox.wingcrafter.block;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.MapColor;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -12,6 +14,8 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import org.aussiebox.wingcrafter.Wingcrafter;
+import org.aussiebox.wingcrafter.block.custom.DragonflameCactusBlock;
+import org.aussiebox.wingcrafter.block.custom.DragonflameCactusPlantBlock;
 import org.aussiebox.wingcrafter.block.custom.FireglobeBlock;
 import org.aussiebox.wingcrafter.block.custom.ScrollBlock;
 import org.aussiebox.wingcrafter.item.ModItems;
@@ -39,6 +43,29 @@ public class ModBlocks {
                     .solid()
                     .nonOpaque(),
             false
+    );
+
+    public static final Block DRAGONFLAME_CACTUS_PLANT = register(
+            "dragonflame_cactus_plant",
+            DragonflameCactusPlantBlock::new,
+            AbstractBlock.Settings.create()
+                    .sounds(BlockSoundGroup.WOOD)
+                    .ticksRandomly()
+                    .nonOpaque(),
+            false
+    );
+
+    public static final Block DRAGONFLAME_CACTUS_BLOCK = register(
+            "dragonflame_cactus_block",
+            DragonflameCactusBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.DARK_RED)
+                    .ticksRandomly()
+                    .strength(0.4F)
+                    .sounds(BlockSoundGroup.WOOL)
+                    .pistonBehavior(PistonBehavior.DESTROY)
+                    .nonOpaque(),
+            true
     );
 
     private static Block register(String name, Function<AbstractBlock.Settings, Block> blockFactory, AbstractBlock.Settings settings, boolean shouldRegisterItem) {

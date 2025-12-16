@@ -34,6 +34,8 @@ import org.aussiebox.wingcrafter.network.ScrollTextPayload;
 import org.aussiebox.wingcrafter.network.SoulKillPayload;
 import org.aussiebox.wingcrafter.network.UpdateSoulScrollDataPayload;
 import org.aussiebox.wingcrafter.spells.Spells;
+import org.aussiebox.wingcrafter.util.WingcrafterUtil;
+import org.aussiebox.wingcrafter.world.DragonflameCactusGeneration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,11 +64,13 @@ public class Wingcrafter implements ModInitializer {
                 scrollBlockEntity.setText(payload.text());
                 if (!Objects.equals(payload.text(), "")) {
                     Objects.requireNonNull(blockEntity.getWorld()).setBlockState(blockEntity.getPos(), blockEntity.getWorld().getBlockState(blockEntity.getPos()).with(WRITTEN, true));
+                    WingcrafterUtil.grantAdvancement(context.player(), "write_scroll");
                 } else {
                     Objects.requireNonNull(blockEntity.getWorld()).setBlockState(blockEntity.getPos(), blockEntity.getWorld().getBlockState(blockEntity.getPos()).with(WRITTEN, false));
                 }
                 if (!Objects.equals(payload.titleText(), "")) {
                     Objects.requireNonNull(blockEntity.getWorld()).setBlockState(blockEntity.getPos(), blockEntity.getWorld().getBlockState(blockEntity.getPos()).with(TITLED, true));
+                    WingcrafterUtil.grantAdvancement(context.player(), "write_scroll");
                 } else {
                     Objects.requireNonNull(blockEntity.getWorld()).setBlockState(blockEntity.getPos(), blockEntity.getWorld().getBlockState(blockEntity.getPos()).with(TITLED, false));
                 }
@@ -120,5 +124,7 @@ public class Wingcrafter implements ModInitializer {
         ModBlocks.registerModBlocks();
         ModEffects.registerStatusEffects();
         ModEntities.registerModEntities();
+
+        DragonflameCactusGeneration.generateCacti();
     }
 }

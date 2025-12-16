@@ -116,7 +116,10 @@ public class WingcrafterClient implements ClientModInitializer, DataGeneratorEnt
 
         BlockRenderLayerMap.putBlock(ModBlocks.SCROLL, BlockRenderLayer.TRANSLUCENT);
         BlockRenderLayerMap.putBlock(ModBlocks.FIREGLOBE, BlockRenderLayer.TRANSLUCENT);
-        BlockEntityRendererFactories.register(ModBlockEntities.FIREGLOBE_BLOCK_ENTITY, FireglobeBlockEntityRenderer::new);
+            BlockEntityRendererFactories.register(ModBlockEntities.FIREGLOBE_BLOCK_ENTITY, FireglobeBlockEntityRenderer::new);
+        BlockRenderLayerMap.putBlock(ModBlocks.DRAGONFLAME_CACTUS_PLANT, BlockRenderLayer.TRANSLUCENT);
+        BlockRenderLayerMap.putBlock(ModBlocks.DRAGONFLAME_CACTUS_BLOCK, BlockRenderLayer.TRANSLUCENT);
+
         EntityModelLayerRegistry.registerModelLayer(FireglobeBlockEntityRenderer.FIREGLOBE_SIDES, FireglobeBlockEntityRenderer::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(DragonflameCactusEntityModel.CACTUS, DragonflameCactusEntityModel::getTexturedModelData);
 
