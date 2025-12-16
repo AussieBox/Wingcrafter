@@ -12,11 +12,14 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
@@ -32,6 +35,8 @@ import net.minecraft.world.tick.ScheduledTickView;
 import org.aussiebox.wingcrafter.Wingcrafter;
 import org.aussiebox.wingcrafter.block.ModBlocks;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 public class DragonflameCactusBlock extends Block {
     public static final MapCodec<DragonflameCactusBlock> CODEC = createCodec(DragonflameCactusBlock::new);
@@ -138,7 +143,24 @@ public class DragonflameCactusBlock extends Block {
         if (world instanceof ServerWorld serverWorld) {
             if (entity instanceof ItemEntity itemEntity) {
                 if (!itemEntity.getStack().isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(Wingcrafter.MOD_ID, "dragonflame_cactus_collision_immune")))) {
-                    entity.damage(serverWorld, world.getDamageSources().cactus(), 2.0F);
+                    if (!itemEntity.isRemoved()) {
+                        int stackSize = itemEntity.getStack().getCount();
+                        itemEntity.remove(Entity.RemovalReason.KILLED);
+                        serverWorld.playSound(null, itemEntity.getBlockPos(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 0.7F, 1.0F);
+                        serverWorld.spawnParticles(ParticleTypes.FLAME, itemEntity.getX(), itemEntity.getY(), itemEntity.getZ(), 8, 0.1, 0.1, 0.1, 0.01);
+
+                        Direction[] directions = new Direction[]{
+                                Direction.EAST,
+                                Direction.NORTH,
+                                Direction.SOUTH,
+                                Direction.WEST
+                        };
+                        for (int i = 0; i < stackSize; i++) {
+                            if (ThreadLocalRandom.current().nextInt(0, 64) == 0) {
+                                world.setBlockState(pos.offset(directions[ThreadLocalRandom.current().nextInt(0, directions.length)]), ModBlocks.DRAGONFLAME_CACTUS_PLANT.getDefaultState());
+                            }
+                        }
+                    }
                 }
             } else {
                 entity.damage(serverWorld, world.getDamageSources().cactus(), 2.0F);
