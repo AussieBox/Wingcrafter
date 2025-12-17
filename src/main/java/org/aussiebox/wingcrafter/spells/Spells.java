@@ -2,6 +2,7 @@ package org.aussiebox.wingcrafter.spells;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -85,12 +86,14 @@ public class Spells {
                     player
             );
             for (Entity entity : entities) {
-                entity.damage(world, damageSource, 5);
-                data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, SoulAttachedData.DEFAULT);
-                player.setAttached(ModAttachmentTypes.SOUL_ATTACH, data.removeSoul(data, 5));
-                if (!entity.isAlive()) {
+                if (entity instanceof LivingEntity livingEntity) {
+                    entity.damage(world, damageSource, 5);
                     data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, SoulAttachedData.DEFAULT);
-                    player.setAttached(ModAttachmentTypes.SOUL_ATTACH, data.removeSoul(data, 10));
+                    player.setAttached(ModAttachmentTypes.SOUL_ATTACH, data.removeSoul(data, 5));
+                    if (livingEntity.isDead()) {
+                        data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, SoulAttachedData.DEFAULT);
+                        player.setAttached(ModAttachmentTypes.SOUL_ATTACH, data.removeSoul(data, 10));
+                    }
                 }
             }
 

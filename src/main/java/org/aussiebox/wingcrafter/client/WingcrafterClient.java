@@ -82,28 +82,34 @@ public class WingcrafterClient implements ClientModInitializer, DataGeneratorEnt
                 }
                 while (spell1Keybind.wasPressed()) {
                     if (soulScroll.isOf(ModItems.SOUL_SCROLL)) {
-                        SoulScrollSpells spells = soulScroll.get(ModDataComponentTypes.SOUL_SCROLL_SPELLS);
-                        if (spells.spell1() != null && !spells.spell1().equals("none")) {
-                            CastSpellPayload payload = new CastSpellPayload(spells.spell1());
-                            ClientPlayNetworking.send(payload);
+                        if (soulScroll.contains(ModDataComponentTypes.SOUL_SCROLL_SPELLS)) {
+                            SoulScrollSpells spells = soulScroll.get(ModDataComponentTypes.SOUL_SCROLL_SPELLS);
+                            if (spells.spell1() != null && !spells.spell1().equals("none")) {
+                                CastSpellPayload payload = new CastSpellPayload(spells.spell1());
+                                ClientPlayNetworking.send(payload);
+                            }
                         }
                     }
                 }
                 while (spell2Keybind.wasPressed()) {
                     if (soulScroll.isOf(ModItems.SOUL_SCROLL)) {
-                        SoulScrollSpells spells = soulScroll.get(ModDataComponentTypes.SOUL_SCROLL_SPELLS);
-                        if (spells.spell2() != null && !spells.spell2().equals("none")) {
-                            CastSpellPayload payload = new CastSpellPayload(spells.spell2());
-                            ClientPlayNetworking.send(payload);
+                        if (soulScroll.contains(ModDataComponentTypes.SOUL_SCROLL_SPELLS)) {
+                            SoulScrollSpells spells = soulScroll.get(ModDataComponentTypes.SOUL_SCROLL_SPELLS);
+                            if (spells.spell2() != null && !spells.spell2().equals("none")) {
+                                CastSpellPayload payload = new CastSpellPayload(spells.spell2());
+                                ClientPlayNetworking.send(payload);
+                            }
                         }
                     }
                 }
                 while (spell3Keybind.wasPressed()) {
                     if (soulScroll.isOf(ModItems.SOUL_SCROLL)) {
-                        SoulScrollSpells spells = soulScroll.get(ModDataComponentTypes.SOUL_SCROLL_SPELLS);
-                        if (spells.spell3() != null && !spells.spell3().equals("none")) {
-                            CastSpellPayload payload = new CastSpellPayload(spells.spell3());
-                            ClientPlayNetworking.send(payload);
+                        if (soulScroll.contains(ModDataComponentTypes.SOUL_SCROLL_SPELLS)) {
+                            SoulScrollSpells spells = soulScroll.get(ModDataComponentTypes.SOUL_SCROLL_SPELLS);
+                            if (spells.spell3() != null && !spells.spell3().equals("none")) {
+                                CastSpellPayload payload = new CastSpellPayload(spells.spell3());
+                                ClientPlayNetworking.send(payload);
+                            }
                         }
                     }
                 }
