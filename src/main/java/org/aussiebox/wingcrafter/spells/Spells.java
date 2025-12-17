@@ -24,28 +24,24 @@ import org.aussiebox.wingcrafter.attach.ModAttachmentTypes;
 import org.aussiebox.wingcrafter.attach.SoulAttachedData;
 import org.aussiebox.wingcrafter.effect.ModEffects;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class Spells {
-    static String[] spells = {
-            "frostbeam",
-            "flamethrower"
-    };
-    static Integer[] soulTaken = {
-            3,
-            5
-    };
+    public static Map<String, Integer> spellSoulInfo = new HashMap<>();
+    public static Map<String, Integer> fetchSpellSoulInfo() {
+        spellSoulInfo.put("frostbeam", 3);
+        spellSoulInfo.put("flamethrower", 5);
+        return spellSoulInfo;
+    }
 
     public static void cast(String spellID, ServerPlayerEntity player) {
-        int i = 0;
-        for (String spell : spells) {
-            if (Objects.equals(spell, spellID)) {
-                SoulAttachedData data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, SoulAttachedData.DEFAULT);
-                player.setAttached(ModAttachmentTypes.SOUL_ATTACH, data.removeSoul(data, soulTaken[i]));
-            }
-            i++;
-        }
+        fetchSpellSoulInfo();
+
+        SoulAttachedData data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, SoulAttachedData.DEFAULT);
+        player.setAttached(ModAttachmentTypes.SOUL_ATTACH, data.removeSoul(data, spellSoulInfo.get(spellID)));
 
         ServerWorld world = player.getEntityWorld();
 
@@ -90,7 +86,7 @@ public class Spells {
             );
             for (Entity entity : entities) {
                 entity.damage(world, damageSource, 5);
-                SoulAttachedData data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, SoulAttachedData.DEFAULT);
+                data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, SoulAttachedData.DEFAULT);
                 player.setAttached(ModAttachmentTypes.SOUL_ATTACH, data.removeSoul(data, 5));
                 if (!entity.isAlive()) {
                     data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, SoulAttachedData.DEFAULT);
@@ -111,7 +107,7 @@ public class Spells {
             double stepY = (endY - startY) / particleCount;
             double stepZ = (endZ - startZ) / particleCount;
 
-            for (i = 0; i < particleCount; i++) {
+            for (int i = 0; i < particleCount; i++) {
                 double x = startX + stepX * i;
                 double y = startY + stepY * i;
                 double z = startZ + stepZ * i;

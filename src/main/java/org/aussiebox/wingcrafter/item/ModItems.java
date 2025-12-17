@@ -83,6 +83,7 @@ public class ModItems {
             itemGroup.add(QUILL);
             itemGroup.add(FIREGLOBE.getDefaultStack());
             itemGroup.add(DRAGONFLAME_CACTUS.getDefaultStack());
+            itemGroup.add(ModBlocks.DRAGONFLAME_CACTUS_BLOCK.asItem());
         });
 
         ItemTooltipCallback.EVENT.register((itemStack, tooltipContext, tooltipType, list) -> {
