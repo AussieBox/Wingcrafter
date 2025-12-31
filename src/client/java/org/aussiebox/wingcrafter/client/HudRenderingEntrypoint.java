@@ -26,7 +26,7 @@ import org.aussiebox.wingcrafter.Wingcrafter;
 import org.aussiebox.wingcrafter.block.ModBlocks;
 import org.aussiebox.wingcrafter.block.blockentities.ScrollBlockEntity;
 import org.aussiebox.wingcrafter.cca.SoulComponent;
-import org.aussiebox.wingcrafter.config.ClientConfig;
+import org.aussiebox.wingcrafter.client.config.ClientConfig;
 import org.aussiebox.wingcrafter.item.ModItems;
 import org.aussiebox.wingcrafter.network.SoulKillPayload;
 
@@ -42,7 +42,7 @@ public class HudRenderingEntrypoint implements ClientModInitializer {
     static int warningColorO;
     static Text scrollTitle = Text.of("Untitled Scroll");
     static Text scrollLineCountText = Text.of("Line Count: N/A");
-    static Text changeText = Text.of("idk bro 🥀");
+    static Text changeText = Text.of("idk bro im not a calculator 🥀");
     static int scrollLineCount = 0;
     static int change = 0;
     static int changeTime = 0;

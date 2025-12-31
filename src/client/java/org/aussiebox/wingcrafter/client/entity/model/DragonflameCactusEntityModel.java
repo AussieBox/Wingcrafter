@@ -1,4 +1,4 @@
-package org.aussiebox.wingcrafter.entity.model;
+package org.aussiebox.wingcrafter.client.entity.model;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModel;

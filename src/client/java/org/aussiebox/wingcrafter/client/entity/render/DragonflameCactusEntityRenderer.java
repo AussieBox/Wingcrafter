@@ -1,4 +1,4 @@
-package org.aussiebox.wingcrafter.entity.render;
+package org.aussiebox.wingcrafter.client.entity.render;
 
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -11,8 +11,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 import org.aussiebox.wingcrafter.Wingcrafter;
+import org.aussiebox.wingcrafter.client.entity.model.DragonflameCactusEntityModel;
 import org.aussiebox.wingcrafter.entity.DragonflameCactusEntity;
-import org.aussiebox.wingcrafter.entity.model.DragonflameCactusEntityModel;
 
 public class DragonflameCactusEntityRenderer extends EntityRenderer<DragonflameCactusEntity, EntityRenderState> {
     protected DragonflameCactusEntityModel model;

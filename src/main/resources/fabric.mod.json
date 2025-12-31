@@ -4,7 +4,7 @@
   "version": "${version}",
   "name": "Wingcrafter",
   "description": "Bring the world of Wings of Fire into Minecraft, with many interactive and exciting features!",
-  "authors": ["Stargazer (aka. AussieBox)"],
+  "authors": ["Circuitweaver (aka. AussieBox)"],
   "contributors": ["MisterPerson22", "SkyNotTheLimit"],
   "contact": {
     "homepage": "https://modrinth.com/project/wingcrafter",
@@ -23,7 +23,7 @@
       "org.aussiebox.wingcrafter.Wingcrafter"
     ],
     "modmenu": [
-      "org.aussiebox.wingcrafter.config.ModMenuIntegration"
+      "org.aussiebox.wingcrafter.client.config.ModMenuIntegration"
     ],
     "cardinal-components": [
       "org.aussiebox.wingcrafter.WingcrafterComponents"

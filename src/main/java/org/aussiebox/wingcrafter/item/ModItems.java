@@ -1,9 +1,7 @@
 package org.aussiebox.wingcrafter.item;
 
-import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -17,15 +15,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import org.aussiebox.wingcrafter.Wingcrafter;
 import org.aussiebox.wingcrafter.block.ModBlocks;
-import org.aussiebox.wingcrafter.component.FireglobeGlass;
 import org.aussiebox.wingcrafter.component.ModDataComponentTypes;
-import org.aussiebox.wingcrafter.component.SoulScrollSpells;
 import org.aussiebox.wingcrafter.item.custom.DragonflameCactusItem;
 import org.aussiebox.wingcrafter.item.custom.FireglobeItem;
 import org.aussiebox.wingcrafter.item.custom.SoulScrollItem;
 
-import java.text.DecimalFormat;
-import java.util.Objects;
 import java.util.function.Function;
 
 public class ModItems {
@@ -88,68 +82,5 @@ public class ModItems {
             itemGroup.add(ModBlocks.FROST_WILLOW_LEAVES.asItem());
         });
 
-        ItemTooltipCallback.EVENT.register((itemStack, tooltipContext, tooltipType, list) -> {
-            if (itemStack.isOf(QUILL)) {
-                list.add(1, Text.translatable("item.wingcrafter.quill.tooltip.1").withColor(0xFFAAAAAA));
-                list.add(2, Text.translatable("item.wingcrafter.quill.tooltip.2").withColor(0xFFAAAAAA));
-                list.add(3, Text.empty());
-                list.add(4, Text.translatable("item.wingcrafter.quill.tooltip.3").withColor(0xFFAAAAAA));
-            }
-            if (itemStack.isOf(SOUL_SCROLL)) {
-                list.add(1, Text.translatable("item.wingcrafter.soul_scroll.tooltip.1").withColor(0xFFAAAAAA));
-                list.add(2, Text.translatable("item.wingcrafter.soul_scroll.tooltip.2").withColor(0xFFAAAAAA));
-                list.add(3, Text.empty());
-                list.add(4, Text.translatable("item.wingcrafter.soul_scroll.tooltip.3").withColor(0xFFAAAAAA));
-                if (itemStack.contains(ModDataComponentTypes.SOUL_SCROLL_OWNER)) {
-                    String ownerName = itemStack.get(ModDataComponentTypes.SOUL_SCROLL_OWNER_NAME);
-                    if (ownerName != null) {
-                        list.add(1, Text.translatable("item.wingcrafter.soul_scroll.tooltip.owner").withColor(0xFFAAAAAA).append(Text.literal(ownerName).withColor(0xFFFFFFFF)));
-                        list.add(2, Text.empty());
-                    }
-                }
-                if (itemStack.contains(ModDataComponentTypes.SOUL_SCROLL_SPELLS)) {
-                    SoulScrollSpells spells = itemStack.get(ModDataComponentTypes.SOUL_SCROLL_SPELLS);
-                    if (!Objects.equals(spells.spell1(), "none") || !Objects.equals(spells.spell2(), "none") || !Objects.equals(spells.spell3(), "none")) {
-                        list.add(3, Text.empty());
-                    }
-                    if (!Objects.equals(spells.spell3(), "none")) {
-                        list.add(3, Text.translatable("item.wingcrafter.soul_scroll.tooltip.spell3").withColor(0xFFFFFFFF)
-                                .append(Text.translatable("spell.wingcrafter." + spells.spell3()).withColor(0xFF55FFFF)));
-                    }
-                    if (!Objects.equals(spells.spell2(), "none")) {
-                        list.add(3, Text.translatable("item.wingcrafter.soul_scroll.tooltip.spell2").withColor(0xFFFFFFFF)
-                                .append(Text.translatable("spell.wingcrafter." + spells.spell2()).withColor(0xFF55FFFF)));
-                    }
-                    if (!Objects.equals(spells.spell1(), "none")) {
-                        list.add(3, Text.translatable("item.wingcrafter.soul_scroll.tooltip.spell1").withColor(0xFFFFFFFF)
-                                .append(Text.translatable("spell.wingcrafter." + spells.spell1()).withColor(0xFF55FFFF)));
-                    }
-                }
-                if (MinecraftClient.getInstance().options.advancedItemTooltips) {
-                    list.add(list.size()-2, Text.translatable("item.wingcrafter.tooltip.spell_caster").withColor(0xFF555555));
-                }
-            }
-            if (itemStack.isOf(ModItems.FIREGLOBE)) {
-                FireglobeGlass glass = itemStack.get(ModDataComponentTypes.FIREGLOBE_GLASS);
-                if (glass != null) {
-                    list.add(1, Text.empty());
-                    list.add(2, Text.translatable("glass.wingcrafter." + glass.front()).withColor(0xFFAAAAAA));
-                    list.add(3, Text.translatable("glass.wingcrafter." + glass.left()).withColor(0xFFAAAAAA));
-                    list.add(4, Text.translatable("glass.wingcrafter." + glass.back()).withColor(0xFFAAAAAA));
-                    list.add(5, Text.translatable("glass.wingcrafter." + glass.right()).withColor(0xFFAAAAAA));
-                }
-            }
-            if (itemStack.isOf(ModItems.DRAGONFLAME_CACTUS)) {
-                if (itemStack.contains(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE)) {
-                    int fuseTicks = itemStack.get(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE);
-                    String fuseSeconds = new DecimalFormat("0.00").format((double) fuseTicks/20);
-                    list.add(1, Text.translatable("item.wingcrafter.dragonflame_cactus.tooltip.fuse.1").withColor(0xAAAAAA)
-                            .append(Text.literal(String.valueOf(fuseTicks)).withColor(0xFFAAAAAA))
-                            .append(Text.translatable("item.wingcrafter.dragonflame_cactus.tooltip.fuse.2").withColor(0xFFAAAAAA))
-                            .append(Text.literal(fuseSeconds).withColor(0xFFAAAAAA))
-                            .append(Text.translatable("item.wingcrafter.dragonflame_cactus.tooltip.fuse.3").withColor(0xFFAAAAAA)));
-                }
-            }
-        });
     }
 }

@@ -1,4 +1,4 @@
-package org.aussiebox.wingcrafter.block.blockentities.renderer;
+package org.aussiebox.wingcrafter.client.block.entity.render;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.OverlayTexture;
@@ -12,8 +12,6 @@ import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.texture.SpriteHolder;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
@@ -69,28 +67,6 @@ public class FireglobeBlockEntityRenderer implements BlockEntityRenderer<Fireglo
         spriteIDs.putIfAbsent("magenta", MAGENTA);
         spriteIDs.putIfAbsent("pink", PINK);
         return spriteIDs;
-    }
-
-    public static Map<Item, String> itemSpriteIDs = new HashMap<>();
-    public static Map<Item, String> getItemSpriteIDs() {
-        itemSpriteIDs.putIfAbsent(Items.GLASS_PANE, "clear");
-        itemSpriteIDs.putIfAbsent(Items.WHITE_STAINED_GLASS_PANE, "white");
-        itemSpriteIDs.putIfAbsent(Items.LIGHT_GRAY_STAINED_GLASS_PANE, "light_gray");
-        itemSpriteIDs.putIfAbsent(Items.GRAY_STAINED_GLASS_PANE, "gray");
-        itemSpriteIDs.putIfAbsent(Items.BLACK_STAINED_GLASS_PANE, "black");
-        itemSpriteIDs.putIfAbsent(Items.BROWN_STAINED_GLASS_PANE, "brown");
-        itemSpriteIDs.putIfAbsent(Items.RED_STAINED_GLASS_PANE, "red");
-        itemSpriteIDs.putIfAbsent(Items.ORANGE_STAINED_GLASS_PANE, "orange");
-        itemSpriteIDs.putIfAbsent(Items.YELLOW_STAINED_GLASS_PANE, "yellow");
-        itemSpriteIDs.putIfAbsent(Items.LIME_STAINED_GLASS_PANE, "lime");
-        itemSpriteIDs.putIfAbsent(Items.GREEN_STAINED_GLASS_PANE, "green");
-        itemSpriteIDs.putIfAbsent(Items.CYAN_STAINED_GLASS_PANE, "cyan");
-        itemSpriteIDs.putIfAbsent(Items.LIGHT_BLUE_STAINED_GLASS_PANE, "light_blue");
-        itemSpriteIDs.putIfAbsent(Items.BLUE_STAINED_GLASS_PANE, "blue");
-        itemSpriteIDs.putIfAbsent(Items.PURPLE_STAINED_GLASS_PANE, "purple");
-        itemSpriteIDs.putIfAbsent(Items.MAGENTA_STAINED_GLASS_PANE, "magenta");
-        itemSpriteIDs.putIfAbsent(Items.PINK_STAINED_GLASS_PANE, "pink");
-        return itemSpriteIDs;
     }
 
     private final ModelPart front;

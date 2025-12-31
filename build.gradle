@@ -6,7 +6,18 @@ plugins {
 
 fabricApi {
     configureDataGeneration() {
-        client = true
+        client = false
+    }
+}
+
+loom {
+    splitEnvironmentSourceSets()
+
+    mods {
+        wingcrafter {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
     }
 }
 

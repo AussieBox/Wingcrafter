@@ -1,4 +1,4 @@
-package org.aussiebox.wingcrafter.mixin;
+package org.aussiebox.wingcrafter.client.mixin;
 
 import net.minecraft.client.texture.AtlasManager;
 import org.aussiebox.wingcrafter.client.WingcrafterClient;

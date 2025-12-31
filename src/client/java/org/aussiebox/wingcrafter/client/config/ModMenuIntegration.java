@@ -1,4 +1,4 @@
-package org.aussiebox.wingcrafter.config;
+package org.aussiebox.wingcrafter.client.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;

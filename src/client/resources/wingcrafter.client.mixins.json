@@ -3,10 +3,8 @@
   "minVersion": "0.8",
   "package": "org.aussiebox.wingcrafter.client.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [
-  ],
   "client": [
-    "PlayerMovementMixin"
+    "AtlasManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,4 +1,4 @@
-package org.aussiebox.wingcrafter.client.mixin;
+package org.aussiebox.wingcrafter.mixin;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;

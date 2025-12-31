@@ -1,4 +1,4 @@
-package org.aussiebox.wingcrafter.config;
+package org.aussiebox.wingcrafter.client.config;
 
 import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.controller.IntegerFieldControllerBuilder;
