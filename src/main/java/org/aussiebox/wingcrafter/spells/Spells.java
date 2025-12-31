@@ -21,8 +21,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
-import org.aussiebox.wingcrafter.attach.ModAttachmentTypes;
-import org.aussiebox.wingcrafter.attach.SoulAttachedData;
+import org.aussiebox.wingcrafter.cca.FreezeComponent;
+import org.aussiebox.wingcrafter.cca.SoulComponent;
 import org.aussiebox.wingcrafter.effect.ModEffects;
 
 import java.util.HashMap;
@@ -41,8 +41,8 @@ public class Spells {
     public static void cast(String spellID, ServerPlayerEntity player) {
         fetchSpellSoulInfo();
 
-        SoulAttachedData data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, SoulAttachedData.DEFAULT);
-        player.setAttached(ModAttachmentTypes.SOUL_ATTACH, data.removeSoul(data, spellSoulInfo.get(spellID)));
+        SoulComponent data = SoulComponent.KEY.get(player);
+        data.changeSoul(-spellSoulInfo.get(spellID));
 
         ServerWorld world = player.getEntityWorld();
 
@@ -88,11 +88,9 @@ public class Spells {
             for (Entity entity : entities) {
                 if (entity instanceof LivingEntity livingEntity) {
                     entity.damage(world, damageSource, 5);
-                    data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, SoulAttachedData.DEFAULT);
-                    player.setAttached(ModAttachmentTypes.SOUL_ATTACH, data.removeSoul(data, 5));
+                    data.changeSoul(-5);
                     if (livingEntity.isDead()) {
-                        data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, SoulAttachedData.DEFAULT);
-                        player.setAttached(ModAttachmentTypes.SOUL_ATTACH, data.removeSoul(data, 10));
+                        data.changeSoul(-10);
                     }
                 }
             }
@@ -120,7 +118,8 @@ public class Spells {
             }
             world.playSound(null, BlockPos.ofFloored(player.getEyePos()), SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, SoundCategory.PLAYERS, 0.5F, 1.2F);
             player.setFrozenTicks(100);
-            player.addStatusEffect(new StatusEffectInstance(RegistryEntry.of(ModEffects.FREEZE), 50, 255, true, false, false));
+            FreezeComponent.KEY.get(player).setFreezeTicks(50);
+//            player.addStatusEffect(new StatusEffectInstance(RegistryEntry.of(ModEffects.FREEZE), 50, 255, true, false, false));
         }
         if (Objects.equals(spellID, "flamethrower")) {
             player.addStatusEffect(new StatusEffectInstance(RegistryEntry.of(ModEffects.FLAMEBREATH), 100, 0, true, false, false));

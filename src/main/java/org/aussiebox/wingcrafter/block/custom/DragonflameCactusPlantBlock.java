@@ -5,9 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -128,18 +126,6 @@ public class DragonflameCactusPlantBlock extends HorizontalFacingBlock {
     @Override
     protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
         return ModItems.DRAGONFLAME_CACTUS.getDefaultStack();
-    }
-
-    @Override
-    public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
-        super.afterBreak(world, player, pos, state, blockEntity, tool);
-        if (!world.isClient()) {
-            ItemStack itemStack = ModItems.DRAGONFLAME_CACTUS.getDefaultStack();
-
-            ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);
-            itemEntity.setToDefaultPickupDelay();
-            world.spawnEntity(itemEntity);
-        }
     }
 
     @Override

@@ -1,13 +1,12 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "org.aussiebox.wingcrafter.mixin",
+  "package": "org.aussiebox.wingcrafter.client.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "CopperGolemMixin"
   ],
   "client": [
-    "AtlasManagerMixin"
+    "PlayerMovementMixin"
   ],
   "injectors": {
     "defaultRequire": 1

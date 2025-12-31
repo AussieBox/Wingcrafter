@@ -89,7 +89,7 @@ public class Wingcrafter implements ModInitializer {
                             .getOrThrow(RegistryKeys.DAMAGE_TYPE)
                             .getEntry(SOUL_DAMAGE.getValue()).get()
             );
-            player.damage((ServerWorld) world, damageSource, 1337);
+            player.damage((ServerWorld) world, damageSource, 524);
         });
 
         PayloadTypeRegistry.playC2S().register(UpdateSoulScrollDataPayload.ID, UpdateSoulScrollDataPayload.PACKET_CODEC);

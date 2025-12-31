@@ -4,7 +4,8 @@
   "version": "${version}",
   "name": "Wingcrafter",
   "description": "Bring the world of Wings of Fire into Minecraft, with many interactive and exciting features!",
-  "authors": ["AussieBox (aka. Stargazer)"],
+  "authors": ["Stargazer (aka. AussieBox)"],
+  "contributors": ["MisterPerson22", "SkyNotTheLimit"],
   "contact": {
     "homepage": "https://modrinth.com/project/wingcrafter",
     "sources": "https://github.com/AussieBox/Wingcrafter",
@@ -21,15 +22,25 @@
     "main": [
       "org.aussiebox.wingcrafter.Wingcrafter"
     ],
-    "fabric-datagen": [
-      "org.aussiebox.wingcrafter.client.WingcrafterClient"
-    ],
     "modmenu": [
       "org.aussiebox.wingcrafter.config.ModMenuIntegration"
+    ],
+    "cardinal-components": [
+      "org.aussiebox.wingcrafter.WingcrafterComponents"
+    ]
+  },
+  "custom": {
+    "cardinal-components": [
+      "wingcrafter:freeze",
+      "wingcrafter:soul"
     ]
   },
   "mixins": [
-    "wingcrafter.mixins.json"
+    "wingcrafter.mixins.json",
+    {
+      "config": "wingcrafter.client.mixins.json",
+      "environment": "client"
+    }
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",

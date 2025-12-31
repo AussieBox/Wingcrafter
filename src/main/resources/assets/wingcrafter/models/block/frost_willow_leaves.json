@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "wingcrafter:block/frost_willow_leaves"
+  }
+}

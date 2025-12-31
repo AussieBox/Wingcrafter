@@ -16,6 +16,7 @@ import net.minecraft.util.Identifier;
 import org.aussiebox.wingcrafter.Wingcrafter;
 import org.aussiebox.wingcrafter.network.UpdateSoulScrollDataPayload;
 import org.aussiebox.wingcrafter.screenhandler.SoulScrollSpellSelectScreenHandler;
+import org.aussiebox.wingcrafter.spells.Spells;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -47,6 +48,32 @@ public class SoulScrollSpellSelectScreen extends BaseOwoHandledScreen<FlowLayout
         return spellInfo;
     }
 
+    public Map<String, Text> spellTooltips = new HashMap<>();
+    public Map<String, Text> fetchSpellTooltips() {
+        Map<String, Integer> soulPenalties = Spells.fetchSpellSoulInfo();
+        spellTooltips.put("frostbeam",
+                Text.translatable("spell.wingcrafter.frostbeam")
+                        .withColor(0xFF91F8FF)
+                    .append("\n\nFreeze a 3x3x3 block area in front of you.\nAny entities hit by the beam will take\n2.5 hearts of damage.")
+                        .withColor(0xFFAAAAAA)
+                    .append("\n\nSoul Penalty: ")
+                        .withColor(0xFF91C4FF)
+                    .append(soulPenalties.get("frostbeam") + "+")
+                        .withColor(0xFFFFFFFF)
+        );
+        spellTooltips.put("flamethrower",
+                Text.translatable("spell.wingcrafter.flamethrower")
+                        .withColor(0xFFFC8403)
+                    .append("\n\nBreathe fire for a short period of time.")
+                        .withColor(0xFFAAAAAA)
+                    .append("\n\nSoul Penalty: ")
+                        .withColor(0xFF91C4FF)
+                    .append(String.valueOf(soulPenalties.get("flamethrower")))
+                        .withColor(0xFFFFFFFF)
+        );
+        return spellTooltips;
+    }
+
     private final GridLayout buttonGrid = (GridLayout) Containers.grid(Sizing.content(), Sizing.content(), 1000000, 9)
             .padding(Insets.of(10))
             .surface(Surface.DARK_PANEL)
@@ -69,6 +96,8 @@ public class SoulScrollSpellSelectScreen extends BaseOwoHandledScreen<FlowLayout
     @Override
     protected void build(FlowLayout rootComponent) {
         fetchSpellInfo();
+        fetchSpellTooltips();
+
         setSelectionFlow(selectionFlow);
         setButtonGrid(buttonGrid);
         rootComponent.surface(Surface.VANILLA_TRANSLUCENT)
@@ -143,6 +172,7 @@ public class SoulScrollSpellSelectScreen extends BaseOwoHandledScreen<FlowLayout
                                     32,
                                     32
                             ))
+                            .tooltip(spellTooltips.get(id))
                             .sizing(Sizing.fixed(32))
                             .margins(Insets.of(5))
                             .id("spell_" + id),

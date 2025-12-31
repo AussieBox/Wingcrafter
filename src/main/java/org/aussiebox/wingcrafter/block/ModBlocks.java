@@ -1,12 +1,13 @@
 package org.aussiebox.wingcrafter.block;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.MapColor;
+import net.minecraft.block.*;
+import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.particle.TintedParticleEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -14,10 +15,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import org.aussiebox.wingcrafter.Wingcrafter;
-import org.aussiebox.wingcrafter.block.custom.DragonflameCactusBlock;
-import org.aussiebox.wingcrafter.block.custom.DragonflameCactusPlantBlock;
-import org.aussiebox.wingcrafter.block.custom.FireglobeBlock;
-import org.aussiebox.wingcrafter.block.custom.ScrollBlock;
+import org.aussiebox.wingcrafter.block.custom.*;
 import org.aussiebox.wingcrafter.item.ModItems;
 
 import java.util.function.Function;
@@ -65,6 +63,29 @@ public class ModBlocks {
                     .sounds(BlockSoundGroup.WOOL)
                     .pistonBehavior(PistonBehavior.DESTROY)
                     .nonOpaque(),
+            true
+    );
+
+    public static final Block FROST_WILLOW_LOG = register(
+            "frost_willow_log",
+            TranslucentPillarBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.LIGHT_BLUE)
+                    .hardness(2)
+                    .resistance(2)
+                    .slipperiness(0.98F)
+                    .strength(2.0F)
+                    .sounds(BlockSoundGroup.GLASS)
+                    .instrument(NoteBlockInstrument.CHIME)
+                    .nonOpaque(),
+            true
+    );
+
+    public static final Block FROST_WILLOW_LEAVES = register(
+            "frost_willow_leaves",
+            (settings) -> new UntintedParticleLeavesBlock(0.01F, TintedParticleEffect.create(ParticleTypes.TINTED_LEAVES, 8573695), settings),
+            Blocks.createLeavesSettings(BlockSoundGroup.GRASS)
+                    .slipperiness(0.971F),
             true
     );
 

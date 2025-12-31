@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "wingcrafter:block/frost_willow_log_top",
+    "side": "wingcrafter:block/frost_willow_log"
+  }
+}

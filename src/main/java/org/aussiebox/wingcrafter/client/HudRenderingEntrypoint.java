@@ -14,6 +14,8 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlockStateComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.HitResult;
@@ -21,10 +23,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.world.World;
 import org.aussiebox.wingcrafter.Wingcrafter;
-import org.aussiebox.wingcrafter.attach.ModAttachmentTypes;
-import org.aussiebox.wingcrafter.attach.SoulAttachedData;
 import org.aussiebox.wingcrafter.block.ModBlocks;
 import org.aussiebox.wingcrafter.block.blockentities.ScrollBlockEntity;
+import org.aussiebox.wingcrafter.cca.SoulComponent;
 import org.aussiebox.wingcrafter.config.ClientConfig;
 import org.aussiebox.wingcrafter.item.ModItems;
 import org.aussiebox.wingcrafter.network.SoulKillPayload;
@@ -64,17 +65,23 @@ public class HudRenderingEntrypoint implements ClientModInitializer {
     public static final Identifier BACKGROUND = Identifier.of(Wingcrafter.MOD_ID, "textures/soul/background.png");
     public static final Identifier PROGRESS = Identifier.of(Wingcrafter.MOD_ID, "textures/soul/progress.png");
 
+    public static final Identifier CRACKS_1 = Identifier.of(Wingcrafter.MOD_ID, "textures/soul/glass/cracks_1.png");
+    public static final Identifier CRACKS_2 = Identifier.of(Wingcrafter.MOD_ID, "textures/soul/glass/cracks_2.png");
+    public static final Identifier CRACKS_3 = Identifier.of(Wingcrafter.MOD_ID, "textures/soul/glass/cracks_3.png");
+    public static final Identifier CRACKS_4 = Identifier.of(Wingcrafter.MOD_ID, "textures/soul/glass/cracks_4.png");
+
     @Override
     public void onInitializeClient() {
         HudElementRegistry.attachElementBefore(VanillaHudElements.FOOD_BAR, Identifier.of(Wingcrafter.MOD_ID, "soul_bar"), HudRenderingEntrypoint::renderSoul);
+        HudElementRegistry.attachElementBefore(VanillaHudElements.CROSSHAIR, Identifier.of(Wingcrafter.MOD_ID, "soul_glass_overlay"), HudRenderingEntrypoint::renderSoulGlassOverlay);
         HudElementRegistry.attachElementBefore(VanillaHudElements.CROSSHAIR, Identifier.of(Wingcrafter.MOD_ID, "scroll_tooltip"), HudRenderingEntrypoint::renderScroll);
     }
 
     private static void renderSoul(DrawContext context, RenderTickCounter tickCounter) {
         PlayerEntity player = MinecraftClient.getInstance().player;
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-        SoulAttachedData data = player.getAttachedOrSet(ModAttachmentTypes.SOUL_ATTACH, SoulAttachedData.DEFAULT);
-        int soul = data.soul();
+        SoulComponent data = SoulComponent.KEY.get(player);
+        int soul = data.getSoul();
         int width = context.getScaledWindowWidth();
         int height = context.getScaledWindowHeight();
 
@@ -85,7 +92,7 @@ public class HudRenderingEntrypoint implements ClientModInitializer {
                     RenderPipelines.GUI_TEXTURED,
                     BACKGROUND,
                     (int) ((double) width/2+12.5),
-                    (int) ((double) height-55),
+                    (int) ((double) height-52),
                     (float) 0,
                     (float) 0,
                     75,
@@ -97,7 +104,7 @@ public class HudRenderingEntrypoint implements ClientModInitializer {
                     RenderPipelines.GUI_TEXTURED,
                     PROGRESS,
                     (int) ((double) width/2+23.5),
-                    (int) ((double) height-55),
+                    (int) ((double) height-52),
                     (float) 0,
                     (float) 0,
                     progressEquation,
@@ -238,11 +245,51 @@ public class HudRenderingEntrypoint implements ClientModInitializer {
             // My life is full of pain, suffering, and rainbows.
 
             lastVisibility = true;
-            lastSoul = data.soul();
+            lastSoul = data.getSoul();
         } else {
             lastVisibility = false;
-            lastSoul = data.soul();
+            lastSoul = data.getSoul();
         }
+    }
+
+    private static void renderSoulGlassOverlay(DrawContext context, RenderTickCounter tickCounter) {
+        PlayerEntity player = MinecraftClient.getInstance().player;
+        SoulComponent data = SoulComponent.KEY.get(player);
+        int soul = data.getSoul();
+
+        if (soul <= 400) {
+            drawOverlay(context, CRACKS_1);
+        }
+        if (soul <= 300) {
+            drawOverlay(context, CRACKS_2);
+        }
+        if (soul <= 200) {
+            drawOverlay(context, CRACKS_3);
+        }
+        if (soul <= 100) {
+            drawOverlay(context, CRACKS_4);
+        }
+
+        if (soul <= 400 && lastSoul > 400 || soul <= 300 && lastSoul > 300 || soul <= 200 && lastSoul > 200 || soul <= 100 && lastSoul > 100) {
+            player.playSoundToPlayer(SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.UI, 1.0F, 1.2F);
+        }
+    }
+
+    private static void drawOverlay(DrawContext context, Identifier texture) {
+        context.drawTexture(
+                RenderPipelines.GUI_TEXTURED,
+                texture,
+                0,
+                0,
+                0.0F,
+                0.0F,
+                context.getScaledWindowWidth(),
+                context.getScaledWindowHeight(),
+                context.getScaledWindowWidth(),
+                context.getScaledWindowHeight(),
+                context.getScaledWindowWidth(),
+                context.getScaledWindowHeight()
+        );
     }
 
     private static void renderScroll(DrawContext context, RenderTickCounter tickCounter) {

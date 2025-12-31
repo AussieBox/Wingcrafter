@@ -1,6 +1,7 @@
 plugins {
     id 'fabric-loom' version '1.12-SNAPSHOT'
     id 'maven-publish'
+    id 'io.freefair.lombok' version '9.0.0'
 }
 
 fabricApi {
@@ -24,16 +25,24 @@ repositories {
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
     maven {
-        name 'Xander Maven'
-        url 'https://maven.isxander.dev/releases'
+        name = "Xander Maven"
+        url = "https://maven.isxander.dev/releases"
     }
     maven {
-        name "Terraformers"
-        url "https://maven.terraformersmc.com/"
+        name = "Terraformers"
+        url = "https://maven.terraformersmc.com/"
     }
     maven {
-        name "Wisp Forest"
-        url "https://maven.wispforest.io/releases/"
+        name = "Wisp Forest"
+        url = "https://maven.wispforest.io/releases/"
+    }
+    maven {
+        name = "Ladysnake Mods"
+        url = "https://maven.ladysnake.org/releases"
+    }
+    maven {
+        name = "DevAuth"
+        url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1"
     }
 }
 
@@ -47,6 +56,12 @@ dependencies {
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
     modImplementation "io.wispforest:owo-lib:${project.owo_version}"
     include "io.wispforest:owo-sentinel:${project.owo_version}"
+    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-base:${project.cca_version}"
+    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
+    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-world:${project.cca_version}"
+    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-scoreboard:${project.cca_version}"
+
+    modRuntimeOnly("me.djtheredstoner:DevAuth-${devauth_module}:${devauth_version}")
 }
 
 processResources {

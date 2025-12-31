@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "wingcrafter:dragonflame_cactus",
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "wingcrafter:dragonflame_cactus_fuse": 20
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

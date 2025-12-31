@@ -7,8 +7,6 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.BlockRenderLayer;
@@ -27,8 +25,6 @@ import org.aussiebox.wingcrafter.client.screen.SoulScrollSpellSelectScreen;
 import org.aussiebox.wingcrafter.component.ModDataComponentTypes;
 import org.aussiebox.wingcrafter.component.SoulScrollSpells;
 import org.aussiebox.wingcrafter.config.ClientConfig;
-import org.aussiebox.wingcrafter.datagen.AdvancementProvider;
-import org.aussiebox.wingcrafter.datagen.ModelProvider;
 import org.aussiebox.wingcrafter.entity.ModEntities;
 import org.aussiebox.wingcrafter.entity.model.DragonflameCactusEntityModel;
 import org.aussiebox.wingcrafter.entity.render.DragonflameCactusEntityRenderer;
@@ -37,7 +33,7 @@ import org.aussiebox.wingcrafter.item.ModItems;
 import org.aussiebox.wingcrafter.network.CastSpellPayload;
 import org.lwjgl.glfw.GLFW;
 
-public class WingcrafterClient implements ClientModInitializer, DataGeneratorEntrypoint {
+public class WingcrafterClient implements ClientModInitializer {
 
     public static final Identifier FIREGLOBE_GLASS_ATLAS_PATH = Identifier.of(Wingcrafter.MOD_ID, "textures/atlas/fireglobe_glass.png");
     public static final Identifier FIREGLOBE_GLASS_ATLAS_DEFINITION = Identifier.of(Wingcrafter.MOD_ID, "fireglobe_glass");
@@ -125,17 +121,12 @@ public class WingcrafterClient implements ClientModInitializer, DataGeneratorEnt
             BlockEntityRendererFactories.register(ModBlockEntities.FIREGLOBE_BLOCK_ENTITY, FireglobeBlockEntityRenderer::new);
         BlockRenderLayerMap.putBlock(ModBlocks.DRAGONFLAME_CACTUS_PLANT, BlockRenderLayer.TRANSLUCENT);
         BlockRenderLayerMap.putBlock(ModBlocks.DRAGONFLAME_CACTUS_BLOCK, BlockRenderLayer.TRANSLUCENT);
+        BlockRenderLayerMap.putBlock(ModBlocks.FROST_WILLOW_LOG, BlockRenderLayer.TRANSLUCENT);
+        BlockRenderLayerMap.putBlock(ModBlocks.FROST_WILLOW_LEAVES, BlockRenderLayer.TRANSLUCENT);
 
         EntityModelLayerRegistry.registerModelLayer(FireglobeBlockEntityRenderer.FIREGLOBE_SIDES, FireglobeBlockEntityRenderer::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(DragonflameCactusEntityModel.CACTUS, DragonflameCactusEntityModel::getTexturedModelData);
 
         EntityRendererFactories.register(ModEntities.DragonflameCactusEntityType, DragonflameCactusEntityRenderer::new);
-    }
-
-    @Override
-    public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
-        FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
-        pack.addProvider(ModelProvider::new);
-        pack.addProvider(AdvancementProvider::new);
     }
 }
