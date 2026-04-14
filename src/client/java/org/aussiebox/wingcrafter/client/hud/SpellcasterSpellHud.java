@@ -54,7 +54,6 @@ public class SpellcasterSpellHud {
         xPositions.put(3, new Integer[]{centerX-20, centerX, centerX+20});
         xPositions.put(4, new Integer[]{centerX-40, centerX-20, centerX+20, centerX+40});
         xPositions.put(5, new Integer[]{centerX-40, centerX-20, centerX, centerX+20, centerX+40});
-        // im too stupid to softcode this, sorry. just be glad im not quite stupid enough to ask chatgpt instead
 
         int i;
         boolean selected;
@@ -99,8 +98,8 @@ public class SpellcasterSpellHud {
                     context.fill(posX, MathHelper.lerp(delta, posY+16, posY), posX+16, posY+16, 0x69FFFFFF);
 
                     // Text rendering is still in-dev (TODO: finish lol)
-                    int textX = (int) (posX+8-(textRenderer.getWidth(timer)/4));
-                    int textY = (int) (posY+8-(textRenderer.fontHeight/4));
+                    int textX = posX+8-(textRenderer.getWidth(timer)/4);
+                    int textY = posY+8-(textRenderer.fontHeight/4);
 
                     context.getMatrices().pushMatrix();
                     context.getMatrices().scale(0.5F);

@@ -132,8 +132,9 @@ public class ScrollScreen extends BaseOwoHandledScreen<FlowLayout, ScrollBlockSc
             LabelComponent label = Components.label(text);
             label.horizontalSizing(Sizing.fill(100));
             label.verticalSizing(Sizing.content());
+            ScrollContainer<LabelComponent> scroll = Containers.verticalScroll(Sizing.fill(), Sizing.fill(), label);
 
-            flow.child(label);
+            flow.child(scroll);
         }
 
         ScrollContainer<FlowLayout> container = Containers.verticalScroll(Sizing.fill(80), Sizing.fill(60), flow);
