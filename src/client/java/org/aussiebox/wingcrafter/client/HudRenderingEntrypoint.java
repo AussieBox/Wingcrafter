@@ -22,11 +22,11 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.world.World;
+import org.aussiebox.fzzy.ModConfig;
 import org.aussiebox.wingcrafter.Wingcrafter;
 import org.aussiebox.wingcrafter.block.ModBlocks;
 import org.aussiebox.wingcrafter.block.blockentities.ScrollBlockEntity;
 import org.aussiebox.wingcrafter.cca.SoulComponent;
-import org.aussiebox.wingcrafter.client.config.ClientConfig;
 import org.aussiebox.wingcrafter.client.hud.SpellcasterSpellHud;
 import org.aussiebox.wingcrafter.item.ModItems;
 import org.aussiebox.wingcrafter.network.SoulKillPayload;
@@ -117,7 +117,7 @@ public class HudRenderingEntrypoint implements ClientModInitializer {
                     12
             );
 
-            if (ClientConfig.displaySoulChanges) {
+            if (ModConfig.clientConfig.rendering.displaySoulChanges) {
                 if (soul > lastSoul) {
                     if (changeFadeIn == 0 && changeTime == 0 && changeFadeOut == 0) {
                         change = soul - lastSoul;
@@ -143,7 +143,7 @@ public class HudRenderingEntrypoint implements ClientModInitializer {
                 }
             }
 
-            if (ClientConfig.displaySoulDialogue) {
+            if (ModConfig.clientConfig.rendering.displaySoulDialogue) {
                 if (soul <= 750 && lastSoul > 750) {
                     if (warningFadeIn == 0 && warningTime == 0 && warningFadeOut == 0) {
                         warningText = Text.literal((String) Array.get(soulWarning750, ThreadLocalRandom.current().nextInt(0, soulWarning750.length)));
@@ -198,10 +198,10 @@ public class HudRenderingEntrypoint implements ClientModInitializer {
             }
 
             int changeX = (int) ((int) ((double) width/2+12.5) - ((double) textRenderer.getWidth(changeText) / 2) + 37.5);
-            int changeY = (int) ((double) height-55) - 10 + ClientConfig.soulChangeYModifier;
+            int changeY = (int) ((double) height-55) - 10 + ModConfig.clientConfig.rendering.soulChangeYModifier;
 
             int warningX = width/2 - (textRenderer.getWidth(warningText) / 2);
-            int warningY = height/10*7 - (textRenderer.fontHeight / 2) + ClientConfig.soulDialogueYModifier;
+            int warningY = height/10*7 - (textRenderer.fontHeight / 2) + ModConfig.clientConfig.rendering.soulDialogueYModifier;
 
             if (change >= 0) {
                 changeText = Text.of("+" + change);
@@ -350,7 +350,7 @@ public class HudRenderingEntrypoint implements ClientModInitializer {
                                 scrollLineCountText = Text.empty();
                             }
 
-                            if (ClientConfig.displayScrollInfoRequiresSneak) {
+                            if (ModConfig.clientConfig.rendering.displayScrollInfoRequiresSneak) {
                                 if (player.isSneaking()) {
                                     context.drawText(textRenderer, scrollTitle, scrollTitleX, scrollTitleY, 0xFFFFFFFF, true);
                                     context.drawText(textRenderer, scrollLineCountText, scrollLineCountX, scrollTitleY + 11, 0xFFAAAAAA, true);

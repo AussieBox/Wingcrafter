@@ -71,28 +71,24 @@
   "tag.item.wingcrafter.templates": "Upgrade Templates",
   "tag.item.wingcrafter.tools": "Tools",
 
-  "wingcrafter.config.client.tab.rendering": "Rendering",
-      "wingcrafter.config.client.tab.rendering.tooltip": "Configure rendering-related Wingcrafter features.",
+  "wingcrafter.client": "Client",
+      "wingcrafter.client.prefix": "Client-sided Wingcrafter config.",
+  "wingcrafter.server": "Server",
+      "wingcrafter.server.prefix": "Server-sided Wingcrafter config. Can only be modified by operators.",
 
-      "wingcrafter.config.client.rendering.group.soul_change": "Soul Change",
-          "wingcrafter.config.client.rendering.group.soul_change.tooltip": "Configure how the Soul change notifier renders.\n\nSoul change appears above the soul meter when your soul meter is modified.",
-
-          "wingcrafter.config.client.rendering.soul_change.render": "Render Text",
-              "wingcrafter.config.client.rendering.soul_change.render.tooltip": "Whether the mod should render the Soul change notifier.",
-          "wingcrafter.config.client.rendering.soul_change.y_modifier": "Y Modifier",
-              "wingcrafter.config.client.rendering.soul_change.y_modifier.tooltip": "The number of pixels (on the Y axis) that the Soul change text is shifted.",
-
-      "wingcrafter.config.client.rendering.group.soul_dialogue": "Soul Dialogue",
-          "wingcrafter.config.client.rendering.group.soul_dialogue.tooltip": "Configure how Soul dialogue renders.\n\nSoul dialogue appears when your soul falls below a certain threshold.",
-
-          "wingcrafter.config.client.rendering.soul_dialogue.render": "Render Dialogue",
-              "wingcrafter.config.client.rendering.soul_dialogue.render.tooltip": "Whether the mod should render the Soul dialogue lines.",
-          "wingcrafter.config.client.rendering.soul_dialogue.y_modifier": "Y Modifier",
-              "wingcrafter.config.client.rendering.soul_dialogue.y_modifier.tooltip": "The number of pixels (on the Y axis) that the Soul dialogue lines are shifted.",
-
-  "wingcrafter.config.client.rendering.group.scrolls": "Scrolls",
-      "wingcrafter.config.client.rendering.group.scrolls.tooltip": "Configure how Scroll-related features render.",
-
-      "wingcrafter.config.client.rendering.scrolls.require_sneak": "Scroll Information Requires Sneaking",
-          "wingcrafter.config.client.rendering.scrolls.require_sneak.tooltip": "Whether information about the scroll you're looking at requires you to be sneaking to render."
+  "wingcrafter.client.rendering": "Rendering",
+      "wingcrafter.client.rendering.prefix": "Config options related to the rendering of blocks, items, and text.",
+      "wingcrafter.client.rendering.soul": "Soul",
+          "wingcrafter.client.rendering.soul_changes": "Soul Changes",
+              "wingcrafter.client.rendering.displaySoulChanges": "Display Soul Changes",
+                  "wingcrafter.client.rendering.displaySoulChanges.desc": "If enabled, a counter will appear above the Soul Meter when its value changes.",
+              "wingcrafter.client.rendering.soulChangeYModifier": "Y Modifier",
+                  "wingcrafter.client.rendering.soulChangeYModifier.desc": "The number of pixels (on the Y axis) that the Soul change text is shifted.",
+          "wingcrafter.client.rendering.soul_dialogue": "Soul Dialogue",
+              "wingcrafter.client.rendering.displaySoulDialogue": "Display Soul Dialogue",
+                  "wingcrafter.client.rendering.displaySoulDialogue.desc": "If enabled, randomly-chosen lines of dialogue will appear above the hotbar when your Soul reaches below certain thresholds.",
+              "wingcrafter.client.rendering.soulDialogueYModifier": "Y Modifier",
+                  "wingcrafter.client.rendering.soulDialogueYModifier.desc": "The number of pixels (on the Y axis) that the Soul dialogue text is shifted.",
+      "wingcrafter.client.rendering.displayScrollInfoRequiresSneak": "Scroll Information Requires Sneaking",
+          "wingcrafter.client.rendering.displayScrollInfoRequiresSneak.desc": "If enabled, information about the scroll you're looking at will only render if you are sneaking."
 }

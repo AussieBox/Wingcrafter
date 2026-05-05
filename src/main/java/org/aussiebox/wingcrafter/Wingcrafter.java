@@ -21,6 +21,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
+import org.aussiebox.fzzy.ModConfig;
 import org.aussiebox.wingcrafter.block.ModBlockEntities;
 import org.aussiebox.wingcrafter.block.ModBlocks;
 import org.aussiebox.wingcrafter.block.blockentities.ScrollBlockEntity;
@@ -134,6 +135,7 @@ public class Wingcrafter implements ModInitializer {
         ModBlocks.registerModBlocks();
         ModEffects.registerStatusEffects();
         ModEntities.registerModEntities();
+        ModConfig.init();
 
         GenerateFeatures.generate();
     }

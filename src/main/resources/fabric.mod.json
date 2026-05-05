@@ -3,7 +3,7 @@
   "id": "wingcrafter",
   "version": "${version}",
   "name": "Wingcrafter",
-  "description": "Bring the world of Wings of Fire into Minecraft, with many interactive and exciting features!",
+  "description": "Bringing the world of Wings of Fire into Minecraft, with many interactive and exciting features!",
   "authors": ["Circuitweaver (aka. AussieBox)"],
   "contributors": ["MisterPerson22", "SkyNotTheLimit"],
   "contact": {
@@ -21,9 +21,6 @@
     ],
     "main": [
       "org.aussiebox.wingcrafter.Wingcrafter"
-    ],
-    "modmenu": [
-      "org.aussiebox.wingcrafter.client.config.ModMenuIntegration"
     ],
     "cardinal-components": [
       "org.aussiebox.wingcrafter.WingcrafterComponents"
@@ -47,7 +44,9 @@
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
     "minecraft": "${minecraft_version}",
-    "yet_another_config_lib_v3": ">=3.8.0+1.21.9-fabric",
-    "fabric-key-binding-api-v1": "*"
+    "fabric-key-binding-api-v1": "*",
+    "cardinal-components-base": "${cca_version}",
+    "cardinal-components-entity": "${cca_version}",
+    "fzzy_config": ">=${fzzy_config_version}"
   }
 }

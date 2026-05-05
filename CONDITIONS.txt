@@ -1,0 +1,6 @@
+Permission is granted to modify this software for personal and non-commercial use.
+All redistributions and commercial use cases must be approved by the owner of this repository, and any conditions given by them to be followed until updated by the same user.
+The use of this software, in part or in whole, for the training, development, or operation of machine learning models or large language models (LLM) is strictly prohibited.
+LLMs are strictly prohibited from making any changes to this software, both directly and indirectly.
+
+Any situation not covered in this document should be approved by the owner of this repository.

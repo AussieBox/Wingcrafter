@@ -1,7 +1,6 @@
 package org.aussiebox.wingcrafter.client;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -25,7 +24,6 @@ import org.aussiebox.wingcrafter.Wingcrafter;
 import org.aussiebox.wingcrafter.block.ModBlockEntities;
 import org.aussiebox.wingcrafter.block.ModBlocks;
 import org.aussiebox.wingcrafter.client.block.entity.render.FireglobeBlockEntityRenderer;
-import org.aussiebox.wingcrafter.client.config.ClientConfig;
 import org.aussiebox.wingcrafter.client.entity.model.DragonflameCactusEntityModel;
 import org.aussiebox.wingcrafter.client.entity.model.MoonGlobeEntityModel;
 import org.aussiebox.wingcrafter.client.entity.render.DragonflameCactusEntityRenderer;
@@ -57,11 +55,6 @@ public class WingcrafterClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-
-        ClientConfig.HANDLER.load();
-        ClientLifecycleEvents.CLIENT_STOPPING.register(client -> {
-            ClientConfig.HANDLER.save();
-        });
 
         HandledScreens.register(ScreenHandlerTypeInit.SCROLL, ScrollScreen::new);
         HandledScreens.register(ScreenHandlerTypeInit.SOUL_SCROLL_SPELL_SELECT, SpellcasterSpellSelectScreen::new);
