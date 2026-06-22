@@ -1,6 +1,5 @@
 package org.aussiebox.wingcrafter.block;
 
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
@@ -16,7 +15,6 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import org.aussiebox.wingcrafter.Wingcrafter;
 import org.aussiebox.wingcrafter.block.custom.*;
-import org.aussiebox.wingcrafter.item.ModItems;
 
 import java.util.function.Function;
 
@@ -123,13 +121,8 @@ public class ModBlocks {
         return RegistryKey.of(RegistryKeys.ITEM, Identifier.of(Wingcrafter.MOD_ID, name));
     }
 
-    public static void registerModBlocks() {
-        Wingcrafter.LOGGER.info("Registering mod blocks for " + Wingcrafter.MOD_ID);
+    public static void init() {
 
-        ItemGroupEvents.modifyEntriesEvent(ModItems.WINGCRAFTER_KEY).register((itemGroup) -> {
-            // itemGroup.add(ModBlocks.SCROLL.asItem());
-                // This is done in ModItems now.
-        });
     }
 
 }

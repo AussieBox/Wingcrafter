@@ -11,11 +11,9 @@ import org.ladysnake.cca.api.v3.component.ComponentRegistry;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 
 public class SoulComponent implements AutoSyncedComponent {
-    public static final ComponentKey<SoulComponent> KEY =
-            ComponentRegistry.getOrCreate(Identifier.of(Wingcrafter.MOD_ID, "soul"), SoulComponent.class);
+    public static final ComponentKey<SoulComponent> KEY = ComponentRegistry.getOrCreate(Identifier.of(Wingcrafter.MOD_ID, "soul"), SoulComponent.class);
 
-    @Getter
-    private int soul = 1000;
+    @Getter private int soul = 1000;
 
     private final PlayerEntity player;
 

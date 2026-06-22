@@ -38,13 +38,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class DragonflameCactusBlock extends Block {
     public static final MapCodec<DragonflameCactusBlock> CODEC = createCodec(DragonflameCactusBlock::new);
     public static final IntProperty AGE = Properties.AGE_15;
-    public static final int MAX_AGE = 15;
     private static final VoxelShape OUTLINE_SHAPE = Block.createColumnShape(14.0, 0.0, 16.0);
     private static final VoxelShape COLLISION_SHAPE = Block.createColumnShape(14.0, 0.0, 15.0);
-    private static final int TALL_THRESHOLD = 3;
-    private static final int FLOWER_GROWTH_AGE = 8;
-    private static final double FLOWER_CHANCE_WHEN_SHORT = 0.1;
-    private static final double FLOWER_CHANCE_WHEN_TALL = 0.25;
 
     @Override
     public MapCodec<DragonflameCactusBlock> getCodec() {
@@ -73,7 +68,7 @@ public class DragonflameCactusBlock extends Block {
         BlockPos blockPos = pos.up();
         if (world.isAir(blockPos)) {
             int i = 1;
-            int j = (Integer)state.get(AGE);
+            int j = state.get(AGE);
 
             while (world.getBlockState(pos.down(i)).isOf(this)) {
                 if (++i == 3 && j == 15) {

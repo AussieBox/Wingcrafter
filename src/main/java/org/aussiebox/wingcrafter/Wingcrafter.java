@@ -1,6 +1,7 @@
 package org.aussiebox.wingcrafter;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -18,6 +19,7 @@ import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
@@ -28,6 +30,7 @@ import org.aussiebox.wingcrafter.block.blockentities.ScrollBlockEntity;
 import org.aussiebox.wingcrafter.component.ModDataComponentTypes;
 import org.aussiebox.wingcrafter.effect.ModEffects;
 import org.aussiebox.wingcrafter.entity.ModEntities;
+import org.aussiebox.wingcrafter.entity.MoonGlobeEntity;
 import org.aussiebox.wingcrafter.init.ScreenHandlerTypeInit;
 import org.aussiebox.wingcrafter.item.ModItems;
 import org.aussiebox.wingcrafter.mixin.TreeDecoratorTypeInvoker;
@@ -144,15 +147,32 @@ public class Wingcrafter implements ModInitializer {
             }
         });
 
+        UseEntityCallback.EVENT.register(((player, world, hand, entity, hitResult) -> {
+            if (entity instanceof MoonGlobeEntity globe) {
+                PlayerEntity following = globe.getFollowing();
+
+                if (following == null) {
+                    globe.setFollowing(player);
+                    return ActionResult.SUCCESS;
+                }
+                else if (following.getUuid() == player.getUuid()) {
+                    globe.setFollowing(null);
+                    return ActionResult.SUCCESS;
+                }
+            }
+
+            return ActionResult.PASS;
+        }));
+
         // initialising moonbli...
 
         ScreenHandlerTypeInit.init();
-        ModItems.registerModItems();
-        ModBlockEntities.registerModBlockEntities();
-        ModDataComponentTypes.registerDataComponentTypes();
-        ModBlocks.registerModBlocks();
+        ModItems.init();
+        ModBlockEntities.init();
+        ModDataComponentTypes.init();
+        ModBlocks.init();
         ModEffects.registerStatusEffects();
-        ModEntities.registerModEntities();
+        ModEntities.init();
         ModConfig.init();
 
         GenerateFeatures.generate();

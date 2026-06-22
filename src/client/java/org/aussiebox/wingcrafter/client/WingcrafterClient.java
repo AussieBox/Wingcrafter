@@ -70,8 +70,8 @@ public class WingcrafterClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(FireglobeBlockEntityRenderer.FIREGLOBE_SIDES, FireglobeBlockEntityRenderer::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(DragonflameCactusEntityModel.CACTUS, DragonflameCactusEntityModel::getTexturedModelData);
 
-        EntityRendererFactories.register(ModEntities.DragonflameCactusEntityType, DragonflameCactusEntityRenderer::new);
-        EntityRendererFactories.register(ModEntities.MoonGlobeEntityType, MoonGlobeEntityRenderer::new);
+        EntityRendererFactories.register(ModEntities.DRAGONFLAME_CACTUS, DragonflameCactusEntityRenderer::new);
+        EntityRendererFactories.register(ModEntities.MOON_GLOBE, MoonGlobeEntityRenderer::new);
 
         registerKeybinds();
         registerItemTooltips();

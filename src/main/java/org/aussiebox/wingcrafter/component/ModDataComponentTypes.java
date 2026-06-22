@@ -50,7 +50,7 @@ public class ModDataComponentTypes {
                 builderOperator.apply(ComponentType.builder()).build());
     }
 
-    public static void registerDataComponentTypes() {
-        Wingcrafter.LOGGER.info("Registering ComponentTypes for mod " + Wingcrafter.MOD_ID);
+    public static void init() {
+
     }
 }

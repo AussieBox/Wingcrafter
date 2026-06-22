@@ -29,7 +29,7 @@ public class DragonflameCactusEntity extends PersistentProjectileEntity {
     }
 
     public DragonflameCactusEntity(World world, PlayerEntity player) {
-        super(ModEntities.DragonflameCactusEntityType, player, world, ModItems.DRAGONFLAME_CACTUS.getDefaultStack(), null);
+        super(ModEntities.DRAGONFLAME_CACTUS, player, world, ModItems.DRAGONFLAME_CACTUS.getDefaultStack(), null);
     }
 
 

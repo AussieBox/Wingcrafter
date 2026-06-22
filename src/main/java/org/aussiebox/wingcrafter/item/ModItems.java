@@ -68,9 +68,7 @@ public class ModItems {
         return item;
     }
 
-    public static void registerModItems() {
-        Wingcrafter.LOGGER.info("Registering mod items for " + Wingcrafter.MOD_ID);
-
+    public static void init() {
         Registry.register(Registries.ITEM_GROUP, WINGCRAFTER_KEY, WINGCRAFTER);
         ItemGroupEvents.modifyEntriesEvent(WINGCRAFTER_KEY).register(itemGroup -> {
             itemGroup.add(ModBlocks.SCROLL.asItem());

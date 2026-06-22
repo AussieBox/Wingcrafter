@@ -13,10 +13,6 @@ import org.aussiebox.wingcrafter.block.blockentities.ScrollBlockEntity;
 
 public class ModBlockEntities {
 
-    public static void registerModBlockEntities() {
-        Wingcrafter.LOGGER.info("Registering mod block entities for " + Wingcrafter.MOD_ID);
-    }
-
     public static final BlockEntityType<ScrollBlockEntity> SCROLL_BLOCK_ENTITY =
             register("scroll", ScrollBlockEntity::new, ModBlocks.SCROLL);
 
@@ -30,5 +26,9 @@ public class ModBlockEntities {
     ) {
         Identifier id = Identifier.of(Wingcrafter.MOD_ID, name);
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, id, FabricBlockEntityTypeBuilder.<T>create(entityFactory, blocks).build());
+    }
+
+    public static void init() {
+
     }
 }

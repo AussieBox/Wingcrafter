@@ -8,6 +8,10 @@ import software.bernie.geckolib.renderer.base.GeoRenderState;
 import java.util.Map;
 
 public class MoonGlobeEntityRenderState extends EntityRenderState implements GeoRenderState {
+    public MoonGlobeEntityRenderState() {
+        this.outlineColor = 0xFFDDFFFF;
+    }
+
     @Override
     public <D> void addGeckolibData(DataTicket<D> dataTicket, @Nullable D data) {
 
