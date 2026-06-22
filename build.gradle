@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.13-SNAPSHOT'
+    id 'fabric-loom' version '1.16-SNAPSHOT'
     id 'maven-publish'
     id 'io.freefair.lombok' version '9.0.0'
 }
@@ -44,6 +44,13 @@ repositories {
         url = "https://maven.terraformersmc.com/"
     }
     maven {
+        name = 'GeckoLib'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content {
+            includeGroup("software.bernie.geckolib")
+        }
+    }
+    maven {
         name = "Wisp Forest"
         url = "https://maven.wispforest.io/releases/"
     }
@@ -67,6 +74,7 @@ dependencies {
     modImplementation "me.fzzyhmstrs:fzzy_config:${project.fzzy_config_version}"
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
     modImplementation "io.wispforest:owo-lib:${project.owo_version}"
+    modImplementation "software.bernie.geckolib:geckolib-fabric-${project.minecraft_version}:${project.geckolib_version}"
 
     include "io.wispforest:owo-sentinel:${project.owo_version}"
 
@@ -91,7 +99,8 @@ processResources {
                 "minecraft_version": project.minecraft_version,
                 "loader_version": project.loader_version,
                 "cca_version": project.cca_version,
-                "fzzy_config_version": project.fzzy_config_version
+                "fzzy_config_version": project.fzzy_config_version,
+                "geckolib_version": project.geckolib_version
     }
 }
 

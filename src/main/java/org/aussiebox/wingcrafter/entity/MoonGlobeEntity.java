@@ -14,10 +14,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.aussiebox.wingcrafter.util.WingcrafterUtil;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 
 import java.util.UUID;
 
-public class MoonGlobeEntity extends Entity {
+public class MoonGlobeEntity extends Entity implements GeoAnimatable {
     public UUID following = UUID.fromString("00000000-0000-0000-0000-000000000000");
 
     public MoonGlobeEntity(EntityType<? extends Entity> entityType, World world) {

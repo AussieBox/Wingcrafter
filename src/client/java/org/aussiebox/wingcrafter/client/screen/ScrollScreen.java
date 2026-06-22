@@ -48,12 +48,14 @@ public class ScrollScreen extends BaseOwoHandledScreen<FlowLayout, ScrollBlockSc
 
         rootComponent.alignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
 
-        FlowLayout editor = Containers.verticalFlow(Sizing.content(), Sizing.content());
+        FlowLayout editor = Containers.verticalFlow(Sizing.expand(), Sizing.expand(90));
+        editor.alignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
         editor.child(getScrollTitleBox());
         editor.child(getScrollTextBox());
 
         rootComponent.child(editor.id("editor"));
         rootComponent.child(getModeButton(rootComponent));
+        rootComponent.surface(Surface.blur(5.0F, 5.0F));
     }
 
     @Override
@@ -71,12 +73,12 @@ public class ScrollScreen extends BaseOwoHandledScreen<FlowLayout, ScrollBlockSc
         if (Objects.equals(titleText, "")) titleText = this.handler.getTitle();
         if (titleText == null) titleText = "";
 
-        FlowLayout flow = Containers.horizontalFlow(Sizing.fill(), Sizing.content());
+        FlowLayout flow = Containers.horizontalFlow(Sizing.expand(), Sizing.content());
         if (editMode) {
-            TextBoxComponent textBox = Components.textBox(Sizing.fill());
+            TextBoxComponent textBox = Components.textBox(Sizing.expand());
 
             textBox.setMaxLength(1000000);
-            textBox.setText(titleText);
+            textBox.text(titleText);
             textBox.setPlaceholder(Text.translatable("scroll.tip.title"));
             textBox.onChanged().subscribe(newText -> {
                 titleText = newText;
@@ -92,12 +94,14 @@ public class ScrollScreen extends BaseOwoHandledScreen<FlowLayout, ScrollBlockSc
                     .getFirst();
 
             LabelComponent label = Components.label(text);
+            label.margins(Insets.of(1, 0, 5, 5));
+            label.shadow(true);
 
             flow.child(label);
         }
 
-        ScrollContainer<FlowLayout> container = Containers.horizontalScroll(Sizing.fill(80), Sizing.content(), flow);
-        container.margins(Insets.vertical(10));
+        ScrollContainer<FlowLayout> container = Containers.horizontalScroll(Sizing.expand(90), Sizing.content(), flow);
+        container.padding(Insets.vertical(10));
         container.id("title");
         this.titleContainer = container;
     }
@@ -110,12 +114,11 @@ public class ScrollScreen extends BaseOwoHandledScreen<FlowLayout, ScrollBlockSc
         if (Objects.equals(scrollText, "")) scrollText = this.handler.getText();
         if (scrollText == null) scrollText = "";
 
-        FlowLayout flow = Containers.verticalFlow(Sizing.fill(), Sizing.fill());
+        FlowLayout flow = Containers.verticalFlow(Sizing.expand(), Sizing.expand());
         if (editMode) {
-            TextAreaComponent textBox = Components.textArea(Sizing.fill(), Sizing.fill());
+            TextAreaComponent textBox = Components.textArea(Sizing.expand(), Sizing.expand());
 
-            textBox.setText(scrollText);
-            textBox.displayCharCount(true);
+            textBox.text(scrollText);
             textBox.onChanged().subscribe(newText -> {
                 scrollText = newText;
             });
@@ -130,15 +133,17 @@ public class ScrollScreen extends BaseOwoHandledScreen<FlowLayout, ScrollBlockSc
                     .getFirst();
 
             LabelComponent label = Components.label(text);
-            label.horizontalSizing(Sizing.fill(100));
+            label.horizontalSizing(Sizing.expand());
             label.verticalSizing(Sizing.content());
-            ScrollContainer<LabelComponent> scroll = Containers.verticalScroll(Sizing.fill(), Sizing.fill(), label);
+            label.margins(Insets.of(0, 0, 5, 5));
+            label.shadow(true);
+            ScrollContainer<LabelComponent> scroll = Containers.verticalScroll(Sizing.expand(), Sizing.expand(), label);
 
             flow.child(scroll);
         }
 
-        ScrollContainer<FlowLayout> container = Containers.verticalScroll(Sizing.fill(80), Sizing.fill(60), flow);
-        container.margins(Insets.vertical(10));
+        ScrollContainer<FlowLayout> container = Containers.verticalScroll(Sizing.expand(90), Sizing.expand(80), flow);
+        container.padding(Insets.vertical(10));
         container.id("text");
         this.textContainer = container;
     }

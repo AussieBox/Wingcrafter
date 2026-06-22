@@ -1,0 +1,28 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"misc.idle": {
+			"loop": true,
+			"bones": {
+				"1": {
+					"rotation": {
+						"vector": ["-query.anim_time * 10", "-query.anim_time * 10", "query.anim_time * 10"]
+					}
+				},
+				"2": {
+					"rotation": {
+						"vector": ["query.anim_time * 10", "query.anim_time * 10", "-query.anim_time * 10"]
+					}
+				},
+				"bone": {
+					"rotation": {
+						"vector": ["-query.anim_time * 5", "-query.anim_time * 5", "query.anim_time * 5"]
+					},
+					"position": {
+						"vector": [0, "((1.1 + -1.1) / 2) + math.sin(query.anim_time * 20) * ((1.1 - -1.1) / 2)", 0]
+					}
+				}
+			}
+		}
+	}
+}

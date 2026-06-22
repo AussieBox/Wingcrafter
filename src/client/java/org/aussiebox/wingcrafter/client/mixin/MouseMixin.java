@@ -23,6 +23,8 @@ import java.util.Objects;
 @Mixin(Mouse.class)
 public abstract class MouseMixin {
 
+    // what do you mean i have to mixin to the user's MOUSE???
+
     @Shadow @Final private MinecraftClient client;
 
     @Shadow @Final private Scroller scroller;
@@ -56,7 +58,7 @@ public abstract class MouseMixin {
         if (spellSlot > slotMax) spellSlot = 0;
         if (spellSlot < 0) spellSlot = slotMax;
         Wingcrafter.LOGGER.info(String.valueOf(spellSlot));
-        stack.set(ModDataComponentTypes.SPELLCASTER_SELECTED_SLOT, spellSlot);
+        stack.set(ModDataComponentTypes.SPELLCASTER_SELECTED_SLOT, Math.clamp(spellSlot, 0, slotMax));
 
         ci.cancel();
     }

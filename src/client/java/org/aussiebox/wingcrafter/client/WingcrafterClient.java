@@ -25,9 +25,8 @@ import org.aussiebox.wingcrafter.block.ModBlockEntities;
 import org.aussiebox.wingcrafter.block.ModBlocks;
 import org.aussiebox.wingcrafter.client.block.entity.render.FireglobeBlockEntityRenderer;
 import org.aussiebox.wingcrafter.client.entity.model.DragonflameCactusEntityModel;
-import org.aussiebox.wingcrafter.client.entity.model.MoonGlobeEntityModel;
 import org.aussiebox.wingcrafter.client.entity.render.DragonflameCactusEntityRenderer;
-import org.aussiebox.wingcrafter.client.entity.render.MoonGlobeEntityRenderer;
+import org.aussiebox.wingcrafter.client.geckolib.render.MoonGlobeEntityRenderer;
 import org.aussiebox.wingcrafter.client.screen.ScrollScreen;
 import org.aussiebox.wingcrafter.client.screen.SpellcasterSpellSelectScreen;
 import org.aussiebox.wingcrafter.component.FireglobeGlass;
@@ -70,7 +69,6 @@ public class WingcrafterClient implements ClientModInitializer {
 
         EntityModelLayerRegistry.registerModelLayer(FireglobeBlockEntityRenderer.FIREGLOBE_SIDES, FireglobeBlockEntityRenderer::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(DragonflameCactusEntityModel.CACTUS, DragonflameCactusEntityModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(MoonGlobeEntityModel.GLOBE, MoonGlobeEntityModel::getTexturedModelData);
 
         EntityRendererFactories.register(ModEntities.DragonflameCactusEntityType, DragonflameCactusEntityRenderer::new);
         EntityRendererFactories.register(ModEntities.MoonGlobeEntityType, MoonGlobeEntityRenderer::new);

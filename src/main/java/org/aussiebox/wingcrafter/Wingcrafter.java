@@ -43,6 +43,9 @@ import org.aussiebox.wingcrafter.world.tree_decorators.DroopingLeavesDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import static org.aussiebox.wingcrafter.block.custom.ScrollBlock.TITLED;
@@ -52,6 +55,10 @@ public class Wingcrafter implements ModInitializer {
     public static final String MOD_ID = "wingcrafter";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     // "i don't know bro stop harassing me!" -my friend, replying to "give me a comment to put in my code"
+    // "who was that" -my other friend, replying to "give me a comment to put in my code"
+
+    // he also said "If fighting is sure to result in victory, then you must fight! Sun Tzu said that."
+    // w reference
 
     public static Identifier id(String path) {
         return Identifier.of(MOD_ID, path);
@@ -95,7 +102,7 @@ public class Wingcrafter implements ModInitializer {
                             .getOrThrow(RegistryKeys.DAMAGE_TYPE)
                             .getEntry(SOUL_DAMAGE.getValue()).get()
             );
-            player.damage((ServerWorld) world, damageSource, 524);
+            player.damage((ServerWorld) world, damageSource, 524); // i am heavy weapons guy, and this is my weapon.
         });
 
         PayloadTypeRegistry.playC2S().register(UpdateSpellcasterDataPayload.ID, UpdateSpellcasterDataPayload.PACKET_CODEC);
@@ -104,7 +111,16 @@ public class Wingcrafter implements ModInitializer {
             ItemStack itemStack = payload.itemStack();
             int slot = player.getInventory().getSlotWithStack(payload.itemStack());
 
-            itemStack.set(ModDataComponentTypes.SPELLCASTER_SPELLS, payload.spellList());
+            List<String> spellList = new ArrayList<>();
+            int nones = 0;
+            for (String spellID : payload.spellList()) {
+                if (!Objects.equals(spellID, "none")) {
+                    spellList.add(spellID);
+                } else nones++;
+            }
+            if (nones > 0) spellList.addAll(Collections.nCopies(nones, "none"));
+
+            itemStack.set(ModDataComponentTypes.SPELLCASTER_SPELLS, spellList);
             player.getInventory().setStack(slot, itemStack);
             player.getInventory().markDirty();
         });
@@ -127,6 +143,8 @@ public class Wingcrafter implements ModInitializer {
                 tableBuilder.pool(poolBuilder);
             }
         });
+
+        // initialising moonbli...
 
         ScreenHandlerTypeInit.init();
         ModItems.registerModItems();

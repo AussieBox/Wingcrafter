@@ -47,6 +47,7 @@
     "fabric-key-binding-api-v1": "*",
     "cardinal-components-base": "${cca_version}",
     "cardinal-components-entity": "${cca_version}",
-    "fzzy_config": ">=${fzzy_config_version}"
+    "fzzy_config": ">=${fzzy_config_version}",
+    "geckolib": ">=${geckolib_version}"
   }
 }
