@@ -1,0 +1,25 @@
+{
+  "parent": "wingcrafter:root",
+  "criteria": {
+    "custom_obtainment": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": "Obtain a Moon Globe from a Frost Willow's leaves.",
+    "icon": {
+      "count": 1,
+      "id": "wingcrafter:frost_willow_leaves"
+    },
+    "title": "Frozen Glowstick",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "requirements": [
+    [
+      "custom_obtainment"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

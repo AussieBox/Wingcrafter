@@ -26,6 +26,7 @@ import org.aussiebox.wingcrafter.block.ModBlocks;
 import org.aussiebox.wingcrafter.client.block.entity.render.FireglobeBlockEntityRenderer;
 import org.aussiebox.wingcrafter.client.entity.model.DragonflameCactusEntityModel;
 import org.aussiebox.wingcrafter.client.entity.render.DragonflameCactusEntityRenderer;
+import org.aussiebox.wingcrafter.client.geckolib.render.MoonGlobeBlockEntityRenderer;
 import org.aussiebox.wingcrafter.client.geckolib.render.MoonGlobeEntityRenderer;
 import org.aussiebox.wingcrafter.client.screen.ScrollScreen;
 import org.aussiebox.wingcrafter.client.screen.SpellcasterSpellSelectScreen;
@@ -40,6 +41,8 @@ import org.aussiebox.wingcrafter.spells.util.SpellRegistry;
 import org.lwjgl.glfw.GLFW;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -56,7 +59,7 @@ public class WingcrafterClient implements ClientModInitializer {
     public void onInitializeClient() {
 
         HandledScreens.register(ScreenHandlerTypeInit.SCROLL, ScrollScreen::new);
-        HandledScreens.register(ScreenHandlerTypeInit.SOUL_SCROLL_SPELL_SELECT, SpellcasterSpellSelectScreen::new);
+        HandledScreens.register(ScreenHandlerTypeInit.SPELL_SELECT, SpellcasterSpellSelectScreen::new);
 
         BlockRenderLayerMap.putBlock(ModBlocks.SCROLL, BlockRenderLayer.TRANSLUCENT);
         BlockRenderLayerMap.putBlock(ModBlocks.FIREGLOBE, BlockRenderLayer.TRANSLUCENT);
@@ -66,6 +69,7 @@ public class WingcrafterClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModBlocks.FROST_WILLOW_LOG, BlockRenderLayer.TRANSLUCENT);
         BlockRenderLayerMap.putBlock(ModBlocks.FROST_WILLOW_LEAVES, BlockRenderLayer.TRANSLUCENT);
         BlockRenderLayerMap.putBlock(ModBlocks.MOON_GLOBE, BlockRenderLayer.TRANSLUCENT);
+            BlockEntityRendererFactories.register(ModBlockEntities.MOON_GLOBE, (context) -> new MoonGlobeBlockEntityRenderer());
 
         EntityModelLayerRegistry.registerModelLayer(FireglobeBlockEntityRenderer.FIREGLOBE_SIDES, FireglobeBlockEntityRenderer::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(DragonflameCactusEntityModel.CACTUS, DragonflameCactusEntityModel::getTexturedModelData);
@@ -125,8 +129,8 @@ public class WingcrafterClient implements ClientModInitializer {
             if (itemStack.isOf(ModItems.QUILL)) {
                 list.add(1, Text.translatable("item.wingcrafter.quill.tooltip.1").withColor(0xFFAAAAAA));
                 list.add(2, Text.translatable("item.wingcrafter.quill.tooltip.2").withColor(0xFFAAAAAA));
-                list.add(3, Text.empty());
-                list.add(4, Text.translatable("item.wingcrafter.quill.tooltip.3").withColor(0xFFAAAAAA));
+                list.add(3, Text.translatable("item.wingcrafter.quill.tooltip.3").withColor(0xFFAAAAAA));
+                list.add(4, Text.empty());
             }
             if (itemStack.isOf(ModItems.SOUL_SCROLL)) {
                 list.add(1, Text.translatable("item.wingcrafter.soul_scroll.tooltip.1").withColor(0xFFAAAAAA));
@@ -189,5 +193,11 @@ public class WingcrafterClient implements ClientModInitializer {
             }
         });
 
+    }
+
+    public static List<String> removeNones(List<String> list) {
+        List<String> modifiable = new ArrayList<>(list);
+        modifiable.removeAll(Collections.singleton("none"));
+        return modifiable;
     }
 }

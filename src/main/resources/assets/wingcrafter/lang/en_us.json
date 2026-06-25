@@ -43,7 +43,7 @@
       "item.wingcrafter.soul_scroll.tooltip.3": "Its power allows the bearer to cast Animus spells.",
       "item.wingcrafter.soul_scroll.tooltip.owner": "Rightfully Owned By: ",
 
-  "item.wingcrafter.tooltip.spellcaster": "This item can cast potentially dangerous spells.",
+  "item.wingcrafter.tooltip.spellcaster": "This item can cast potentially destructive spells.",
   "item.wingcrafter.tooltip.spellcaster.spell": "Spell %1$s: ",
 
   "spell.wingcrafter.frostbeam": "Frostbeam",

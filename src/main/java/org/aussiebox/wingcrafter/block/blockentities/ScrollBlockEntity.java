@@ -25,7 +25,7 @@ public class ScrollBlockEntity extends BlockEntity implements ExtendedScreenHand
     public static final Text TITLE = Text.empty();
 
     public ScrollBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.SCROLL_BLOCK_ENTITY, pos, state);
+        super(ModBlockEntities.SCROLL, pos, state);
     }
 
     private String text = "";

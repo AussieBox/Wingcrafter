@@ -18,8 +18,8 @@ public class ScreenHandlerTypeInit {
     public static final ScreenHandlerType<ScrollBlockScreenHandler> SCROLL =
             register("scroll", ScrollBlockScreenHandler::new, BlockPosPayload.PACKET_CODEC);
 
-    public static final ScreenHandlerType<SpellcasterSpellSelectScreenHandler> SOUL_SCROLL_SPELL_SELECT =
-            register("soul_scroll_spell_select", SpellcasterSpellSelectScreenHandler::new, SpellcasterDataPayload.PACKET_CODEC);
+    public static final ScreenHandlerType<SpellcasterSpellSelectScreenHandler> SPELL_SELECT =
+            register("spell_select", SpellcasterSpellSelectScreenHandler::new, SpellcasterDataPayload.PACKET_CODEC);
 
     public static <T extends ScreenHandler, D extends CustomPayload> ExtendedScreenHandlerType<T, D>
         register(String name,

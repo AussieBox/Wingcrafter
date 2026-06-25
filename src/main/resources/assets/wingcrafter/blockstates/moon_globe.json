@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "wingcrafter:block/moon_globe_hanging"
+      "model": "wingcrafter:block/hanging_moon_globe"
     }
   }
 }

@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Objects;
+import java.util.ArrayList;
 
 @Mixin(Mouse.class)
 public abstract class MouseMixin {
@@ -46,7 +46,9 @@ public abstract class MouseMixin {
         int spellSlot = stack.getOrDefault(ModDataComponentTypes.SPELLCASTER_SELECTED_SLOT, 0);
         int slotMax = stack.getOrDefault(ModDataComponentTypes.SPELLCASTER_SLOT_MAXIMUM, 3);
         if (stack.contains(ModDataComponentTypes.SPELLCASTER_SPELLS))
-            slotMax = Objects.requireNonNull(stack.get(ModDataComponentTypes.SPELLCASTER_SPELLS)).size()-1;
+            slotMax = WingcrafterClient.removeNones(stack.getOrDefault(ModDataComponentTypes.SPELLCASTER_SPELLS, new ArrayList<>())).size();
+
+        Wingcrafter.LOGGER.info("{} {}", slotMax, stack.getOrDefault(ModDataComponentTypes.SPELLCASTER_SPELLS, new ArrayList<>()));
 
         boolean discrete = this.client.options.getDiscreteMouseScroll().getValue();
         double sensitivity = this.client.options.getMouseWheelSensitivity().getValue();
@@ -57,10 +59,8 @@ public abstract class MouseMixin {
         spellSlot -= vector2i.y == 0 ? -vector2i.x : vector2i.y;
         if (spellSlot > slotMax) spellSlot = 0;
         if (spellSlot < 0) spellSlot = slotMax;
-        Wingcrafter.LOGGER.info(String.valueOf(spellSlot));
         stack.set(ModDataComponentTypes.SPELLCASTER_SELECTED_SLOT, Math.clamp(spellSlot, 0, slotMax));
 
         ci.cancel();
     }
 }
-

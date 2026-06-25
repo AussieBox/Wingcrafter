@@ -28,7 +28,7 @@ public class MoonGlobeEntityRenderer extends EntityRenderer<MoonGlobeEntity, Moo
                 this.model,
                 renderState,
                 matrices,
-                RenderLayer.getEntityTranslucent(Wingcrafter.id("textures/entity/moon_globe.png"), false),
+                RenderLayer.getEntityTranslucent(Wingcrafter.id("textures/entity/hanging_moon_globe.png"), false),
                 renderState.light,
                 OverlayTexture.DEFAULT_UV,
                 0x00000000,

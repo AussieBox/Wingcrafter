@@ -62,6 +62,7 @@ repositories {
         name = "DevAuth"
         url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1"
     }
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -75,6 +76,7 @@ dependencies {
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
     modImplementation "io.wispforest:owo-lib:${project.owo_version}"
     modImplementation "software.bernie.geckolib:geckolib-fabric-${project.minecraft_version}:${project.geckolib_version}"
+    // modImplementation "com.github.AussieBox:Circuit-Core:${project.minecraft_version}~${project.circuit_core_version}"
 
     include "io.wispforest:owo-sentinel:${project.owo_version}"
 

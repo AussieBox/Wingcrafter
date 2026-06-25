@@ -20,7 +20,7 @@ public class SpellcasterSpellSelectScreenHandler extends ScreenHandler {
     }
 
     public SpellcasterSpellSelectScreenHandler(int syncId, PlayerInventory playerInventory, ItemStack itemStack) {
-        super(ScreenHandlerTypeInit.SOUL_SCROLL_SPELL_SELECT, syncId);
+        super(ScreenHandlerTypeInit.SPELL_SELECT, syncId);
     }
 
     @Override

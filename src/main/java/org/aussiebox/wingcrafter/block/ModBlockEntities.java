@@ -9,15 +9,19 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import org.aussiebox.wingcrafter.Wingcrafter;
 import org.aussiebox.wingcrafter.block.blockentities.FireglobeBlockEntity;
+import org.aussiebox.wingcrafter.block.blockentities.MoonGlobeBlockEntity;
 import org.aussiebox.wingcrafter.block.blockentities.ScrollBlockEntity;
 
 public class ModBlockEntities {
 
-    public static final BlockEntityType<ScrollBlockEntity> SCROLL_BLOCK_ENTITY =
+    public static final BlockEntityType<ScrollBlockEntity> SCROLL =
             register("scroll", ScrollBlockEntity::new, ModBlocks.SCROLL);
 
     public static final BlockEntityType<FireglobeBlockEntity> FIREGLOBE_BLOCK_ENTITY =
             register("fireglobe", FireglobeBlockEntity::new, ModBlocks.FIREGLOBE);
+
+    public static final BlockEntityType<MoonGlobeBlockEntity> MOON_GLOBE =
+            register("moon_globe", MoonGlobeBlockEntity::new, ModBlocks.MOON_GLOBE);
 
     private static <T extends BlockEntity> BlockEntityType<T> register(
             String name,
